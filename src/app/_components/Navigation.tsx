@@ -2,7 +2,7 @@ import Logo from './Logo'
 
 function Navigation() {
 	return (
-		<nav>
+		<nav className="container mx-auto py-2">
 			<Logo />
 		</nav>
 	)
