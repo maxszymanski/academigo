@@ -11,7 +11,15 @@ export default {
 			colors: {
 				'bg-white': '#ffff',
 				primary: '#925FE2',
+				primary2: '#DFCFF7',
+				primary3: '#925FE2',
+				second: '#FFF7DF',
 			},
+			backgroundImage: theme => ({
+				'gradient-primary': `linear-gradient(to right, ${theme('colors.primary')}, ${theme(
+					'colors.primary2'
+				)})`,
+			}),
 		},
 	},
 	plugins: [],

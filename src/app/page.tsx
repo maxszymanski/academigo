@@ -1,9 +1,5 @@
+import Header from './_components/Header'
+
 export default function Home() {
-	return (
-		<main>
-			<div>
-				<p>siema</p>
-			</div>
-		</main>
-	)
+	return <Header />
 }
