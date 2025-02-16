@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="pl">
-			<body className={`${poppins.className} bg-white`}>
+			<body className={`${poppins.className} bg-white relative`}>
 				<Navigation />
 				{children}
 			</body>

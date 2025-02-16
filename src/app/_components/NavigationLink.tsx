@@ -12,7 +12,7 @@ function NavigationLink({
 	return (
 		<li>
 			<Link
-				className={`py-1.5 px-2 text-primary  font-medium transition-colors duration-300 text-base hover:text-primary/80 text-nowrap xl:text-lg 2xl:text-xl ${restClass}`}
+				className={`p-4 md:py-1.5 md:px-2 text-primary  font-medium transition-colors duration-300 text-2xl md:text-base hover:text-primary/80 text-nowrap xl:text-lg 2xl:text-xl ${restClass}`}
 				href={href}>
 				{linkName}
 			</Link>

@@ -7,10 +7,10 @@ function Navigation() {
 	return (
 		<>
 			<MobileNav />
-			<nav className="hidden  xl:container xl:mx-auto py-6 px-4 lg:px-6 md:flex items-center justify-between gap-2">
+			<nav className="absolute top-0 left-0 z-40  bg-white w-full h-full  md:relative  xl:container xl:mx-auto py-6 px-4 lg:px-6 flex flex-col md:flex-row items-center pt-24  md:pt-0  md:justify-between gap-2 ">
 				<Logo />
-				<ul className="flex items-center  justify-between xl:gap-20 2xl:gap-24 gap-8">
-					<div className="flex items-center lg:gap-6 xl:gap-10 gap-3">
+				<ul className="flex items-center  justify-evenly md:justify-between xl:gap-20 2xl:gap-24 gap-8 flex-col md:flex-row md:p-0 ">
+					<div className="flex md:flex-row flex-col md:items-center gap-8 lg:gap-6 xl:gap-10 md:gap-3">
 						<NavigationLink href="/kursy" linkName="Kursy" />
 
 						<NavigationLink href="/blog" linkName="Blog" />
