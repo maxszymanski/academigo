@@ -1,3 +1,4 @@
+import useAppStore from '../stores/store'
 import Button from './Button'
 import Logo from './Logo'
 import MobileNav from './MobileNav'
@@ -6,11 +7,11 @@ import NavigationLink from './NavigationLink'
 function Navigation() {
 	return (
 		<>
-			<MobileNav />
-			<nav className="absolute top-0 left-0 z-40  bg-white w-full h-full  md:relative  xl:container xl:mx-auto py-6 px-4 lg:px-6 flex flex-col md:flex-row items-center pt-24  md:pt-0  md:justify-between gap-2 ">
+			<nav className="absolute top-0 left-0 z-30  bg-white w-full h-screen  md:relative  xl:container xl:mx-auto md:py-6 px-4 lg:px-6 flex flex-col md:flex-row md:items-center    md:justify-between gap-2 overflow-x-auto">
+				<MobileNav />
 				<Logo />
-				<ul className="flex items-center  justify-evenly md:justify-between xl:gap-20 2xl:gap-24 gap-8 flex-col md:flex-row md:p-0 ">
-					<div className="flex md:flex-row flex-col md:items-center gap-8 lg:gap-6 xl:gap-10 md:gap-3">
+				<ul className="flex items-center flex-1 justify-evenly md:justify-between gap-12 xl:gap-20 2xl:gap-24 py-12  flex-col md:flex-row md:p-0 relative z-50">
+					<div className="flex md:flex-row flex-col md:items-center gap-14 lg:gap-6 xl:gap-10 md:gap-3">
 						<NavigationLink href="/kursy" linkName="Kursy" />
 
 						<NavigationLink href="/blog" linkName="Blog" />
