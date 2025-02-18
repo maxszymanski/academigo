@@ -14,7 +14,7 @@ export default {
 				primary2: '#DFCFF7',
 				primary3: '#925FE2',
 				second: '#FFF7DF',
-				slate50: '#FEFEFF',
+				slate50: 'rgb(241 245 249)',
 				stone400: '#5C5C5C',
 			},
 			backgroundImage: theme => ({
