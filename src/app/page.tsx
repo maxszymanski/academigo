@@ -24,7 +24,7 @@ export default async function Home() {
 	return (
 		<>
 			<Header />
-			<main className="py-20 bg-slate50 lg:p-28 overflow-hidden">
+			<main className="py-20 bg-slate50 lg:py-28 overflow-hidden">
 				<div className="flex flex-wrap items-center justify-center gap-20 lg:gap-10 xl:gap-36 2xl:gap-48 container mx-auto px-6 ">
 					{aboutInfo.map(info => (
 						<LearnInfo
