@@ -14,6 +14,8 @@ export default {
 				primary2: '#DFCFF7',
 				primary3: '#925FE2',
 				second: '#FFF7DF',
+				slate50: '#FEFEFF',
+				stone400: '#5C5C5C',
 			},
 			backgroundImage: theme => ({
 				'gradient-primary': `linear-gradient(to right, ${theme('colors.primary')}, ${theme(
