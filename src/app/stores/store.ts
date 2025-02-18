@@ -2,6 +2,7 @@ import { create } from 'zustand'
 
 type Store = {
 	isNavOpen: boolean
+	toggleNavigation: () => void
 }
 
 const useAppStore = create<Store>()(set => ({

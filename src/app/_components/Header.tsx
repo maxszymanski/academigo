@@ -3,8 +3,8 @@ import Button from './Button'
 
 function Header() {
 	return (
-		<header className="bg-gradient-primary ">
-			<div className="container mx-auto w-full flex flex-col md:flex-row items-center  md:items-stretch justify-between h-full px-4 lg:px-6  text-center ">
+		<header className="bg-gradient-primary pt-16 md:pt-0">
+			<div className="container mx-auto  flex flex-col md:flex-row items-center  md:items-stretch justify-between h-full px-4 lg:px-6  text-center ">
 				<div className="text-second md:w-1/2 h-full flex md:items-start justify-center flex-col 2xl:gap-8 py-10 md:py-16  gap-4 w-full text-center md:text-left lg:py-28 xl:py-40 2xl:py-48">
 					<h1 className=" 2xl:text-[44px] lg:text-3xl xl:text-4xl  font-extrabold tracking-wide 2xl:leading-[80px] text-xl leading-9 lg:leading-[50px] xl:leading-[65px] w-full">
 						Odkrywaj i dziel się <br /> Najlepszymi kursami online. <br /> Wszystko w jednym miejscu!
