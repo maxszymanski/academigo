@@ -1,14 +1,15 @@
-import CourseCard from './CourseCard'
+import CoursesBox from './CoursesBox'
 
 function CourseSection() {
 	return (
-		<section className="bg-bg-white w-full relative z-20">
-			<div className="lg:container mx-auto md:px-6  py-20 ">
-				<div className="flex overflow-x-auto w-full px-6 gap-4 py-6 lg:overflow-x-hidden lg:flex-wrap lg:gap-x-4 lg:gap-y-6">
-					{Array.from({ length: 12 }, (_, i) => (
-						<CourseCard key={i} />
-					))}
-				</div>
+		<section className="bg-slate50 w-full relative z-20 py-8 sm:py-12 lg:py-14 xl:py-16 2xl:py-20">
+			<div className="2xl:container mx-auto   ">
+				<h2 className="text-primary text-center font-semibold tracking-wide text-4xl pb-8 md:text-5xl xl:text-6xl">
+					Kursy
+				</h2>
+				<CoursesBox category="Najnowsze" />
+				<CoursesBox category="Najwyżej oceniane" />
+				<CoursesBox category="Polecane przez nas" />
 			</div>
 		</section>
 	)

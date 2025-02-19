@@ -12,15 +12,27 @@ export default {
 				'bg-white': '#ffff',
 				primary: '#925FE2',
 				primary2: '#DFCFF7',
-				primary3: '#925FE2',
+
 				second: '#FFF7DF',
-				slate50: 'rgb(241 245 249)',
+				slate50: '#F1F4FB',
 				stone400: '#5C5C5C',
 			},
+
+			keyframes: {
+				shine: {
+					'0%': { backgroundPositionX: '200%' },
+					'100%': { backgroundPositionX: '-200%' },
+				},
+			},
+			animation: {
+				shine: 'shine 2s linear infinite',
+			},
+
 			backgroundImage: theme => ({
 				'gradient-primary': `linear-gradient(to right, ${theme('colors.primary')}, ${theme(
 					'colors.primary2'
 				)})`,
+				'gradient-stone': 'linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%)',
 			}),
 		},
 	},

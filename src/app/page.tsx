@@ -7,7 +7,7 @@ export default async function Home() {
 	return (
 		<>
 			<Header />
-			<main className="py-20 bg-slate50 lg:py-28 overflow-hidden">
+			<main className="py-20  lg:py-28 overflow-hidden bg-bg-white">
 				<LearnInfoSection />
 				<LearnSkill />
 				<CourseSection />
