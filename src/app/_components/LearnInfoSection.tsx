@@ -23,6 +23,7 @@ function LearnInfoSection() {
 		<section className="flex flex-wrap items-center justify-center gap-20 lg:gap-10 xl:gap-36 2xl:gap-48 container mx-auto px-6 ">
 			{aboutInfo.map(info => (
 				<LearnInfo
+					variant="dark"
 					src={info.src}
 					alt="ikona"
 					title={info.title}
