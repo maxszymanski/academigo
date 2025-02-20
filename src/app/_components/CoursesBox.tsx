@@ -6,18 +6,18 @@ function CoursesBox({ category }: { category: string }) {
 	const containerRef = useRef<HTMLDivElement | null>(null)
 
 	// Funkcja przewijania w lewo
-	const scrollLeft = () => {
-		if (containerRef.current) {
-			containerRef.current.scrollLeft -= 300 // Zmieniaj wartość w zależności od tego, ile chcesz przewijać
-		}
-	}
+	// const scrollLeft = () => {
+	// 	if (containerRef.current) {
+	// 		containerRef.current.scrollLeft -= 300 // Zmieniaj wartość w zależności od tego, ile chcesz przewijać
+	// 	}
+	// }
 
-	// Funkcja przewijania w prawo
-	const scrollRight = () => {
-		if (containerRef.current) {
-			containerRef.current.scrollLeft += 300 // Zmieniaj wartość w zależności od tego, ile chcesz przewijać
-		}
-	}
+	// // Funkcja przewijania w prawo
+	// const scrollRight = () => {
+	// 	if (containerRef.current) {
+	// 		containerRef.current.scrollLeft += 300 // Zmieniaj wartość w zależności od tego, ile chcesz przewijać
+	// 	}
+	// }
 
 	return (
 		<div className="py-4 md:py-6 lg:py-8">

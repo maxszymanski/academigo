@@ -11,7 +11,7 @@ export default {
 			colors: {
 				'bg-white': '#ffff',
 				primary: '#925FE2',
-				primary2: '#DFCFF7',
+				primary2: '#CBACFA',
 
 				second: '#FFF7DF',
 				slate50: '#F1F4FB',

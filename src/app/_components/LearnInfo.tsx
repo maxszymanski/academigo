@@ -3,15 +3,34 @@ interface Learn {
 	alt: string
 	title: string
 	description: string
+	variant: 'dark' | 'light'
 }
 
-function LearnInfo({ src, alt, description, title }: Learn) {
+function LearnInfo({ src, alt, description, title, variant }: Learn) {
 	return (
-		<div className="flex flex-col items-center gap-5 text-center">
+		<div className="flex flex-col justify-between items-center gap-5 text-center">
 			<img src={src} alt={alt} />
 			<div className="max-w-72 text-center mx-auto">
-				<p className="text-stone400 font-semibold mb-1.5 xl:text-lg">{title}</p>
-				<p className="text-stone400 text-xs xl:text-sm ">{description}</p>
+				<p
+					className={`${
+						variant === 'dark'
+							? 'text-stone400 xl:text-lg mb-1.5'
+							: variant === 'light'
+							? 'text-white text-4xl mt-2 mb-3'
+							: ''
+					}  font-semibold  `}>
+					{title}
+				</p>
+				<p
+					className={`${
+						variant === 'dark'
+							? 'text-stone400'
+							: variant === 'light'
+							? 'text-white max-w-56 xl:max-w-72 xl:px-3'
+							: ''
+					} text-xs xl:text-sm `}>
+					{description}
+				</p>
 			</div>
 		</div>
 	)
