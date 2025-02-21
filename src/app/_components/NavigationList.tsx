@@ -28,7 +28,7 @@ function NavigationList() {
 					</Button>
 				</li>
 				<li>
-					<Button href="/login" restClass=" xl:min-w-[160px]">
+					<Button href="/zaloguj-sie" restClass=" xl:min-w-[160px]">
 						Zaloguj się
 					</Button>
 				</li>

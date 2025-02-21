@@ -14,13 +14,15 @@ function Footer() {
 						<FooterContact />
 					</div>
 				</div>
-				<div className="text-white text-xs py-4 border-t border-white/20 flex justify-center items-center gap-6">
+				<div className="text-white text-xs py-4 border-t border-white/20 flex justify-center items-center gap-6 text-center md:gap-10 lg:gap-16">
 					<Link
 						href="/polityka-prywatnosci"
 						className="hover:text-white duration-300 transition-colors text-white/80">
 						Polityka prywatności
 					</Link>
-					<p className="">Wszystkie prawa zastrzeżone | ACADEMIGO 2025</p>
+					<p className="">
+						Wszystkie prawa zastrzeżone | <span className="uppercase text-nowrap">academigo 2025</span>
+					</p>
 					<Link href="/regulamin" className="hover:text-white duration-300 transition-colors text-white/80">
 						Regulamin seriwsu
 					</Link>

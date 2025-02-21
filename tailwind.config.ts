@@ -28,7 +28,7 @@ export default {
 				shine: 'shine 2s linear infinite',
 			},
 
-			backgroundImage: theme => ({
+			backgroundImage: ({ theme }) => ({
 				'gradient-primary': `linear-gradient(to right, ${theme('colors.primary')}, ${theme(
 					'colors.primary2'
 				)})`,
