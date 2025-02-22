@@ -26,7 +26,7 @@ const aboutNumberInfo = [
 function NumberSection() {
 	return (
 		<section className=" px-6 bg-gradient-primary py-16">
-			<div className="flex flex-wrap items-center justify-center lg:justify-between gap-x-12 gap-y-20 lg:gap-x-10 xl:gap-x-6  xl:container mx-auto">
+			<div className="flex flex-wrap items-center justify-center lg:justify-between gap-x-12 gap-y-20 lg:gap-x-2 xl:gap-x-6  xl:container mx-auto">
 				{aboutNumberInfo.map(info => (
 					<LearnInfo
 						variant="light"

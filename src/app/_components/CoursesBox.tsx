@@ -23,10 +23,10 @@ function CoursesBox({ category }: { category: string }) {
 
 	return (
 		<div className="py-4 md:py-6 lg:py-8">
-			<p className=" text-stone400 text-lg mx-5 font-medium border-l-2 pl-1  border-stone400 mb-3 lg:mx-7 xl:text-xl 2xl:text-2xl xl:mb-5 relative z-10">
-				{category}
+			<p className=" text-stone400 text-lg mx-5 font-medium     mb-3 lg:mx-7 xl:text-xl 2xl:text-2xl xl:mb-5 relative z-10 ">
+				<span className="border-l-2 border-stone400 pr-1 animate-pulse "></span> {category}
 			</p>
-			<div className="relative z-10">
+			<div className="relative z-10 group">
 				<div
 					ref={containerRef}
 					className="flex overflow-x-auto w-full px-6  gap-4 py-6  2xl:overflow-x-hidden 2xl:flex-wrap 2xl:gap-x-4 md:gap-y-8 items-center 2xl:justify-between scroll-smooth relative z-20"
@@ -35,11 +35,11 @@ function CoursesBox({ category }: { category: string }) {
 						<CourseCard key={i} i={i} />
 					))}
 				</div>
-				<div className="absolute w-full h-full top-0 left-0 flex items-center justify-between  px-6">
-					<Button onClick={scrollLeft} restClass="text-primary  py-3 px-3 absolute z-40  left-1  mb-2">
+				<div className="absolute w-full h-full top-0 left-0 items-center justify-between px-6 hidden  lg:flex  opacity-0 group-hover:opacity-100 transition-opacity duration-300 2xl:hidden">
+					<Button onClick={scrollLeft} restClass="left-1" variant="arrow">
 						<FaChevronLeft className="size-12" />
 					</Button>
-					<Button onClick={scrollRight} restClass="text-primary  py-3 px-3 absolute z-40  right-1  mb-2">
+					<Button onClick={scrollRight} restClass="right-1" variant="arrow">
 						<FaChevronRight className="size-12" />
 					</Button>
 				</div>

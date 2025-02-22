@@ -16,6 +16,8 @@ export default {
 				second: '#FFF7DF',
 				slate50: '#F1F4FB',
 				stone400: '#5C5C5C',
+				dark: '#1C1D21',
+				lightdark: '#333437',
 			},
 
 			keyframes: {

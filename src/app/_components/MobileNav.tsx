@@ -6,8 +6,12 @@ import Button from './Button'
 import Logo from './Logo'
 import { IoMenu, IoClose } from 'react-icons/io5'
 
-function MobileNav() {
-	const { isNavOpen, toggleNavigation } = useAppStore()
+function MobileNav({ blackNav = false, pathname }: { blackNav?: boolean; pathname: string }) {
+	const { isNavOpen, toggleNavigation, closeNavigation } = useAppStore()
+
+	useEffect(() => {
+		closeNavigation()
+	}, [pathname, closeNavigation])
 
 	useEffect(() => {
 		if (isNavOpen) {
@@ -21,18 +25,20 @@ function MobileNav() {
 
 	return (
 		<div
-			className={` px-4 py-1 flex justify-between items-center top-0 left-0 w-full bg-white md:hidden border-b border-slate50`}>
+			className={` px-4 py-1 flex justify-between items-center top-0 left-0 w-full  md:hidden border-b  ${
+				blackNav ? 'bg-dark border-transparent' : 'bg-white border-slate50'
+			}`}>
 			<Logo isMobile />
 			<Button
 				restClass="relative z-50"
+				variant="transparent"
 				onClick={() => {
 					toggleNavigation()
-					console.log(isNavOpen)
 				}}>
 				{isNavOpen ? (
-					<IoClose className="size-12 bg-white text-primary font-semibold " />
+					<IoClose className={`size-12 text-primary font-semibold ${blackNav ? 'bg-dark' : 'bg-white'}`} />
 				) : (
-					<IoMenu className="size-12 bg-white text-primary font-semibold " />
+					<IoMenu className={`size-12 ${blackNav ? 'bg-dark' : 'bg-white'} text-primary font-semibold `} />
 				)}
 			</Button>
 		</div>

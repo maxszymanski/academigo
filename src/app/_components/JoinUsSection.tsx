@@ -4,14 +4,8 @@ import Button from './Button'
 function JoinUsSection() {
 	return (
 		<section className="  relative py-16   flex container mx-auto flex-col items-center md:flex-row justify-between md:justify-center lg:gap-12 xl:gap-20 lg:py-20 2xl:gap-40   xl:py-24 ">
-			<Image
-				src="/joinus.png"
-				height={736}
-				width={600}
-				alt="student z laptopem"
-				className="max-w-[350px] lg:max-w-full"
-			/>
-			<div className="flex flex-col gap-6 lg:px-6 lg:self-end lg:w-fit px-6 w-full items-center md:items-start pt-8 ">
+			<Image src="/join.jpg" height={736} width={600} alt="studenci" className="max-w-[400px] lg:max-w-full" />
+			<div className="flex flex-col gap-6 lg:px-6 lg:self-end lg:w-fit px-6 w-full items-center md:items-start  ">
 				<h2 className="text-primary lg:font-medium font-semibold text-2xl leading-[50px] lg:text-4xl lg:leading-[60px]  xl:text-5xl xl:leading-[80px]  text-center md:text-left sm:text-3xl sm:leading-[50px] ">
 					Razem możemy
 					<br />
