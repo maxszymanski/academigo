@@ -5,7 +5,6 @@ import Input from '../_ui/Input'
 import Button from '../Button'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signIn } from 'next-auth/react'
 
 interface LoginType {
 	email: string
@@ -24,18 +23,8 @@ function LoginForm() {
 		formState: { errors },
 	} = useForm<LoginType>({ resolver: zodResolver(schema) })
 
-	const onSubmit: SubmitHandler<LoginType> = async userData => {
-		const result = await signIn('credentials', {
-			redirect: false,
-			email: userData.email,
-			password: userData.password,
-		})
-		if (result?.error) {
-			console.error('Błąd logowania:', result.error)
-			return
-		} else {
-			console.log('ok') // Przekierowanie po zalogowaniu
-		}
+	const onSubmit: SubmitHandler<LoginType> = userData => {
+		console.log(userData)
 	}
 
 	return (
@@ -72,7 +61,7 @@ function LoginForm() {
 			</form>
 			<div className="w-full flex items-center justify-between pb-3">
 				<p className="text-white/70 font-normal text-xs sm:text-sm">Nie masz jeszcze konta?</p>
-				<Button variant="dark" href="/konto/rejestracja" restClass="rounded-lg">
+				<Button variant="dark" href="/panel/rejestracja" restClass="rounded-lg">
 					Wpisz się
 				</Button>
 			</div>

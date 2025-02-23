@@ -7,7 +7,7 @@ import NavigationList from './NavigationList'
 function Navigation() {
 	const pathname = usePathname()
 
-	const blackNav = pathname.includes('/konto')
+	const blackNav = pathname.includes('/panel')
 
 	return (
 		<>

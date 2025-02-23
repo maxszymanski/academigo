@@ -23,9 +23,7 @@ export default function RootLayout({
 	return (
 		<html lang="pl" className="overflow-x-hidden">
 			<body className={`${poppins.className} bg-white relative overflow-x-hidden h-full min-h-screen`}>
-				{/* <Navigation /> */}
 				{children}
-				{/* <Footer /> */}
 			</body>
 		</html>
 	)

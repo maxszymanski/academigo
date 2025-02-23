@@ -70,7 +70,7 @@ function RegistrationForm() {
 			</form>
 			<div className="w-full flex items-center justify-between pb-3">
 				<p className="text-white/70 font-normal text-xs sm:text-sm">Posiadasz już konto?</p>
-				<Button variant="dark" href="/konto/zaloguj-sie" restClass="rounded-lg">
+				<Button variant="dark" href="/panel/zaloguj-sie" restClass="rounded-lg">
 					Zaloguj się
 				</Button>
 			</div>

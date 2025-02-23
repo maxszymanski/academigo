@@ -29,9 +29,10 @@ function NavigationList({ blackNav = false }: { blackNav?: boolean }) {
 						Zostań współtwórcą
 					</Button>
 				</li>
+
 				<li>
-					<Button href="/konto/zaloguj-sie" restClass=" xl:min-w-[160px]">
-						Zaloguj się
+					<Button href="/panel" restClass=" xl:min-w-[160px]">
+						Moje konto
 					</Button>
 				</li>
 			</div>
