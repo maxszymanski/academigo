@@ -10,14 +10,14 @@ function CoursesBox({ category }: { category: string }) {
 	// Funkcja przewijania w lewo
 	const scrollLeft = () => {
 		if (containerRef.current) {
-			containerRef.current.scrollLeft -= 1000 // Zmieniaj wartość w zależności od tego, ile chcesz przewijać
+			containerRef.current.scrollLeft -= 1000
 		}
 	}
 
 	// Funkcja przewijania w prawo
 	const scrollRight = () => {
 		if (containerRef.current) {
-			containerRef.current.scrollLeft += 1000 // Zmieniaj wartość w zależności od tego, ile chcesz przewijać
+			containerRef.current.scrollLeft += 1000
 		}
 	}
 
@@ -26,7 +26,7 @@ function CoursesBox({ category }: { category: string }) {
 			<p className=" text-stone400 text-lg mx-5 font-medium     mb-3 lg:mx-7 xl:text-xl 2xl:text-2xl xl:mb-5 relative z-10 ">
 				<span className="border-l-2 border-stone400 pr-1 animate-pulse "></span> {category}
 			</p>
-			<div className="relative z-10 group">
+			<div className="relative z-10 group ">
 				<div
 					ref={containerRef}
 					className="flex overflow-x-auto w-full px-6  gap-4 py-6  2xl:overflow-x-hidden 2xl:flex-wrap 2xl:gap-x-4 md:gap-y-8 items-center 2xl:justify-between scroll-smooth relative z-20"

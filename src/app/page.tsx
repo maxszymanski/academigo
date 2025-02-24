@@ -6,13 +6,8 @@ import LearnInfoSection from './_components/LearnInfoSection'
 import LearnSkill from './_components/LearnSkill'
 import Navigation from './_components/Navigation'
 import NumberSection from './_components/NumberSection'
-import { getCourses } from './_lib/data-service'
 
 export default async function Home() {
-	const courses = await getCourses()
-
-	console.log(courses)
-
 	return (
 		<>
 			<Navigation />

@@ -12,7 +12,7 @@ function LoginPanelLayout({
 		<>
 			<Navigation />
 
-			<main className=" flex relative min-h-screen    ">
+			<main className=" flex relative min-h-screen  bg-dark ">
 				<LoginBg />
 				<div className=" px-6 py-20 pb-4 relative z-20 w-full h-full flex container mx-auto  min-h-screen lg:min-h-screen  lg:max-w-full lg:py-0  ">
 					<LoginFormBox>{children}</LoginFormBox>
