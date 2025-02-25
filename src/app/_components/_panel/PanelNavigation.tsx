@@ -9,7 +9,7 @@ import { IoLogOut } from 'react-icons/io5'
 
 function PanelNavigation() {
 	return (
-		<nav className="bg-primary/90  flex items-center lg:flex-col lg:py-12 px-1 lg:px-6 lg:rounded-3xl lg:ml-2 lg:my-2">
+		<nav className="bg-primary/90  flex items-center lg:flex-col lg:py-12 px-1 lg:px-6 lg:rounded-3xl lg:m-2 xl:my-4 xl:ml-4 2xl:px-10">
 			<div className="object-contain hidden lg:block">
 				<PanelLogo />
 			</div>

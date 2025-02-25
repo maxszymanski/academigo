@@ -21,8 +21,8 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="pl" className="overflow-x-hidden">
-			<body className={`${poppins.className} bg-white relative overflow-x-hidden h-full min-h-screen`}>
+		<html lang="pl" className="overflow-x-hidden scrollbar-thin scrollbar-thumb-primary2 scrollbar-track-primary">
+			<body className={`${poppins.className} bg-white relative overflow-x-hidden h-full min-h-screen `}>
 				{children}
 			</body>
 		</html>

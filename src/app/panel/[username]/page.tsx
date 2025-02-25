@@ -2,6 +2,7 @@
 // import Image from 'next/image'
 
 import DashboardStats from '@/app/_components/_panel/DashboardStats'
+import Notifications from '@/app/_components/_panel/Notifications'
 import PanelHello from '@/app/_components/_panel/PanelHello'
 import RankSection from '@/app/_components/_panel/RankSection'
 
@@ -13,7 +14,10 @@ async function AccountPage() {
 		<>
 			<PanelHello />
 			<DashboardStats />
-			<RankSection />
+			<section className="xl:flex w-full xl:justify-evenly xl:pt-16 xl:px-6 2xl:justify-between">
+				<Notifications />
+				<RankSection />
+			</section>
 		</>
 	)
 }

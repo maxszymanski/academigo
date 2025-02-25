@@ -26,16 +26,16 @@ const userInfo = {
 
 function RankSection() {
 	return (
-		<section className="py-8 ">
-			<h2 className="text-xl font-bold text-primary text-center pb-6 flex items-center justify-center gap-3 lg:px-6">
+		<div className="py-8 xl:bg-white xl:rounded-3xl xl:h-[792px] 2xl:h-[552px] xl:overflow-y-auto scrollbar-none">
+			<h2 className="text-xl font-bold text-primary text-center pb-6 flex items-center justify-center gap-3 lg:px-6 lg:pb-8 xl:text-2xl xl:pb-10">
 				<FaTrophy className="text-yellow-400 size-8" /> Ranking użytkowników
 			</h2>
-			<div className="w-full px-5 flex items-center justify-evenly overflow-x-auto gap-5 py-6 sm:gap-8  ">
-				<RankCard title="Twój ranking" userRank={userInfo} />
+			<div className="w-full px-5 flex items-center justify-evenly overflow-x-auto   gap-5 py-6 sm:gap-8  xl:flex-col  xl:px-8 scrollbar-thin scrollbar-thumb-primary2 scrollbar-track-primary">
 				<RankCard ranking={courseRank} title="Najwięcej dodanych kursów" />
+				<RankCard title="Twój ranking" userRank={userInfo} />
 				<RankCard ranking={activityRank} title="Najaktywniejsi użytkownicy" />
 			</div>
-		</section>
+		</div>
 	)
 }
 

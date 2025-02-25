@@ -4,15 +4,15 @@ import { FaArrowLeftLong } from 'react-icons/fa6'
 
 function PanelHeader() {
 	return (
-		<header className="pl-4 pr-6 py-4 flex justify-between text-dark items-center   lg:px-6  ">
+		<header className="pl-4 pr-6 py-4 flex justify-between text-dark items-center   lg:px-6  xl:max-w-[1440px] xl:mx-auto w-full">
 			<div className="flex items-center gap-3 ">
 				<Button variant="transparent">
 					<Image
 						priority
 						src="/aga.png"
-						width={42}
-						height={42}
-						className="rounded-full border-2 border-primary2 hover:border-primary tranistion-color duration-300 focus:border-primary object-cover  w-[42px] h-[42px] "
+						width={44}
+						height={44}
+						className="rounded-full border-2 border-primary2 hover:border-primary tranistion-color duration-300 focus:border-primary object-cover  w-[42px] h-[42px] xl:w-11 xl:h-11"
 						alt="zdjęcie użytkownika"
 					/>
 				</Button>
