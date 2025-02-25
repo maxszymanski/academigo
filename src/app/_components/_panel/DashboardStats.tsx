@@ -3,7 +3,7 @@ import { BiSolidBookmark, BiSolidBookAdd, BiSolidBookHeart, BiSolidStar } from '
 
 function DashboardStats() {
 	return (
-		<div className="flex items-center  w-full overflow-x-auto gap-5 px-5">
+		<section className="flex items-center  w-full overflow-x-auto gap-5 px-5 sm:gap-8 justify-evenly md:py-6 lg:px-6">
 			<StatCard number="7" statType="Dodanych kursów">
 				<BiSolidBookAdd className="size-20 text-primary/90" />
 			</StatCard>
@@ -16,7 +16,7 @@ function DashboardStats() {
 			<StatCard number="38" statType="Ocenionych kursów">
 				<BiSolidStar className="size-20 text-primary/90" />
 			</StatCard>
-		</div>
+		</section>
 	)
 }
 

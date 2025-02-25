@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import Button from '../Button'
+import { FaArrowLeftLong } from 'react-icons/fa6'
 
 function PanelHeader() {
 	return (
-		<header className="pl-4 pr-6 py-4 flex justify-between text-dark items-center">
+		<header className="pl-4 pr-6 py-4 flex justify-between text-dark items-center   lg:px-6  ">
 			<div className="flex items-center gap-3 ">
 				<Button variant="transparent">
 					<Image
@@ -20,7 +21,10 @@ function PanelHeader() {
 					<p className="text-dark/50">1 rok</p>
 				</div>
 			</div>
-			<h2 className="font-medium text-3xl text-primary">Panel</h2>
+
+			<Button href="/" restClass="rounded-xl">
+				<FaArrowLeftLong className="size-4 mr-3" /> Wyjście
+			</Button>
 		</header>
 	)
 }

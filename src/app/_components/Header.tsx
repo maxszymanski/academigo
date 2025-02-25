@@ -17,7 +17,7 @@ function Header() {
 					</Button>
 				</div>
 				<div className="flex-1 self-end ">
-					<Image width={732} height={732} src="/student.png" alt="student" />
+					<Image width={732} height={732} src="/student.png" alt="student" priority />
 				</div>
 			</div>
 		</header>

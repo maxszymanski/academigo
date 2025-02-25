@@ -16,7 +16,7 @@ function NavigationLink({
 			<Link
 				className={`p-3 font-medium transition-colors duration-300  md:text-base  text-nowrap xl:text-lg 2xl:text-xl flex items-center ${
 					panelNav
-						? 'text-white/70 hover:text-white w-full font-semibold text-lg '
+						? 'text-white/70 hover:text-white w-full font-semibold text-lg md:justify-start'
 						: 'text-primary hover:text-primary/80 md:py-1.5 md:px-2 text-2xl'
 				} ${restClass}`}
 				href={href}>
