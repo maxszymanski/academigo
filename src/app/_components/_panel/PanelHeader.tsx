@@ -1,32 +1,31 @@
 import Image from 'next/image'
-import Button from '../Button'
+import Button from '../_ui/Button'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 
 function PanelHeader() {
-	return (
-		<header className="pl-4 pr-6 py-4 flex justify-between text-dark items-center   lg:px-6  xl:max-w-[1440px] xl:mx-auto w-full">
-			<div className="flex items-center gap-3 ">
-				<Button variant="transparent">
-					<Image
-						priority
-						src="/aga.png"
-						width={44}
-						height={44}
-						className="rounded-full border-2 border-primary2 hover:border-primary tranistion-color duration-300 focus:border-primary object-cover  w-[42px] h-[42px] xl:w-11 xl:h-11"
-						alt="zdjęcie użytkownika"
-					/>
-				</Button>
-				<div className="text-sm">
-					<p className="font-semibold">Aga</p>
-					<p className="text-dark/50">1 rok</p>
-				</div>
-			</div>
+    return (
+        <header className="flex w-full items-center justify-between py-4 pl-4 pr-6 text-dark lg:px-6 xl:mx-auto xl:max-w-[1440px]">
+            <div className="relative flex items-center gap-3">
+                <Image
+                    priority
+                    src="/aga.png"
+                    width={44}
+                    height={44}
+                    className="tranistion-color h-[42px] w-[42px] rounded-full border-2 border-primary2 object-cover duration-300 focus:border-primary xl:h-11 xl:w-11"
+                    alt="zdjęcie użytkownika"
+                />
 
-			<Button href="/" restClass="rounded-xl">
-				<FaArrowLeftLong className="size-4 mr-3" /> Wyjście
-			</Button>
-		</header>
-	)
+                <div className="text-sm">
+                    <p className="font-semibold">Aga</p>
+                    <p className="text-dark/50">1 rok</p>
+                </div>
+            </div>
+
+            <Button href="/" restClass="rounded-xl">
+                <FaArrowLeftLong className="mr-3 size-4" /> Wyjście
+            </Button>
+        </header>
+    )
 }
 
 export default PanelHeader

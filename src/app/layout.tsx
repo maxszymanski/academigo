@@ -3,28 +3,33 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 
 const poppins = Poppins({
-	subsets: ['latin'],
-	weight: ['300', '400', '500', '600', '700', '800'],
+    subsets: ['latin'],
+    weight: ['300', '400', '500', '600', '700', '800'],
 })
 
 export const metadata: Metadata = {
-	title: {
-		template: '%s | Academigo',
-		default: 'Academigo',
-	},
-	description: 'Portal z kursami online',
+    title: {
+        template: '%s | Academigo',
+        default: 'Academigo',
+    },
+    description: 'Portal z kursami online',
 }
 
 export default function RootLayout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode
+    children: React.ReactNode
 }>) {
-	return (
-		<html lang="pl" className="overflow-x-hidden scrollbar-thin scrollbar-thumb-primary2 scrollbar-track-primary">
-			<body className={`${poppins.className} bg-white relative overflow-x-hidden h-full min-h-screen `}>
-				{children}
-			</body>
-		</html>
-	)
+    return (
+        <html
+            lang="pl"
+            className="overflow-x-hidden scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2"
+        >
+            <body
+                className={`${poppins.className} relative h-full min-h-screen overflow-x-hidden bg-white`}
+            >
+                {children}
+            </body>
+        </html>
+    )
 }
