@@ -3,6 +3,7 @@
 import useAppStore from '@/app/stores/store'
 import NavigationLink from './NavigationLink'
 import Button from './Button'
+import AuthButton from './AuthButton'
 
 function NavigationList({ blackNav = false }: { blackNav?: boolean }) {
     const { isNavOpen } = useAppStore()
@@ -34,12 +35,7 @@ function NavigationList({ blackNav = false }: { blackNav?: boolean }) {
                         Zostań współtwórcą
                     </Button>
                 </li>
-
-                <li>
-                    <Button href="/panel" restClass=" xl:min-w-[160px]">
-                        Moje konto
-                    </Button>
-                </li>
+                <AuthButton />
             </div>
         </ul>
     )

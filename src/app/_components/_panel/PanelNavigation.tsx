@@ -4,12 +4,11 @@ import NavigationLink from '../_ui/NavigationLink'
 import { FaUser } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { RiGraduationCapFill } from 'react-icons/ri'
-import Button from '../_ui/Button'
-import { IoLogOut } from 'react-icons/io5'
+import LogoutButton from './LogoutButton'
 
 function PanelNavigation() {
     return (
-        <nav className="flex items-center bg-primary/90 px-1 lg:m-2 lg:flex-col lg:rounded-3xl lg:px-6 lg:py-12 xl:my-4 xl:ml-4 2xl:px-10">
+        <nav className="flex items-center overflow-y-auto bg-primary/90 px-1 lg:m-2 lg:flex-col lg:rounded-3xl lg:px-6 lg:py-12 xl:my-4 xl:ml-4 2xl:px-10">
             <div className="hidden object-contain lg:block">
                 <PanelLogo />
             </div>
@@ -32,12 +31,7 @@ function PanelNavigation() {
                     <span className="hidden lg:block">Ustawienia</span>
                 </NavigationLink>
             </ul>
-
-            <Button variant="panel" restClass="hidden lg:flex">
-                {' '}
-                <IoLogOut className="mr-4 size-8 flex-shrink-0" />{' '}
-                <span className="">Wyloguj się</span>
-            </Button>
+            <LogoutButton />
         </nav>
     )
 }

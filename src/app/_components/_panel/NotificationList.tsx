@@ -66,7 +66,7 @@ function NotificationList() {
             <h2 className="flex items-center justify-center gap-3 pb-6 text-center text-xl font-bold text-primary lg:px-6 lg:pb-8 xl:pb-10 xl:text-2xl">
                 <FaBell className="size-8 text-primary/90" /> Powiadomienia
             </h2>
-            <ul className="border-3 my-4 h-96 w-full overflow-y-auto rounded-3xl border-primary bg-stone-50 shadow-md shadow-stone-200 outline-none transition-colors duration-300 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2 lg:scrollbar-none">
+            <ul className="border-3 my-4 h-96 w-full overflow-y-auto border-primary bg-stone-50 shadow-md shadow-stone-200 outline-none transition-colors duration-300 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
                 {notifications.map((notification) => {
                     const { emoji, link, type, when, id } = notification
 

@@ -1,13 +1,14 @@
 import { FaSearch } from 'react-icons/fa'
 import Input from '../_components/_ui/Input'
 import Navigation from '../_components/_ui/Navigation'
-import Header from '../_components/_home/Header'
+
+import CourseHeader from '../_components/_courses/CourseHeader'
 
 function CoursePage() {
     return (
         <>
             <Navigation />
-            <Header />
+            <CourseHeader />
             <main className="container mx-auto w-full px-4 py-20">
                 <Input
                     wrapperClass="bg-primary pb-5 pt-4 rounded-xl sm:px-12 "

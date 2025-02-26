@@ -8,7 +8,7 @@ import {
 
 function DashboardStats() {
     return (
-        <section className="flex w-full items-center justify-evenly gap-5 overflow-x-auto px-5 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2 sm:gap-8 md:py-6 lg:px-6 xl:mt-10">
+        <section className="flex w-full items-center justify-evenly gap-5 overflow-x-auto px-5 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2 sm:gap-8 md:py-6 lg:px-6">
             <StatCard number="7" statType="Dodanych kursów">
                 <BiSolidBookAdd className="size-20 text-primary/90" />
             </StatCard>
