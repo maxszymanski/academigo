@@ -25,7 +25,7 @@ function MobileNav({
             document.body.style.overflowY = 'hidden'
             document.body.style.height = '100vh'
         } else {
-            document.body.style.overflowY = 'auto'
+            document.body.style.overflowY = 'visible'
             document.body.style.height = '100%'
         }
     })

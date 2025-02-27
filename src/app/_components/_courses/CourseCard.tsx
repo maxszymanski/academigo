@@ -4,13 +4,21 @@ import { FaStar } from 'react-icons/fa'
 import { CiBank } from 'react-icons/ci'
 import { FaHeart } from 'react-icons/fa6'
 
-function CourseCard({ i }: { i: number }) {
+function CourseCard({
+    i,
+    isMainPage = false,
+    isList = false,
+}: {
+    i: number
+    isMainPage?: boolean
+    isList?: boolean
+}) {
     return (
         <Link
             href="/kursy/programowanie"
-            className={`transition-[background-color , shadow] relative flex h-[320px] w-[330] flex-shrink-0 flex-col justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 duration-300 hover:bg-slate-50 hover:shadow-primary ${
-                i < 8 ? 'block' : 'block 2xl:hidden'
-            }`}
+            className={`relative flex flex-shrink-0 justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary ${
+                isMainPage ? (i < 8 ? 'flex' : 'flex 2xl:hidden') : 'flex'
+            } ${isList ? 'w-full' : 'h-[320px] w-[330] flex-col'} `}
         >
             <div className="t-0 absolute right-0 rounded-bl-2xl bg-primary px-5 py-3 font-semibold text-white">
                 49,99 zł
@@ -20,9 +28,11 @@ function CourseCard({ i }: { i: number }) {
                 height={200}
                 width={330}
                 alt="course image"
-                className="rounded-t-2xl"
+                className={` ${isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}
             />
-            <div className="flex flex-1 flex-col justify-between rounded-b-2xl px-3 py-2 text-stone400">
+            <div
+                className={`flex flex-1 flex-col justify-between rounded-b-2xl text-stone400 ${isList ? 'px-6 py-3' : 'px-3 py-2'}`}
+            >
                 <h3 className="text-base font-semibold text-primary">
                     Podstawy JavaScript od zera
                 </h3>

@@ -26,7 +26,7 @@ export default function RootLayout({
             className="overflow-x-hidden scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2"
         >
             <body
-                className={`${poppins.className} relative h-full min-h-screen overflow-x-hidden bg-white`}
+                className={`${poppins.className} relative h-full min-h-screen bg-white`}
             >
                 {children}
             </body>

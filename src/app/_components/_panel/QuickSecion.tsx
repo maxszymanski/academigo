@@ -1,4 +1,4 @@
-import { FaPlus } from 'react-icons/fa6'
+import { FaPlus, FaBookmark } from 'react-icons/fa6'
 import PanelLink from './PanelLink'
 
 function QuickSecion() {
@@ -14,7 +14,7 @@ function QuickSecion() {
                 href="/panel/moje-kursy/zapisane-kursy"
                 name="Zapisane kursy"
             >
-                <FaPlus className="size-16 text-white sm:size-20" />
+                <FaBookmark className="size-16 text-white sm:size-20" />
             </PanelLink>
         </div>
     )

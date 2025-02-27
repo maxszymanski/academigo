@@ -34,7 +34,7 @@ function CoursesBox({ category }: { category: string }) {
                     style={{ scrollbarWidth: 'none' }}
                 >
                     {Array.from({ length: 12 }, (_, i) => (
-                        <CourseCard key={i} i={i} />
+                        <CourseCard isMainPage key={i} i={i} />
                     ))}
                 </div>
                 <div className="absolute left-0 top-0 hidden h-full w-full items-center justify-between px-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:flex 2xl:hidden">

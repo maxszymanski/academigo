@@ -13,11 +13,11 @@ export default {
                 'bg-white': '#ffff',
                 primary: '#925FE2',
                 primary2: '#CBACFA',
-
                 second: '#FFF7DF',
                 slate50: '#F1F4FB',
                 stone400: '#5C5C5C',
                 dark: '#1C1D21',
+                dark2: '#2F2F2F',
                 lightdark: '#333437',
             },
 

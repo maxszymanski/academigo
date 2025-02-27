@@ -14,7 +14,7 @@ function NavigationLink({
     onClick?: () => void | undefined
 }) {
     return (
-        <li>
+        <li className="list-none">
             {onClick ? (
                 <button
                     className={`flex items-center text-nowrap p-3 font-medium transition-colors duration-300 md:text-base xl:text-lg 2xl:text-xl ${

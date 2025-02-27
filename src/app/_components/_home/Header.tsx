@@ -22,13 +22,14 @@ function Header() {
                         Znajdź najlepsze kursy
                     </Button>
                 </div>
-                <div className="flex-1 self-end">
+                <div className="flex-1 md:self-end">
                     <Image
                         width={732}
                         height={732}
-                        src="/student.png"
+                        src="/student.webp"
                         alt="student"
                         priority
+                        className="h-auto w-80 md:h-full md:w-full"
                     />
                 </div>
             </div>

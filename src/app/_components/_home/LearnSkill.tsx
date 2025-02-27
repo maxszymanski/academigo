@@ -1,12 +1,11 @@
 import Image from 'next/image'
 import Button from '../_ui/Button'
 
-
 function LearnSkill() {
     return (
         <section className="container relative mx-auto flex flex-col items-center justify-between py-16 md:flex-row md:items-start lg:py-20 xl:py-24">
             <Image
-                src="/hire.jpg"
+                src="/hire.webp"
                 height={768}
                 width={600}
                 alt="szcześliwy student"

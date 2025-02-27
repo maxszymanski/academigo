@@ -30,7 +30,7 @@ function Input({
             className={`relative flex w-full items-center justify-center px-3 ${wrapperClass}`}
         >
             {children && (
-                <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 sm:left-12">
+                <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 sm:left-12 md:left-20">
                     {children}
                 </div>
             )}

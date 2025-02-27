@@ -23,7 +23,7 @@ function RankCard({
 }) {
     return (
         <ul
-            className="flex h-72 w-80 flex-shrink-0 flex-col gap-2.5 rounded-3xl border-[3px] border-transparent bg-white px-5 py-8 text-dark shadow-md shadow-stone-200 outline-none transition-colors duration-300 focus:border-primary xl:border-2 xl:border-primary"
+            className="flex h-72 w-80 flex-shrink-0 flex-col gap-2.5 rounded-3xl border-[3px] border-transparent bg-white px-5 py-8 text-dark shadow-md shadow-stone-200 outline-none transition-colors duration-300 focus:border-primary xl:border-2"
             tabIndex={1}
         >
             <h3 className="mb-5 text-center font-medium text-primary">
