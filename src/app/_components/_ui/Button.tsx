@@ -6,6 +6,7 @@ interface ButtonProps {
     restClass?: string
     href?: string | undefined
     isActive?: boolean | undefined
+    value?: number | string | undefined
     variant?:
         | 'purple'
         | 'lightPurple'
@@ -41,6 +42,7 @@ function Button({
     href = undefined,
     variant = 'purple',
     isActive = false,
+    value = undefined,
 }: ButtonProps) {
     const variantClass = variants[variant] || variants.purple
 
@@ -56,6 +58,7 @@ function Button({
     else
         return (
             <button
+                value={value}
                 onClick={onClick}
                 className={`${mainClass} ${restClass} ${variantClass} ${isActive ? 'text-primary' : 'text-stone400'}`}
             >
