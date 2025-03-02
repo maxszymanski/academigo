@@ -26,9 +26,15 @@ export default {
                     '0%': { backgroundPositionX: '200%' },
                     '100%': { backgroundPositionX: '-200%' },
                 },
+                visible: {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '100' },
+                },
             },
             animation: {
                 shine: 'shine 2s linear infinite',
+
+                visible: 'visible 0.3s  ',
             },
 
             backgroundImage: ({ theme }) => ({

@@ -16,9 +16,13 @@ function CourseCard({
     return (
         <Link
             href="/kursy/programowanie"
-            className={`relative flex flex-shrink-0 justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary ${
-                isMainPage ? (i < 8 ? 'flex' : 'flex 2xl:hidden') : 'flex'
-            } ${isList ? 'w-full' : 'h-[320px] w-[330] flex-col'} `}
+            className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary ${
+                isMainPage
+                    ? i < 8
+                        ? 'flex flex-shrink-0'
+                        : 'flex flex-shrink-0 2xl:hidden'
+                    : 'flex'
+            } ${isList ? 'w-full' : 'h-[320px] max-w-[330px] flex-col'} `}
         >
             <div className="t-0 absolute right-0 rounded-bl-2xl bg-primary px-5 py-3 font-semibold text-white">
                 49,99 zł
@@ -42,7 +46,7 @@ function CourseCard({
 
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1">
-                        <FaStar className="mb-1 text-yellow-500" />{' '}
+                        <FaStar className="mb-0.5 text-yellow-500" />{' '}
                         <p>
                             <span>4.6</span> <span>(125 ocen)</span>
                         </p>
