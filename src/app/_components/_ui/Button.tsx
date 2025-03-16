@@ -20,6 +20,7 @@ interface ButtonProps {
         | 'filter'
         | 'view'
         | 'category'
+        | 'desktopCategory'
 }
 
 const mainClass =
@@ -37,7 +38,9 @@ const variants = {
     filter: 'text-dark2 border  border-stone400 py-4 px-4 bg-transparent hover:border-primary hover:text-primary focus:border-primary text-sm xl:text-base xl:px-6 2xl:text-lg',
     view: `text-sm bg-transparent  hover:text-primary  rounded-none p-2 `,
     category:
-        'text-base w-full px-10  py-2.5 hover:text-primary focus:text-primary focus:font-semibold md:w-[256px]',
+        ' w-full   py-2.5 hover:text-primary hover:bg-slate50 focus:bg-slate50 focus:text-primary  mb-1 flex',
+    desktopCategory:
+        'text-base w-fit px-10 py-5 hover:text-primary/80 focus:text-primary hover:border-primary/70 border border-stone400 2xl:text-lg',
 }
 
 function Button({
@@ -65,7 +68,7 @@ function Button({
         return (
             <button
                 onClick={onClick}
-                className={`${mainClass} ${restClass} ${variantClass} ${isActive ? 'font-semibold text-primary' : 'text-stone400'}`}
+                className={`${mainClass} ${restClass} ${variantClass} ${isActive ? 'text-primary lg:border-primary lg:font-normal' : 'text-stone400'}`}
                 disabled={disabled}
                 id={id}
             >

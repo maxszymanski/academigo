@@ -6,11 +6,11 @@ import Button from '../_ui/Button'
 import { useSearchParams, useRouter } from 'next/navigation'
 
 function CategoriesList({ categories }: CategoriesType) {
-    const modalRef = useRef(null)
+    const modalRef = useRef<HTMLDivElement | null>(null)
     const closeModal = useAppStore((state) => state.closeModal)
     const searchParams = useSearchParams()
-    const router = useRouter()
     const currentCategory = searchParams.get('category')
+    const router = useRouter()
 
     const handleCategoryClick = (slug: string) => {
         router.push(`/kursy?category=${slug}`, { scroll: false })
@@ -30,7 +30,11 @@ function CategoriesList({ categories }: CategoriesType) {
                             variant="category"
                             key={category.name}
                             isActive={currentCategory === category.slug}
-                            onClick={() => handleCategoryClick(category.slug)}
+                            restClass="px-10"
+                            onClick={() => {
+                                handleCategoryClick(category.slug)
+                                closeModal()
+                            }}
                         >
                             {category.name}
                         </Button>
