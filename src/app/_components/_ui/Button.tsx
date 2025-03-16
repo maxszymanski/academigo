@@ -8,6 +8,7 @@ interface ButtonProps {
     isActive?: boolean | undefined
     disabled?: boolean | undefined
     id?: string | undefined
+    value?: number | string | undefined
 
     variant?:
         | 'purple'
@@ -50,8 +51,9 @@ function Button({
     href = undefined,
     variant = 'purple',
     isActive = false,
-    disabled = false,
+    value = undefined,
     id = undefined,
+    disabled = false,
 }: ButtonProps) {
     const variantClass = variants[variant] || variants.purple
 
@@ -67,6 +69,7 @@ function Button({
     else
         return (
             <button
+                value={value}
                 onClick={onClick}
                 className={`${mainClass} ${restClass} ${variantClass} ${isActive ? 'text-primary lg:border-primary lg:font-normal' : 'text-stone400'}`}
                 disabled={disabled}
