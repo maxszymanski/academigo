@@ -18,6 +18,7 @@ function CategoriesDesktop({ categories }: CategoriesType) {
                 {categories.map((category: Category) => (
                     <Button
                         variant="desktopCategory"
+                        restClass="focus:border-primary"
                         key={category.name}
                         isActive={currentCategory === category.slug}
                         onClick={() => {

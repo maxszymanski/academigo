@@ -7,14 +7,12 @@ import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 function CoursesBox({ category }: { category: string }) {
     const containerRef = useRef<HTMLDivElement | null>(null)
 
-    // Funkcja przewijania w lewo
     const scrollLeft = () => {
         if (containerRef.current) {
             containerRef.current.scrollLeft -= 1000
         }
     }
 
-    // Funkcja przewijania w prawo
     const scrollRight = () => {
         if (containerRef.current) {
             containerRef.current.scrollLeft += 1000

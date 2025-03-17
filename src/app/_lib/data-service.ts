@@ -9,11 +9,14 @@ export async function getCategories() {
 
     return data
 }
-export async function getSubCategories(categorySlug: string = 'programowanie') {
-    const { data, error } = await supabase
-        .from('sub_categories')
-        .select('*')
-        .eq('slug_category', categorySlug)
+export async function getSubCategories(categorySlug: string | null) {
+    let query = supabase.from('sub_categories').select('*')
+
+    if (categorySlug) {
+        query = query.eq('slug_category', categorySlug)
+    }
+
+    const { data, error } = await query
 
     if (error) {
         throw new Error('Błąd pobierania podkategorii')

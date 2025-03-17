@@ -6,14 +6,12 @@ interface SubCat {
     slug_category: string
 }
 
-function SubCategories({ subCategories }: { subCategories: SubCat[] }) {
+async function SubCategories() {
     //
-
-    console.log(subCategories)
 
     return (
         <div className="flex flex-col gap-0">
-            {subCategories.map((subCat) => (
+            {/* {subCategories.map((subCat) => (
                 <Button
                     variant="category"
                     restClass="px-2 text-sm"
@@ -21,7 +19,7 @@ function SubCategories({ subCategories }: { subCategories: SubCat[] }) {
                 >
                     {subCat.name}
                 </Button>
-            ))}
+            ))} */}
         </div>
     )
 }
