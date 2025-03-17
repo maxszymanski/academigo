@@ -1,11 +1,13 @@
-import { useRef } from 'react'
+import { useRef, useTransition } from 'react'
 import Modal from '../_ui/Modal'
 import useAppStore from '@/app/stores/store'
 import { CategoriesType, Category } from '@/app/_types/types'
 import Button from '../_ui/Button'
 import { useSearchParams, useRouter } from 'next/navigation'
+import LoadingPortal from '../_ui/LoadingPortal'
 
 function CategoriesList({ categories }: CategoriesType) {
+    const [isPending, startTransition] = useTransition()
     const modalRef = useRef<HTMLDivElement | null>(null)
     const closeModal = useAppStore((state) => state.closeModal)
     const searchParams = useSearchParams()
@@ -13,35 +15,39 @@ function CategoriesList({ categories }: CategoriesType) {
     const router = useRouter()
 
     const handleCategoryClick = (slug: string) => {
-        router.push(`/kursy?category=${slug}`, { scroll: false })
+        startTransition(() => {
+            router.push(`/kursy?category=${slug}`, { scroll: false })
+        })
     }
 
     return (
-        <Modal
-            position="left-0 top-[110%]"
-            modalRef={modalRef}
-            closeModal={closeModal}
-            buttonId="categories-button"
-        >
-            <div className="flex h-full w-full flex-col items-center py-6 text-sm text-dark2">
-                <div>
-                    {categories.map((category: Category) => (
-                        <Button
-                            variant="category"
-                            key={category.name}
-                            isActive={currentCategory === category.slug}
-                            restClass="px-10"
-                            onClick={() => {
-                                handleCategoryClick(category.slug)
-                                closeModal()
-                            }}
-                        >
-                            {category.name}
-                        </Button>
-                    ))}
+        <>
+            {isPending && <LoadingPortal />}
+            <Modal
+                position="left-0 top-[110%]"
+                modalRef={modalRef}
+                closeModal={closeModal}
+                buttonId="categories-button"
+            >
+                <div className="flex h-full w-full flex-col items-center py-6 text-sm text-dark2">
+                    <div>
+                        {categories.map((category: Category) => (
+                            <Button
+                                variant="category"
+                                key={category.name}
+                                isActive={currentCategory === category.slug}
+                                restClass="px-10"
+                                onClick={() => {
+                                    handleCategoryClick(category.slug)
+                                }}
+                            >
+                                {category.name}
+                            </Button>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </Modal>
+            </Modal>
+        </>
     )
 }
 

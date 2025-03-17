@@ -1,27 +1,17 @@
-import Button from '../_ui/Button'
+import { getSubCategories } from '@/app/_lib/data-service'
+import SubCategoriesList from './SubCategoriesList'
 
-interface SubCat {
+export interface SubCat {
     id: number
     name: string
     slug_category: string
+    subcategory_slug: string
 }
 
-async function SubCategories() {
-    //
+async function SubCategories({ category }: { category: string | null }) {
+    const subCategories: SubCat[] = await getSubCategories(category || null)
 
-    return (
-        <div className="flex flex-col gap-0">
-            {/* {subCategories.map((subCat) => (
-                <Button
-                    variant="category"
-                    restClass="px-2 text-sm"
-                    key={subCat.name}
-                >
-                    {subCat.name}
-                </Button>
-            ))} */}
-        </div>
-    )
+    return <SubCategoriesList subCategories={subCategories} />
 }
 
 export default SubCategories

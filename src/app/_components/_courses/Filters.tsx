@@ -4,7 +4,7 @@ import Button from '../_ui/Button'
 
 function Filters({ children }: { children: ReactNode }) {
     return (
-        <aside className="sticky top-6 hidden max-h-screen min-w-72 flex-col gap-8 overflow-y-auto text-nowrap lg:flex">
+        <aside className="sticky top-6 hidden max-h-screen min-w-72 flex-col gap-8 overflow-y-auto text-nowrap lg:flex xl:min-w-80">
             <div className="text-xs text-stone400 xl:text-sm">
                 <h4 className="mb-6 px-2 text-2xl font-bold">Podkategorie</h4>
                 {children}
