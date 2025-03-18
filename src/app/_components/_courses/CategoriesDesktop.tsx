@@ -26,6 +26,7 @@ function CategoriesDesktop({ categories }: CategoriesType) {
                         variant="desktopCategory"
                         key={category.name}
                         isActive={currentCategory === category.slug}
+                        isActiveClass="text-primary lg:border-primary bg-slate50"
                         onClick={() => {
                             handleCategoryClick(category.slug)
                         }}

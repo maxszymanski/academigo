@@ -10,7 +10,7 @@ export async function getCategories() {
     return data
 }
 export async function getSubCategories(categorySlug: string | null) {
-    let query = supabase.from('sub_categories').select('*')
+    let query = supabase.from('sub_categories').select('*').order('name')
 
     if (categorySlug) {
         query = query.eq('slug_category', categorySlug)

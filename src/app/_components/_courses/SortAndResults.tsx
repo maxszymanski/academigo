@@ -1,10 +1,10 @@
-import { CategoriesType } from '@/app/_types/types'
+import { Category } from '@/app/_types/types'
 import Categories from './Categories'
 import CoursesResult from './CoursesResult'
 import Sort from './Sort'
 import View from './View'
 
-async function SortAndResults({ categories }: CategoriesType) {
+async function SortAndResults({ categories }: { categories: Category[] }) {
     return (
         <div className="w-full max-w-[6xl]">
             <div className="mx-auto flex w-full max-w-[328px] flex-wrap items-center justify-center gap-y-5 md:max-w-full md:justify-between lg:justify-end lg:px-2">

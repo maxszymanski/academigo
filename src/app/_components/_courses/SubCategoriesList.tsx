@@ -4,12 +4,15 @@ import Button from '../_ui/Button'
 import { SubCat } from './SubCategories'
 import { useRouter, useSearchParams } from 'next/navigation'
 import LoadingPortal from '../_ui/LoadingPortal'
+import useAppStore from '@/app/stores/store'
 
 function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
     const [isPending, startTransition] = useTransition()
     const searchParams = useSearchParams()
     const router = useRouter()
     const currentSubCategory = searchParams.get('subcategory')
+    const setFullHeight = useAppStore((state) => state.setFullHeight)
+    const fullHeight = useAppStore((state) => state.fullHeight)
 
     const handleCategoryClick = (slug: string) => {
         startTransition(() => {
@@ -25,20 +28,38 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
     }
 
     return (
-        <div className="flex flex-col gap-0">
-            {isPending && <LoadingPortal />}
-            {subCategories.map((subCat) => (
+        <>
+            <div
+                className={`flex flex-col overflow-hidden ${fullHeight && subCategories.length > 7 ? 'max-h-full' : 'h-fit max-h-[335px]'}`}
+            >
+                {isPending && <LoadingPortal />}
+                {subCategories.map((subCat) => (
+                    <Button
+                        variant="category"
+                        restClass="px-3 text-sm xl:text-base"
+                        key={subCat.name}
+                        isActive={
+                            currentSubCategory === subCat.subcategory_slug
+                        }
+                        isActiveClass="text-primary  bg-slate50"
+                        onClick={() =>
+                            handleCategoryClick(subCat.subcategory_slug)
+                        }
+                    >
+                        {subCat.name}
+                    </Button>
+                ))}
+            </div>
+            {subCategories.length > 7 && (
                 <Button
                     variant="category"
-                    restClass="px-2 text-sm xl:text-base"
-                    key={subCat.name}
-                    isActive={currentSubCategory === subCat.subcategory_slug}
-                    onClick={() => handleCategoryClick(subCat.subcategory_slug)}
+                    restClass="px-3 text-sm xl:text-base !w-fit !text-primary mt-3"
+                    onClick={setFullHeight}
                 >
-                    {subCat.name}
+                    {fullHeight ? 'Zobacz mniej' : 'Zobacz więcej'}
                 </Button>
-            ))}
-        </div>
+            )}
+        </>
     )
 }
 

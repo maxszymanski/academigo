@@ -1,12 +1,12 @@
 import { useRef, useTransition } from 'react'
 import Modal from '../_ui/Modal'
 import useAppStore from '@/app/stores/store'
-import { CategoriesType, Category } from '@/app/_types/types'
+import { Category } from '@/app/_types/types'
 import Button from '../_ui/Button'
 import { useSearchParams, useRouter } from 'next/navigation'
 import LoadingPortal from '../_ui/LoadingPortal'
 
-function CategoriesList({ categories }: CategoriesType) {
+function CategoriesList({ categories }: { categories: Category[] }) {
     const [isPending, startTransition] = useTransition()
     const modalRef = useRef<HTMLDivElement | null>(null)
     const closeModal = useAppStore((state) => state.closeModal)
@@ -36,6 +36,7 @@ function CategoriesList({ categories }: CategoriesType) {
                                 variant="category"
                                 key={category.name}
                                 isActive={currentCategory === category.slug}
+                                isActiveClass="text-primary  bg-slate50"
                                 restClass="px-10"
                                 onClick={() => {
                                     handleCategoryClick(category.slug)

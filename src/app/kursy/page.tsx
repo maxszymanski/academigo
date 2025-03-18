@@ -4,6 +4,7 @@ import SortAndResults from '../_components/_courses/SortAndResults'
 import { getCategories } from '../_lib/data-service'
 import CategoriesDesktop from '../_components/_courses/CategoriesDesktop'
 import SubCategories from '../_components/_courses/SubCategories'
+import MobileFilter from '../_components/_courses/MobileFilter'
 
 async function CoursePage({
     searchParams,

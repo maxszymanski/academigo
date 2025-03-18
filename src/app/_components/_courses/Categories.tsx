@@ -4,9 +4,9 @@ import { FaChevronDown } from 'react-icons/fa'
 import Button from '../_ui/Button'
 import CategoriesList from './CategoriesList'
 import useAppStore from '@/app/stores/store'
-import { CategoriesType } from '@/app/_types/types'
+import { Category } from '@/app/_types/types'
 
-function Categories({ categories }: CategoriesType) {
+function Categories({ categories }: { categories: Category[] }) {
     const openModal = useAppStore((state) => state.openModal)
     const setOpenModal = useAppStore((state) => state.setOpenModal)
     const closeModal = useAppStore((state) => state.closeModal)

@@ -14,6 +14,7 @@ function View() {
                 variant="view"
                 onClick={() => setCardView('list')}
                 isActive={cardView === 'list'}
+                isActiveClass="text-primary"
             >
                 <FaList className="size-8" />
             </Button>
@@ -21,6 +22,7 @@ function View() {
                 variant="view"
                 onClick={() => setCardView('card')}
                 isActive={cardView === 'card'}
+                isActiveClass="text-primary"
             >
                 <RxDashboard className="size-8" />
             </Button>
