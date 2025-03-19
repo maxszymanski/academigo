@@ -12,29 +12,39 @@ const sortVariants = [
 ]
 
 function SortingList() {
+    // const [shouldCloseModal, setShouldCloseModal] = useState(false)
     const [isPending, startTransition] = useTransition()
     const searchParams = useSearchParams()
     const router = useRouter()
     const currentSortBy = searchParams.get('sort')
 
     const handleSortButtonClick = (sortType: string) => {
+        // setShouldCloseModal(true)
         startTransition(() => {
             const params = new URLSearchParams(searchParams.toString())
 
             params.set('sort', sortType)
 
-            router.push(`/kursy?${params.toString()}`, { scroll: false })
+            router.push(`/kursy?${params.toString()}`, {
+                scroll: false,
+            })
         })
     }
+    // useEffect(() => {
+    //     if (!isPending && shouldCloseModal && openModal === 'sort') {
+    //         closeModal()
+    //         setShouldCloseModal(false)
+    //     }
+    // }, [isPending, closeModal, openModal, shouldCloseModal])
 
     return (
-        <div className="text-xs text-stone400 xl:text-sm">
+        <div className="flex justify-center px-8 py-6 text-xs text-stone400 xl:text-sm">
             <div className={`flex h-fit flex-col overflow-hidden`}>
                 {isPending && <LoadingPortal />}
                 {sortVariants.map((variant) => (
                     <Button
                         variant="category"
-                        restClass="px-3 text-sm xl:text-base"
+                        restClass="px-3 text-sm xl:text-base lg:px-5"
                         key={variant.name}
                         isActive={currentSortBy === variant.slug}
                         isActiveClass="text-primary  bg-slate50"

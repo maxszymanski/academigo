@@ -18,10 +18,10 @@ function Modal({
 
     return (
         <div
-            className={`min-w-sm absolute z-50 flex h-fit w-full justify-center md:min-w-80 ${position ? position : ''}`}
+            className={`min-w-sm absolute z-50 flex h-fit w-full justify-center md:min-w-80 lg:min-w-fit ${position ? position : ''}`}
             ref={modalRef}
         >
-            <div className="w-full max-w-md animate-visible rounded-xl border border-primary bg-white text-center shadow-md shadow-primary2 md:min-w-80">
+            <div className="w-full max-w-md animate-visible rounded-xl border border-primary bg-white text-center shadow-md shadow-primary2 md:min-w-80 lg:min-w-fit">
                 {children}
             </div>
         </div>

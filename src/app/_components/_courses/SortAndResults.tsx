@@ -6,6 +6,7 @@ import View from './View'
 import MobileFilter from './MobileFilter'
 import Filters from './Filters'
 import SubCategories from './SubCategories'
+import Sorting from './Sorting'
 
 async function SortAndResults({
     categories,
@@ -27,6 +28,7 @@ async function SortAndResults({
                             <SubCategories category={category} />
                         </Filters>
                     </MobileFilter>
+                    <Sorting />
                 </div>
             </div>
             <CoursesResult />

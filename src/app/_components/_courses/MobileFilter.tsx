@@ -16,7 +16,7 @@ function MobileFilter({ children }: { children: ReactNode }) {
             position="left-0 top-[110%] md:w-80 md:right-0 md:left-auto"
             modalRef={modalRef}
             closeModal={closeModal}
-            buttonId="sub-button"
+            buttonId="filter-button"
         >
             {children}
         </Modal>

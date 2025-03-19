@@ -17,18 +17,34 @@ function Sort() {
             }
         }
     }
+    const handleOpenSortModal = () => {
+        {
+            if (openModal === 'sort') {
+                closeModal()
+            } else {
+                setOpenModal('sort')
+            }
+        }
+    }
 
     return (
         <div className="flex items-center gap-3.5">
             <Button
                 variant="filter"
                 restClass="lg:hidden"
+                id="filter-button"
                 onClick={handleOpenFilterModal}
             >
-                Filtrowanie <FaChevronDown className="ml-2.5 size-2.5" />
+                Filtrowanie{' '}
+                <FaChevronDown className="pointer-events-none ml-2.5 size-2.5" />
             </Button>
-            <Button onClick={() => console.log('siema')} variant="filter">
-                Sortowanie <FaChevronDown className="ml-2.5 size-2.5" />
+            <Button
+                onClick={handleOpenSortModal}
+                variant="filter"
+                id="sort-button"
+            >
+                Sortowanie{' '}
+                <FaChevronDown className="pointer-events-none ml-2.5 size-2.5" />
             </Button>
         </div>
     )
