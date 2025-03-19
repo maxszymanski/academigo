@@ -1,26 +1,25 @@
 'use client'
-import { ReactNode, useRef } from 'react'
 import useAppStore from '@/app/stores/store'
-
+import { ReactNode, useRef } from 'react'
 import Modal from '../_ui/Modal'
 
-function MobileFilter({ children }: { children: ReactNode }) {
+function Sorting({ children }: { children: ReactNode }) {
     const modalRef = useRef<HTMLDivElement | null>(null)
     const closeModal = useAppStore((state) => state.closeModal)
     const openModal = useAppStore((state) => state.openModal)
 
-    if (openModal != 'filter') return null
+    if (openModal != 'sortng') return null
 
     return (
         <Modal
             position="left-0 top-[110%] md:w-80 md:right-0 md:left-auto"
             modalRef={modalRef}
             closeModal={closeModal}
-            buttonId="sub-button"
+            buttonId="sort-button"
         >
             {children}
         </Modal>
     )
 }
 
-export default MobileFilter
+export default Sorting

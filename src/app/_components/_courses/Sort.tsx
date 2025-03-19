@@ -21,9 +21,9 @@ function Sort() {
     return (
         <div className="flex items-center gap-3.5">
             <Button
-                onClick={() => console.log('siema')}
                 variant="filter"
                 restClass="lg:hidden"
+                onClick={handleOpenFilterModal}
             >
                 Filtrowanie <FaChevronDown className="ml-2.5 size-2.5" />
             </Button>

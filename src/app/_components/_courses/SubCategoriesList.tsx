@@ -14,12 +14,13 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
     const setFullHeight = useAppStore((state) => state.setFullHeight)
     const fullHeight = useAppStore((state) => state.fullHeight)
 
-    const handleCategoryClick = (slug: string) => {
+    const handleCategoryClick = (slug: string, categorySlug: string) => {
         startTransition(() => {
             const params = new URLSearchParams(searchParams.toString())
             if (currentSubCategory === slug) {
                 params.delete('subcategory')
             } else {
+                params.set('category', categorySlug)
                 params.set('subcategory', slug)
             }
 
@@ -43,7 +44,10 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
                         }
                         isActiveClass="text-primary  bg-slate50"
                         onClick={() =>
-                            handleCategoryClick(subCat.subcategory_slug)
+                            handleCategoryClick(
+                                subCat.subcategory_slug,
+                                subCat.slug_category
+                            )
                         }
                     >
                         {subCat.name}
