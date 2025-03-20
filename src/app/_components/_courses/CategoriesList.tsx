@@ -5,6 +5,10 @@ import { Category } from '@/app/_types/types'
 import Button from '../_ui/Button'
 import { useSearchParams, useRouter } from 'next/navigation'
 import LoadingPortal from '../_ui/LoadingPortal'
+import {
+    MdOutlineRadioButtonUnchecked,
+    MdRadioButtonChecked,
+} from 'react-icons/md'
 
 function CategoriesList({ categories }: { categories: Category[] }) {
     const [isPending, startTransition] = useTransition()
@@ -36,13 +40,20 @@ function CategoriesList({ categories }: { categories: Category[] }) {
                                 variant="category"
                                 key={category.name}
                                 isActive={currentCategory === category.slug}
-                                isActiveClass="text-primary  bg-slate50"
-                                restClass="px-10"
+                                isActiveClass="text-primary bg-slate50"
+                                restClass="px-10 gap-4"
                                 onClick={() => {
                                     handleCategoryClick(category.slug)
                                 }}
                             >
-                                {category.name}
+                                <>
+                                    {currentCategory === category.slug ? (
+                                        <MdRadioButtonChecked />
+                                    ) : (
+                                        <MdOutlineRadioButtonUnchecked />
+                                    )}{' '}
+                                    {category.name}
+                                </>
                             </Button>
                         ))}
                     </div>

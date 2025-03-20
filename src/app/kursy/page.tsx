@@ -4,13 +4,14 @@ import SortAndResults from '../_components/_courses/SortAndResults'
 import { getCategories } from '../_lib/data-service'
 import CategoriesDesktop from '../_components/_courses/CategoriesDesktop'
 import SubCategories from '../_components/_courses/SubCategories'
+import Specialization from '../_components/_courses/Specialization'
 
 async function CoursePage({
     searchParams,
 }: {
-    searchParams: { category: string }
+    searchParams: { category: string; subcategory: string }
 }) {
-    const { category } = await searchParams
+    const { category, subcategory } = await searchParams
     const categories = await getCategories()
 
     return (
@@ -18,10 +19,21 @@ async function CoursePage({
             <Search />
             <CategoriesDesktop categories={categories} />
             <section className="relative h-full w-full pt-12 lg:flex lg:items-start lg:justify-between lg:gap-4 xl:gap-2 xl:pt-16 2xl:gap-16">
-                <Filters>
+                <Filters
+                    secondChildren={
+                        <Specialization
+                            category={category}
+                            subCategory={subcategory}
+                        />
+                    }
+                >
                     <SubCategories category={category} />
                 </Filters>
-                <SortAndResults categories={categories} category={category} />
+                <SortAndResults
+                    categories={categories}
+                    category={category}
+                    subCategory={subcategory}
+                />
             </section>
         </main>
     )

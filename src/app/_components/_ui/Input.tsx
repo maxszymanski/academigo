@@ -1,3 +1,4 @@
+'use client'
 import { FieldError } from 'react-hook-form'
 
 interface InputType {

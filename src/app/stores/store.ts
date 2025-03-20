@@ -9,22 +9,32 @@ type Store = {
     openModal: string | null
     setOpenModal: (modalType: string) => void
     closeModal: () => void
-    fullHeight: boolean
-    setFullHeight: () => void
+    fullHeightSubCategories: boolean
+    fullHeightSpecialization: boolean
+    setFullHeightSubCategories: () => void
+    setFullHeightSpecialization: () => void
 }
 
 const useAppStore = create<Store>()((set) => ({
     isNavOpen: false,
     cardView: 'card',
     openModal: null,
-    fullHeight: false,
+    fullHeightSubCategories: false,
+    fullHeightSpecialization: false,
 
     toggleNavigation: () => set((state) => ({ isNavOpen: !state.isNavOpen })),
     closeNavigation: () => set({ isNavOpen: false }),
     setCardView: (view) => set({ cardView: view }),
     setOpenModal: (modalType) => set({ openModal: modalType }),
     closeModal: () => set({ openModal: null }),
-    setFullHeight: () => set((state) => ({ fullHeight: !state.fullHeight })),
+    setFullHeightSubCategories: () =>
+        set((state) => ({
+            fullHeightSubCategories: !state.fullHeightSubCategories,
+        })),
+    setFullHeightSpecialization: () =>
+        set((state) => ({
+            fullHeightSpecialization: !state.fullHeightSpecialization,
+        })),
 }))
 
 export default useAppStore

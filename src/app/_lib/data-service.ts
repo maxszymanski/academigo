@@ -24,3 +24,24 @@ export async function getSubCategories(categorySlug: string | null) {
 
     return data
 }
+export async function getSpecializations(
+    categorySlug: string | null,
+    subCategorySlug: string | null
+) {
+    let query = supabase.from('specializations').select('*').order('name')
+
+    if (categorySlug && !subCategorySlug) {
+        query = query.eq('slug_category', categorySlug)
+    }
+    if (subCategorySlug) {
+        query = query.eq('slug_sub_category', subCategorySlug)
+    }
+
+    const { data, error } = await query
+
+    if (error) {
+        throw new Error('Błąd pobierania specjalizacji')
+    }
+
+    return data
+}

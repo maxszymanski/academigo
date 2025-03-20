@@ -1,33 +1,42 @@
 'use client'
 import { useTransition } from 'react'
 import Button from '../_ui/Button'
-import { SubCat } from './SubCategories'
 import { useRouter, useSearchParams } from 'next/navigation'
 import LoadingPortal from '../_ui/LoadingPortal'
 import useAppStore from '@/app/stores/store'
+import { SpecializationType } from './Specialization'
 import {
     MdOutlineRadioButtonUnchecked,
     MdRadioButtonChecked,
 } from 'react-icons/md'
 
-function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
+function SpecializationsList({
+    specializations,
+}: {
+    specializations: SpecializationType[]
+}) {
     const [isPending, startTransition] = useTransition()
     const searchParams = useSearchParams()
     const router = useRouter()
-    const currentSubCategory = searchParams.get('subcategory')
+    const currentSpecialization = searchParams.get('specialization')
     // const setFullHeight = useAppStore(
-    //     (state) => state.setFullHeightSubCategories
+    //     (state) => state.setFullHeightSpecialization
     // )
-    // const fullHeight = useAppStore((state) => state.fullHeightSubCategories)
+    // const fullHeight = useAppStore((state) => state.fullHeightSpecialization)
 
-    const handleCategoryClick = (slug: string, categorySlug: string) => {
+    const handleCategoryClick = (
+        slug: string,
+        subCategorySlug: string,
+        categorySlug: string
+    ) => {
         startTransition(() => {
             const params = new URLSearchParams(searchParams.toString())
-            if (currentSubCategory === slug) {
-                params.delete('subcategory')
+            if (currentSpecialization === slug) {
+                params.delete('specialization')
             } else {
                 params.set('category', categorySlug)
-                params.set('subcategory', slug)
+                params.set('subcategory', subCategorySlug)
+                params.set('specialization', slug)
             }
 
             router.push(`/kursy?${params.toString()}`, { scroll: false })
@@ -37,37 +46,36 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
     return (
         <>
             <div
-                className={`'h-fit flex max-h-[337px] flex-col overflow-hidden overflow-y-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-300`}
+                className={`flex h-fit max-h-[337px] flex-col overflow-hidden overflow-y-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-300`}
             >
                 {isPending && <LoadingPortal />}
-                {subCategories.map((subCat) => (
+                {specializations.map((spec) => (
                     <Button
                         variant="category"
                         restClass="px-3 text-sm xl:text-base gap-4"
-                        key={subCat.name}
-                        isActive={
-                            currentSubCategory === subCat.subcategory_slug
-                        }
-                        isActiveClass="text-primary  bg-slate50 "
+                        key={spec.name}
+                        isActive={currentSpecialization === spec.spec_slug}
+                        isActiveClass="text-primary  bg-slate50"
                         onClick={() =>
                             handleCategoryClick(
-                                subCat.subcategory_slug,
-                                subCat.slug_category
+                                spec.spec_slug,
+                                spec.slug_sub_category,
+                                spec.slug_category
                             )
                         }
                     >
                         <>
-                            {currentSubCategory === subCat.subcategory_slug ? (
+                            {currentSpecialization === spec.spec_slug ? (
                                 <MdRadioButtonChecked />
                             ) : (
                                 <MdOutlineRadioButtonUnchecked />
                             )}{' '}
-                            {subCat.name}
+                            {spec.name}
                         </>
                     </Button>
                 ))}
             </div>
-            {/* {subCategories.length > 7 && (
+            {/* {specializations.length > 7 && (
                 <Button
                     variant="category"
                     restClass="px-3 text-sm xl:text-base !w-fit !text-primary mt-3"
@@ -80,4 +88,4 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
     )
 }
 
-export default SubCategoriesList
+export default SpecializationsList
