@@ -45,47 +45,56 @@ import { redirect } from 'next/navigation'
 import { createClient } from '../utils/supabase/server'
 
 export async function login(formData: FormData) {
-    const supabase = await createClient()
+	const supabase = await createClient()
 
-    const data = {
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-    }
+	const data = {
+		email: formData.get('email') as string,
+		password: formData.get('password') as string,
+	}
 
-    const { error } = await supabase.auth.signInWithPassword(data)
+	const { error } = await supabase.auth.signInWithPassword(data)
 
-    if (error) {
-        redirect('/')
-    }
-    const { data: user } = await supabase.auth.getUser()
-    console.log(user)
-    revalidatePath('/konto')
-    // redirect(`/konto/${user.id}`)
+	if (error) {
+		return { error: 'Niepoprawne dane logowania' }
+	}
+
+	revalidatePath('/konto')
 }
 
 export async function signup(formData: FormData) {
-    const supabase = await createClient()
+	const supabase = await createClient()
 
-    const data = {
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-    }
+	const data = {
+		email: formData.get('email') as string,
+		password: formData.get('password') as string,
+		username: formData.get('username') as string,
+		gender: formData.get('gender') as string,
+	}
 
-    const { error } = await supabase.auth.signUp(data)
+	const { error } = await supabase.auth.signUp({
+		email: data.email,
+		password: data.password,
+		options: {
+			data: {
+				username: data.username,
+				gender: data.gender,
+			},
+		},
+	})
 
-    if (error) {
-        redirect('/panel/zaloguj-sie')
-    }
+	if (error) {
+		redirect('/panel/zaloguj-sie')
+	}
 
-    // revalidatePath('/', 'layout')
-    // redirect('/')
+	// revalidatePath('/', 'layout')
+	// redirect('/')
 }
 export async function logout() {
-    const supabase = await createClient()
+	const supabase = await createClient()
 
-    const { error } = await supabase.auth.signOut()
-    if (error) throw new Error(error.message)
+	const { error } = await supabase.auth.signOut()
+	if (error) throw new Error(error.message)
 
-    // revalidatePath('/', 'layout')
-    redirect('/')
+	// revalidatePath('/', 'layout')
+	redirect('/')
 }
