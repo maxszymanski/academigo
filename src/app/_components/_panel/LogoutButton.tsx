@@ -1,11 +1,25 @@
 'use client'
 import { IoLogOut } from 'react-icons/io5'
 import NavigationLink from '../_ui/NavigationLink'
+import { logout } from '@/app/_actions/auth'
+import { useTransition } from 'react'
 
 function LogoutButton() {
+    const [isPending, startTransition] = useTransition()
+    const handleLogout = async () => {
+        startTransition(async () => {
+            try {
+                await logout()
+            } catch (error) {
+                console.log(error)
+                alert('Nie udało się wylogować.')
+            }
+        })
+    }
+
     return (
         <NavigationLink
-            onClick={() => console.log('siema')}
+            onClick={handleLogout}
             panelNav
             restClass="hidden lg:flex"
         >

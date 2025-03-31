@@ -12,6 +12,7 @@ interface InputType {
     autoComplete?: string
     wrapperClass?: string
     children?: React.ReactNode
+    disabled?: boolean
 }
 
 function Input({
@@ -25,6 +26,7 @@ function Input({
     formRegister = {},
     wrapperClass = '',
     children,
+    disabled = false,
 }: InputType) {
     return (
         <div
@@ -44,6 +46,7 @@ function Input({
                 name={name}
                 {...formRegister}
                 autoComplete={autoComplete}
+                disabled={disabled}
             />
             {error && (
                 <span className="inline-block text-xs font-light text-red-500">

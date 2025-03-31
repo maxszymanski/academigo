@@ -5,6 +5,8 @@ import Input from '../_ui/Input'
 import Button from '../_ui/Button'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTransition } from 'react'
+import { login } from '../../_actions/auth'
 
 interface LoginType {
     email: string
@@ -22,9 +24,16 @@ function LoginForm() {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginType>({ resolver: zodResolver(schema) })
+    const [isPending, startTransition] = useTransition()
 
-    const onSubmit: SubmitHandler<LoginType> = (userData) => {
-        console.log(userData)
+    const onSubmit: SubmitHandler<LoginType> = (data) => {
+        startTransition(async () => {
+            const formData = new FormData()
+            formData.append('email', data.email)
+            formData.append('password', data.password)
+
+            await login(formData)
+        })
     }
 
     return (
@@ -49,6 +58,7 @@ function LoginForm() {
                         formRegister={register('email')}
                         error={errors?.email || null}
                         message={errors?.email?.message || null}
+                        disabled={isPending}
                     />
                     <Input
                         type="password"
@@ -57,6 +67,7 @@ function LoginForm() {
                         formRegister={register('password')}
                         error={errors?.password || null}
                         message={errors?.password?.message || null}
+                        disabled={isPending}
                     />
                     <Button
                         href="/resetowanie-hasla"
@@ -66,8 +77,12 @@ function LoginForm() {
                         Zapomniałeś hasła?
                     </Button>
                 </div>
-                <Button variant="purple" restClass="w-full py-3 rounded-lg ">
-                    Zaloguj się
+                <Button
+                    variant="purple"
+                    restClass="w-full py-3 rounded-lg "
+                    disabled={isPending}
+                >
+                    {isPending ? 'Logowanie...' : 'Zaloguj się'}
                 </Button>
             </form>
             <div className="flex w-full items-center justify-between pb-3">

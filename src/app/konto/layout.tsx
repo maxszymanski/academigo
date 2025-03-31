@@ -1,7 +1,7 @@
 import PanelHeader from '@/app/_components/_panel/PanelHeader'
 import PanelNavigation from '@/app/_components/_panel/PanelNavigation'
 
-function layout({ children }: { children: React.ReactNode }) {
+async function layout({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex h-dvh flex-col-reverse bg-slate50 lg:flex-row">
             <PanelNavigation />

@@ -1,6 +1,7 @@
-import supabase from './supabase'
+import { createClient } from '../utils/supabase/server'
 
 export async function getCategories() {
+    const supabase = await createClient()
     const { data, error } = await supabase.from('categories').select('*')
 
     if (error) {
@@ -10,6 +11,7 @@ export async function getCategories() {
     return data
 }
 export async function getSubCategories(categorySlug: string | null) {
+    const supabase = await createClient()
     let query = supabase.from('sub_categories').select('*').order('name')
 
     if (categorySlug) {
@@ -28,6 +30,7 @@ export async function getSpecializations(
     categorySlug: string | null,
     subCategorySlug: string | null
 ) {
+    const supabase = await createClient()
     let query = supabase.from('specializations').select('*').order('name')
 
     if (categorySlug && !subCategorySlug) {

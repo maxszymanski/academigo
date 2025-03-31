@@ -1,8 +1,11 @@
+'use client'
 import { z } from 'zod'
 import Input from '../_ui/Input'
 import Button from '../_ui/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTransition } from 'react'
+import { signup } from '../../_actions/auth'
 
 interface SignUpType {
     email: string
@@ -29,9 +32,16 @@ function RegistrationForm() {
         handleSubmit,
         formState: { errors },
     } = useForm<SignUpType>({ resolver: zodResolver(schema) })
+    const [isPending, startTransition] = useTransition()
 
-    const onSubmit: SubmitHandler<SignUpType> = (userData) => {
-        console.log(userData)
+    const onSubmit: SubmitHandler<SignUpType> = (data) => {
+        startTransition(async () => {
+            const formData = new FormData()
+            formData.append('email', data.email)
+            formData.append('password', data.password)
+
+            await signup(formData)
+        })
     }
     return (
         <>
@@ -55,26 +65,33 @@ function RegistrationForm() {
                         formRegister={register('email')}
                         error={errors?.email || null}
                         message={errors?.email?.message || null}
+                        disabled={isPending}
                     />
                     <Input
-                        type="text"
+                        type="password"
                         name="password"
                         placeholder="Hasło"
                         formRegister={register('password')}
                         error={errors?.password || null}
                         message={errors?.password?.message || null}
+                        disabled={isPending}
                     />
                     <Input
-                        type="text"
+                        type="password"
                         name="confirmPassword"
                         placeholder="Powtórz hasło"
                         formRegister={register('confirmPassword')}
                         error={errors?.confirmPassword || null}
                         message={errors?.confirmPassword?.message || null}
+                        disabled={isPending}
                     />
                 </div>
-                <Button variant="purple" restClass="w-full py-3 rounded-lg">
-                    Wpisz się
+                <Button
+                    variant="purple"
+                    restClass="w-full py-3 rounded-lg"
+                    disabled={isPending}
+                >
+                    {isPending ? 'Wpisywanie...' : 'Wpisz się'}
                 </Button>
             </form>
             <div className="flex w-full items-center justify-between pb-3">
