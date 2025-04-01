@@ -58,7 +58,8 @@ export async function login(formData: FormData) {
 		return { error: 'Niepoprawne dane logowania' }
 	}
 
-	revalidatePath('/konto')
+	revalidatePath('/konto/panel')
+	redirect('/konto/panel')
 }
 
 export async function signup(formData: FormData) {
@@ -71,23 +72,31 @@ export async function signup(formData: FormData) {
 		gender: formData.get('gender') as string,
 	}
 
-	const { error } = await supabase.auth.signUp({
+	const { data: authData, error } = await supabase.auth.signUp({
 		email: data.email,
 		password: data.password,
-		options: {
-			data: {
-				username: data.username,
-				gender: data.gender,
-			},
-		},
 	})
 
 	if (error) {
-		redirect('/panel/zaloguj-sie')
+		return { error: 'Wystąpił problem podczas rejestracji' }
 	}
 
-	// revalidatePath('/', 'layout')
-	// redirect('/')
+	const userId = authData.user?.id
+
+	if (userId) {
+		const { error: createError } = await supabase.from('users').insert({
+			id: userId,
+			email: data.email,
+			username: data.username,
+			gender: data.gender,
+		})
+		if (createError) {
+			return { error: 'Wystąpił problem podczas rejestracji' }
+		}
+	}
+
+	revalidatePath('/panel/rejestracja')
+	redirect('/')
 }
 export async function logout() {
 	const supabase = await createClient()
@@ -95,6 +104,22 @@ export async function logout() {
 	const { error } = await supabase.auth.signOut()
 	if (error) throw new Error(error.message)
 
-	// revalidatePath('/', 'layout')
+	revalidatePath('/', 'layout')
 	redirect('/')
+}
+export async function getCurrentUser() {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	const userId = authData.user?.id
+
+	const { data: user, error } = await supabase.from('users').select('*').eq('id', userId).single()
+
+	if (error) throw new Error(error.message)
+
+	return user
+
+	// revalidatePath('/', 'layout')
 }

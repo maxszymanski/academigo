@@ -1,15 +1,13 @@
 import Button from './Button'
 
-function AuthButton() {
-    // const session = await auth()
-    // console.log(session)
-    return (
-        <li>
-            <Button href="/panel" restClass=" xl:min-w-[160px]">
-                Moje konto
-            </Button>
-        </li>
-    )
+function AuthButton({ isUser = false }: { isUser?: boolean }) {
+	return (
+		<li>
+			<Button href={isUser ? '/konto/panel' : '/panel/zaloguj=sie'} restClass=" xl:min-w-[160px]">
+				{isUser ? 'Moje konto' : 'Zaloguj się'}
+			</Button>
+		</li>
+	)
 }
 
 export default AuthButton

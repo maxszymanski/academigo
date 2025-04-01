@@ -4,7 +4,7 @@ import Input from '../_ui/Input'
 import Button from '../_ui/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { signup } from '../../_actions/auth'
 
 interface SignUpType {
@@ -12,7 +12,7 @@ interface SignUpType {
 	username: string
 	password: string
 	confirmPassword: string
-	gender: string
+	gender: 'kobieta' | 'mężczyzna'
 }
 
 const schema = z
@@ -28,7 +28,12 @@ const schema = z
 			.string()
 			.nonempty('Potwierdzenie hasła nie może być puste')
 			.min(8, 'Hasło musi mieć co najmniej 8 znaków'),
-		gender: z.string().nonempty('Proszę wybrać płeć').default(''),
+		gender: z
+			.enum(['kobieta', 'mężczyzna'])
+			.nullable()
+			.refine(value => value !== null, {
+				message: 'Proszę wybrać płeć',
+			}),
 	})
 	.refine(data => data.password === data.confirmPassword, {
 		message: 'Hasła muszą być takie same',
@@ -40,8 +45,10 @@ function RegistrationForm() {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<SignUpType>({ resolver: zodResolver(schema) })
 	const [isPending, startTransition] = useTransition()
+	const [error, setError] = useState<string | null>(null)
 
 	const onSubmit: SubmitHandler<SignUpType> = data => {
 		startTransition(async () => {
@@ -50,7 +57,13 @@ function RegistrationForm() {
 			formData.append('password', data.password)
 			formData.append('username', data.username)
 			formData.append('gender', data.gender)
-			await signup(formData)
+
+			const result = await signup(formData)
+
+			if (result?.error) {
+				setError(result.error)
+				reset()
+			}
 		})
 	}
 	return (
@@ -114,6 +127,7 @@ function RegistrationForm() {
 							</span>
 						)}
 					</div>
+					{error && <span className="text-xs font-light text-red-500 mt-2 pl-2">{error}</span>}
 				</div>
 				<div className="w-full px-2">
 					<Button variant="purple" restClass="w-full py-3 rounded-lg" disabled={isPending}>
