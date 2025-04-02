@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useTransition } from 'react'
 import { login } from '../../_actions/auth'
+import GoogleButton from '../_ui/GoogleButton'
 
 interface LoginType {
 	email: string
@@ -73,9 +74,11 @@ function LoginForm() {
 						Zapomniałeś hasła?
 					</Button>
 				</div>
-				<Button variant="purple" restClass="w-full py-3 rounded-lg " disabled={isPending}>
+				<Button variant="purple" restClass="w-full py-3 rounded-lg xl:!text-base xl:!py-3" disabled={isPending}>
 					{isPending ? 'Logowanie ...' : 'Zaloguj się'}
 				</Button>
+				<span className='text-xs font-normal text-white/50 self-center py-5'>Lub</span>
+				<GoogleButton/>
 			</form>
 			<div className="flex w-full items-center justify-between pb-3">
 				<p className="text-xs font-normal text-white/70 sm:text-sm">Nie masz jeszcze konta?</p>

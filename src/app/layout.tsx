@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import Navigation from './_components/_ui/Navigation'
-import { getCurrentUser } from './_actions/auth'
+import { getCurrentUser, getUser } from './_actions/auth'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -23,7 +23,8 @@ export default async function RootLayout({
 	children: React.ReactNode
 }>) {
 	const user = await getCurrentUser()
-	// zmienić na pobieranie tylko czy jest klient zwrócić null
+
+	
 
 	const isUser = !!user?.id
 

@@ -61,6 +61,25 @@ export async function login(formData: FormData) {
 	revalidatePath('/konto/panel')
 	redirect('/konto/panel')
 }
+export async function loginWithGoogle() {
+	const supabase = await createClient()
+
+
+	const { data, error } = await supabase.auth.signInWithOAuth({
+		provider: 'google',
+		options: {
+		  redirectTo: 'https://staekcbwplnzsgcpuggb.supabase.co/auth/v1/callback',
+		 
+		},
+	  })
+	  if (error) {
+		return { error: 'Niepoprawne dane logowania' }
+	}
+
+	  if (data.url) {
+		redirect(data.url)
+	  }
+}
 
 export async function signup(formData: FormData) {
 	const supabase = await createClient()
@@ -107,6 +126,16 @@ export async function logout() {
 	revalidatePath('/', 'layout')
 	redirect('/')
 }
+
+export async function getUser () {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	return authData
+}
+
 export async function getCurrentUser() {
 	const supabase = await createClient()
 
