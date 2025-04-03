@@ -15,7 +15,7 @@ function LogoutButton() {
 
 	return (
 		<>
-			{isPending && <LoadingPortal />}
+			{isPending && <LoadingPortal information="Wylogowywanie" />}
 			<NavigationLink
 				onClick={() => {
 					handleLogout()

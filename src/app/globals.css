@@ -4,13 +4,45 @@
 
 html,
 body {
-    font-weight: 400;
-    font-optical-sizing: auto;
-    font-style: normal;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    min-height: 100svh;
+	font-weight: 400;
+	font-optical-sizing: auto;
+	font-style: normal;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100svh;
 
-    @apply bg-white;
+	@apply bg-white;
+}
+
+.loader {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	display: inline-block;
+	border-top: 3px solid #050505;
+	border-right: 3px solid transparent;
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
+}
+.loader::after {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	border-left: 3px solid #925fe2;
+	border-bottom: 3px solid transparent;
+	animation: rotation 0.5s linear infinite reverse;
+}
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

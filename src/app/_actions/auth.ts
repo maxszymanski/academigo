@@ -64,21 +64,20 @@ export async function login(formData: FormData) {
 export async function loginWithGoogle() {
 	const supabase = await createClient()
 
-
-	const { data, error } = await supabase.auth.signInWithOAuth({
+	const { data } = await supabase.auth.signInWithOAuth({
 		provider: 'google',
 		options: {
-		  redirectTo: 'https://staekcbwplnzsgcpuggb.supabase.co/auth/v1/callback',
-		 
+			redirectTo: 'http://localhost:3000/auth/callback',
+			queryParams: {
+				access_type: 'offline',
+				prompt: 'consent',
+			},
 		},
-	  })
-	  if (error) {
-		return { error: 'Niepoprawne dane logowania' }
-	}
+	})
 
-	  if (data.url) {
+	if (data.url) {
 		redirect(data.url)
-	  }
+	}
 }
 
 export async function signup(formData: FormData) {
@@ -91,13 +90,21 @@ export async function signup(formData: FormData) {
 		gender: formData.get('gender') as string,
 	}
 
+	const { data: existingUser } = await supabase.from('users').select('id').eq('email', data.email).single()
+
+	if (existingUser) {
+		return {
+			error: 'Ten adres e-mail jest już zarejestrowany w naszym systemie. Spróbuj się zalogować lub użyj innego adresu.',
+		}
+	}
+
 	const { data: authData, error } = await supabase.auth.signUp({
 		email: data.email,
 		password: data.password,
 	})
 
 	if (error) {
-		return { error: 'Wystąpił problem podczas rejestracji' }
+		return { error: 'Wystąpił problem podczas rejestracji, proszę spróbować ponownie.' }
 	}
 
 	const userId = authData.user?.id
@@ -110,7 +117,7 @@ export async function signup(formData: FormData) {
 			gender: data.gender,
 		})
 		if (createError) {
-			return { error: 'Wystąpił problem podczas rejestracji' }
+			return { error: 'Wystąpił problem podczas rejestracji, proszę spróbować ponownie.' }
 		}
 	}
 
@@ -127,13 +134,13 @@ export async function logout() {
 	redirect('/')
 }
 
-export async function getUser () {
+export async function getUser() {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
 	if (authError) return null
 
-	return authData
+	return authData.user
 }
 
 export async function getCurrentUser() {
@@ -142,9 +149,9 @@ export async function getCurrentUser() {
 	const { data: authData, error: authError } = await supabase.auth.getUser()
 	if (authError) return null
 
-	const userId = authData.user?.id
+	const userEmail = authData.user?.email
 
-	const { data: user, error } = await supabase.from('users').select('*').eq('id', userId).single()
+	const { data: user, error } = await supabase.from('users').select('*').eq('email', userEmail).single()
 
 	if (error) throw new Error(error.message)
 

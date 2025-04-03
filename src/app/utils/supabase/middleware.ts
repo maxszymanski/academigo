@@ -39,7 +39,7 @@ export async function updateSession(request: NextRequest) {
 	}
 	if (user && request.nextUrl.pathname.startsWith('/panel')) {
 		const url = request.nextUrl.clone()
-		url.pathname = `/konto/panel`
+		url.pathname = `/konto`
 		return NextResponse.redirect(url)
 	}
 

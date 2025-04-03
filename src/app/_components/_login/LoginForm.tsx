@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useTransition } from 'react'
 import { login } from '../../_actions/auth'
 import GoogleButton from '../_ui/GoogleButton'
+import Spinner from '../_ui/Spinner'
 
 interface LoginType {
 	email: string
@@ -75,10 +76,11 @@ function LoginForm() {
 					</Button>
 				</div>
 				<Button variant="purple" restClass="w-full py-3 rounded-lg xl:!text-base xl:!py-3" disabled={isPending}>
-					{isPending ? 'Logowanie ...' : 'Zaloguj się'}
+					{isPending ? 'Logowanie' : 'Zaloguj się'}{' '}
+					{isPending && <Spinner restClass="ml-6 absolute right-3 sm:right-8" />}
 				</Button>
-				<span className='text-xs font-normal text-white/50 self-center py-5'>Lub</span>
-				<GoogleButton/>
+				<span className="text-xs font-normal text-white/50 self-center py-5">Lub</span>
+				<GoogleButton />
 			</form>
 			<div className="flex w-full items-center justify-between pb-3">
 				<p className="text-xs font-normal text-white/70 sm:text-sm">Nie masz jeszcze konta?</p>

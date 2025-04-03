@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useTransition } from 'react'
 import { signup } from '../../_actions/auth'
+import Spinner from '../_ui/Spinner'
 
 interface SignUpType {
 	email: string
@@ -131,7 +132,8 @@ function RegistrationForm() {
 				</div>
 				<div className="w-full px-2">
 					<Button variant="purple" restClass="w-full py-3 rounded-lg" disabled={isPending}>
-						{isPending ? 'Wpisywanie...' : 'Wpisz się'}
+						{isPending ? 'Wpisywanie' : 'Wpisz się'}
+						{isPending && <Spinner restClass="ml-6 absolute right-3 sm:right-8" />}
 					</Button>
 				</div>
 			</form>

@@ -4,7 +4,7 @@ import { pl } from 'date-fns/locale'
 import StudentGirl from '../../../../public/student-girl.webp'
 import Student from '../../../../public/student-sm.webp'
 
-function PanelHello({ gender, username }: { gender: string; username: string }) {
+function PanelHello({ gender, username }: { gender: string | null; username: string }) {
 	const today = new Date()
 	const formattedDate = format(today, 'd MMMM yyyy', { locale: pl })
 

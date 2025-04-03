@@ -13,20 +13,20 @@ function PanelNavigation() {
 				<PanelLogo />
 			</div>
 			<ul className="flex w-full items-center justify-around lg:flex-1 lg:flex-col lg:items-stretch lg:justify-start lg:gap-6 lg:py-8">
-				<NavigationLink href="/panel/max" panelNav>
+				<NavigationLink href="/konto" panelNav>
 					<MdDashboard className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Panel</span>
 				</NavigationLink>
-				<NavigationLink href="/panel/a" panelNav>
+				<NavigationLink href="/konto/" panelNav>
 					<RiGraduationCapFill className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Moje kursy</span>
 				</NavigationLink>
 
-				<NavigationLink href="/panel/b" panelNav>
+				<NavigationLink href="/konto/o-mnie" panelNav>
 					<FaUser className="size-6 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">O mnie</span>
 				</NavigationLink>
-				<NavigationLink href="/panel/x" panelNav>
+				<NavigationLink href="/konto/ustawienia" panelNav>
 					<IoMdSettings className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />
 					<span className="hidden lg:block">Ustawienia</span>
 				</NavigationLink>
