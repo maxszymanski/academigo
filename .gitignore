@@ -32,7 +32,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+<<<<<<< HEAD
 .toml*
+=======
+.toml
+>>>>>>> 0235040 (save)
 
 # vercel
 .vercel
