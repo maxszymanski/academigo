@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { pl } from 'date-fns/locale'
-import StudentGirl from '../../../../public/student-girl.webp'
-import Student from '../../../../public/student-sm.webp'
+import StudentGirl from '@/assets/student-girl.webp'
+import Student from '@/assets//student-sm.webp'
 
 function PanelHello({ gender, username }: { gender: string | null; username: string }) {
 	const today = new Date()
