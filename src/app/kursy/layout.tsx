@@ -1,4 +1,3 @@
-import CourseHeader from '../_components/_courses/CourseHeader'
 import Footer from '../_components/_footer/Footer'
 
 function layout({
@@ -8,7 +7,6 @@ function layout({
 }>) {
 	return (
 		<>
-			<CourseHeader />
 			{children}
 			<Footer />
 		</>

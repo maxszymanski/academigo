@@ -5,6 +5,7 @@ import { FaUser } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { RiGraduationCapFill } from 'react-icons/ri'
 import LogoutButton from './LogoutButton'
+import { FaPlus } from 'react-icons/fa6'
 
 function PanelNavigation() {
 	return (
@@ -20,6 +21,10 @@ function PanelNavigation() {
 				<NavigationLink href="/konto/" panelNav>
 					<RiGraduationCapFill className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Moje kursy</span>
+				</NavigationLink>
+				<NavigationLink href="/konto/dodaj-kurs" panelNav>
+					<FaPlus className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
+					<span className="hidden lg:block">Dodaj kurs</span>
 				</NavigationLink>
 
 				<NavigationLink href="/konto/o-mnie" panelNav>

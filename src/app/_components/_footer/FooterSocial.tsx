@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../_ui/Logo'
-import FbIcon from '@/asstets/icon-fb.png'
-import TwitterIcon from '@/asstets/icon-twitter.png'
-import YtIcon from '@/asstets/icon-yt.png'
+import FbIcon from '@/assets/icon-fb.png'
+import TwitterIcon from '@/assets/icon-twitter.png'
+import YtIcon from '@/assets/icon-yt.png'
 
 function FooterSocial() {
 	return (
