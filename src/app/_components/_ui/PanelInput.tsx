@@ -1,7 +1,5 @@
-'use client'
 import { FieldError } from 'react-hook-form'
 import { FaCamera } from 'react-icons/fa'
-import { FaImage } from 'react-icons/fa'
 
 interface PanelInputProps {
 	type?: string

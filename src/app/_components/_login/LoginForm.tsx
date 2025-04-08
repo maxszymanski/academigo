@@ -3,45 +3,34 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import Input from '../_ui/Input'
 import Button from '../_ui/Button'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 import { login } from '../../_actions/auth'
 import GoogleButton from '../_ui/GoogleButton'
 import Spinner from '../_ui/Spinner'
-
-interface LoginType {
-	email: string
-	password: string
-}
-
-const schema = z.object({
-	email: z.string().nonempty('Email jest wymagany').email('Nieprawidłowy email'),
-	password: z.string().nonempty('Hasło jest wymagane').min(8, 'Hasło musi mieć co najmniej 8 znaków'),
-})
+import { loginSchema, LoginType } from '@/app/_lib/validators'
 
 function LoginForm() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 		reset,
-	} = useForm<LoginType>({ resolver: zodResolver(schema) })
-	const [isPending, startTransition] = useTransition()
+	} = useForm<LoginType>({ resolver: zodResolver(loginSchema) })
 	const [error, setError] = useState<string | null>(null)
 
-	const onSubmit: SubmitHandler<LoginType> = data => {
-		startTransition(async () => {
-			const formData = new FormData()
-			formData.append('email', data.email)
-			formData.append('password', data.password)
+	const onSubmit: SubmitHandler<LoginType> = async data => {
+		const formData = new FormData()
 
-			const result = await login(formData)
-			if (result?.error) {
-				setError(result.error)
-				reset()
-			}
-		})
+		for (const key in data) {
+			formData.append(key, data[key as keyof LoginType] as string)
+		}
+
+		const result = await login(formData)
+		if (result?.error) {
+			setError(result.error)
+			reset()
+		}
 	}
 
 	return (
@@ -59,7 +48,7 @@ function LoginForm() {
 						formRegister={register('email')}
 						error={errors?.email || error || null}
 						message={errors?.email?.message || null}
-						disabled={isPending}
+						disabled={isSubmitting}
 					/>
 					<Input
 						type="password"
@@ -68,16 +57,19 @@ function LoginForm() {
 						formRegister={register('password')}
 						error={errors?.password || null}
 						message={errors?.password?.message || null}
-						disabled={isPending}
+						disabled={isSubmitting}
 					/>
 					{error && <span className="text-xs font-light text-red-500 mt-2 pl-2">{error}</span>}
 					<Button href="/resetowanie-hasla" restClass="text-xs mt-2 px-2 py-2" variant="transparent">
 						Zapomniałeś hasła?
 					</Button>
 				</div>
-				<Button variant="purple" restClass="w-full py-3 rounded-lg xl:!text-base xl:!py-3" disabled={isPending}>
-					{isPending ? 'Logowanie' : 'Zaloguj się'}{' '}
-					{isPending && <Spinner restClass="ml-6 absolute right-3 sm:right-8" />}
+				<Button
+					variant="purple"
+					restClass="w-full py-3 rounded-lg xl:!text-base xl:!py-3"
+					disabled={isSubmitting}>
+					{isSubmitting ? 'Logowanie' : 'Zaloguj się'}{' '}
+					{isSubmitting && <Spinner restClass="ml-6 absolute right-3 sm:right-8" />}
 				</Button>
 				<span className="text-xs font-normal text-white/50 self-center py-5">Lub</span>
 				<GoogleButton />

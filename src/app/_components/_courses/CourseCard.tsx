@@ -26,7 +26,8 @@ function CourseCard({ i, isMainPage = false, isList = false }: { i: number; isMa
 			/>
 			<div
 				className={`flex flex-1 flex-col justify-between rounded-b-2xl text-stone400 ${isList ? 'px-6 py-3' : 'px-3 py-2'}`}>
-				<h3 className="text-base font-semibold text-primary overflow-hidden overflow-ellipsis whitespace-normal line-clamp-2 pr-2">
+				<h3
+					className={`text-base font-semibold text-stone400 overflow-hidden overflow-ellipsis whitespace-normal line-clamp-2  ${isList ? 'max-w-[70%]' : 'pr-2'} `}>
 					{name}
 				</h3>
 				<p className="text-stone400">

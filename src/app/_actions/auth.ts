@@ -43,23 +43,28 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '../utils/supabase/server'
+import { loginSchema, signUpSchema } from '../_lib/validators'
 
 export async function login(formData: FormData) {
-	const supabase = await createClient()
-
-	const data = {
+	const result = loginSchema.safeParse({
 		email: formData.get('email') as string,
 		password: formData.get('password') as string,
+	})
+
+	if (!result.success) {
+		return { error: 'Niepoprawne dane logowania' }
 	}
 
-	const { error } = await supabase.auth.signInWithPassword(data)
+	const supabase = await createClient()
+
+	const { error } = await supabase.auth.signInWithPassword(result.data)
 
 	if (error) {
 		return { error: 'Niepoprawne dane logowania' }
 	}
 
-	revalidatePath('/konto/panel')
-	redirect('/konto/panel')
+	revalidatePath('/konto')
+	redirect('/konto')
 }
 export async function loginWithGoogle() {
 	const supabase = await createClient()
@@ -81,16 +86,21 @@ export async function loginWithGoogle() {
 }
 
 export async function signup(formData: FormData) {
-	const supabase = await createClient()
-
-	const data = {
+	const result = signUpSchema.safeParse({
 		email: formData.get('email') as string,
 		password: formData.get('password') as string,
+		confirmPassword: formData.get('confirmPassword') as string,
 		username: formData.get('username') as string,
 		gender: formData.get('gender') as string,
+	})
+
+	if (!result.success) {
+		return { error: 'Wystąpił problem podczas rejestracji, proszę spróbować ponownie.' }
 	}
 
-	const { data: existingUser } = await supabase.from('users').select('id').eq('email', data.email).single()
+	const supabase = await createClient()
+
+	const { data: existingUser } = await supabase.from('users').select('id').eq('email', result.data.email).single()
 
 	if (existingUser) {
 		return {
@@ -99,8 +109,8 @@ export async function signup(formData: FormData) {
 	}
 
 	const { data: authData, error } = await supabase.auth.signUp({
-		email: data.email,
-		password: data.password,
+		email: result.data.email,
+		password: result.data.password,
 	})
 
 	if (error) {
@@ -112,9 +122,9 @@ export async function signup(formData: FormData) {
 	if (userId) {
 		const { error: createError } = await supabase.from('users').insert({
 			id: userId,
-			email: data.email,
-			username: data.username,
-			gender: data.gender,
+			email: result.data.email,
+			username: result.data.username,
+			gender: result.data.gender,
 		})
 		if (createError) {
 			return { error: 'Wystąpił problem podczas rejestracji, proszę spróbować ponownie.' }
