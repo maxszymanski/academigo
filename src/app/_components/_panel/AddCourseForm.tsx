@@ -1,49 +1,98 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Checkbox from '../_ui/Checkbox'
 import PanelInput from '../_ui/PanelInput'
 import CustomSelect from '../_ui/CustomSelect'
 import Button from '../_ui/Button'
-import { FieldError, useForm } from 'react-hook-form'
+import { FieldError, SubmitHandler, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addCourseSchema, AddCourseType } from '@/app/_lib/validators'
 import Spinner from '../_ui/Spinner'
+import { Category, SubCat } from '@/app/_types/types'
+import { getSpecializationsOnClient, getSubCategoriesOnClient } from '@/app/_lib/client-service'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
 
-function AddCourseForm({ platforms }: { platforms: string[] }) {
+function AddCourseForm({ platforms, categories }: { platforms: string[]; categories: Category[] }) {
 	const {
 		register,
 		handleSubmit,
+		control,
+		setValue,
 		formState: { errors, isSubmitting },
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
 	})
 	// const [isPending, startTransition] = useTransition()
+	const selectedCategory = useWatch({ control, name: 'categories' })
+	const selectedSubCategory = useWatch({ control, name: 'sub_categories' })
+
 	const [isFree, setIsFree] = useState(false)
 
-	// const onSubmit: SubmitHandler<AddCourseType> = data => {
-	// 	startTransition(async () => {
-	// 		// const formData = new FormData()
-	// 		// formData.append('email', data.email)
-	// 		// formData.append('password', data.password)
-	// 		console.log(data)
+	const [subCategories, setSubCategories] = useState<SubCat[] | []>([])
+	const [specializations, setSpecializations] = useState<SubCat[] | []>([])
 
-	// 		// const result = await login(formData)
-	// 		// if (result?.error) {
-	// 		// 	setError(result.error)
-	// 		// 	reset()
-	// 		// }
-	// 	})
-	// }
+	useEffect(() => {
+		setValue('sub_categories', 'Wybierz podkategorię kursu')
+		setValue('specialization', 'Wybierz specializacje kursu')
+	}, [selectedCategory, setValue])
+
+	useEffect(() => {
+		if (!selectedCategory) return
+
+		const fetchSubCategories = async () => {
+			setValue('specialization', 'Wybierz specializacje kursu')
+			// setValue('sub_categories', 'Wybierz podkategorię kursu')
+			const subCategoryList = await getSubCategoriesOnClient(selectedCategory)
+			setSubCategories(subCategoryList)
+		}
+
+		fetchSubCategories()
+	}, [selectedCategory, selectedSubCategory, setValue])
+
+	useEffect(() => {
+		if (!selectedSubCategory) return
+
+		const fetchSpecializations = async () => {
+			const specializationsList = await getSpecializationsOnClient(selectedCategory, selectedSubCategory)
+
+			setSpecializations(specializationsList)
+			setValue('specialization', 'Wybierz specializacje kursu')
+		}
+
+		fetchSpecializations()
+	}, [selectedSubCategory, selectedCategory, setValue])
+
+	const onSubmit: SubmitHandler<AddCourseType> = data => {
+		// const formData = new FormData()
+		// formData.append('email', data.email)
+		// formData.append('password', data.password)
+		console.log(data)
+
+		// const result = await login(formData)
+		// if (result?.error) {
+		// 	setError(result.error)
+		// 	reset()
+		// }
+	}
 
 	return (
 		<form
 			className="w-full px-3 py-8 border border-slate-200 bg-white rounded-lg flex flex-col flex-wrap gap-7 shadow-md shadow-stone-200 md:flex-row md:flex-wrap md:items-start   xl:gap-8 lg:py-14 md:justify-evenly 2xl:px-20"
-			onSubmit={handleSubmit(() => {})}>
+			onSubmit={handleSubmit(onSubmit)}>
 			<div className="w-full md:max-w-md flex flex-col gap-7 xl:gap-8">
+				<PanelInput
+					label="Obraz kursu"
+					type="file"
+					name="picture"
+					placeholder="Wybierz obraz kursu"
+					formRegister={register('picture')}
+					error={errors?.picture as FieldError | null | undefined}
+					message={typeof errors?.picture?.message === 'string' ? errors.picture.message : null}
+					required
+				/>
 				<PanelInput
 					label="Tytuł "
 					type="text"
@@ -117,6 +166,35 @@ function AddCourseForm({ platforms }: { platforms: string[] }) {
 			</div>
 			<div className="w-full md:max-w-md flex flex-col gap-7 xl:gap-8">
 				<CustomSelect
+					categoriesData={categories}
+					label="Kategoria kursu"
+					defaultOption="Wybierz kategorię kursu"
+					formRegister={register('categories')}
+					error={errors?.categories || null}
+					message={errors?.categories?.message || null}
+					name="categories"
+				/>
+				<CustomSelect
+					subCategoriesData={subCategories}
+					label="Podkategoria kursu"
+					defaultOption="Wybierz podkategorię kursu"
+					formRegister={register('sub_categories')}
+					error={errors?.sub_categories || null}
+					message={errors?.sub_categories?.message || null}
+					name="sub_categories"
+					disabled={subCategories.length === 0}
+				/>
+				<CustomSelect
+					subCategoriesData={specializations}
+					label="Specializacja kursu"
+					defaultOption="Wybierz specializacje kursu"
+					formRegister={register('specialization')}
+					error={errors?.specialization || null}
+					message={errors?.specialization?.message || null}
+					name="specialization"
+					disabled={specializations.length === 0}
+				/>
+				<CustomSelect
 					optionsData={difficultyLevels}
 					label="Poziom kursu"
 					defaultOption="Wybierz poziom kursu"
@@ -152,16 +230,6 @@ function AddCourseForm({ platforms }: { platforms: string[] }) {
 					formRegister={register('author_link')}
 					error={errors?.author_link || null}
 					message={errors?.author_link?.message || null}
-				/>
-				<PanelInput
-					label="Obraz kursu"
-					type="file"
-					name="picture"
-					placeholder="Wybierz obraz kursu"
-					formRegister={register('picture')}
-					error={errors?.picture as FieldError | null | undefined}
-					message={typeof errors?.picture?.message === 'string' ? errors.picture.message : null}
-					required
 				/>
 			</div>
 			<PanelInput

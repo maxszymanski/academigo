@@ -10,7 +10,7 @@ export async function getCategories() {
 
 	return data
 }
-export async function getSubCategories(categorySlug: string | null) {
+export async function getSubCategories(categorySlug?: string | null) {
 	const supabase = await createClient()
 	let query = supabase.from('sub_categories').select('*').order('name')
 
@@ -26,6 +26,7 @@ export async function getSubCategories(categorySlug: string | null) {
 
 	return data
 }
+
 export async function getSpecializations(categorySlug: string | null, subCategorySlug: string | null) {
 	const supabase = await createClient()
 	let query = supabase.from('specializations').select('*').order('name')
@@ -45,6 +46,7 @@ export async function getSpecializations(categorySlug: string | null, subCategor
 
 	return data
 }
+
 export async function getPlatforms() {
 	const supabase = await createClient()
 
