@@ -7,10 +7,11 @@ import CustomSelect from '../_ui/CustomSelect'
 import Button from '../_ui/Button'
 import { FieldError, SubmitHandler, useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { addCourseSchema, AddCourseType } from '@/app/_lib/validators'
+import { ACCEPTED_IMAGE_TYPES, addCourseSchema, AddCourseType } from '@/app/_lib/validators'
 import Spinner from '../_ui/Spinner'
 import { Category, SubCat } from '@/app/_types/types'
 import { getSpecializationsOnClient, getSubCategoriesOnClient } from '@/app/_lib/client-service'
+import { createCourse } from '@/app/_actions/mutations'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -20,31 +21,61 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 		register,
 		handleSubmit,
 		control,
+		setError,
+		clearErrors,
 		setValue,
 		formState: { errors, isSubmitting },
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
 	})
-	// const [isPending, startTransition] = useTransition()
 	const selectedCategory = useWatch({ control, name: 'categories' })
 	const selectedSubCategory = useWatch({ control, name: 'sub_categories' })
+	const imageFile = useWatch({ control, name: 'picture' })
 
 	const [isFree, setIsFree] = useState(false)
 
 	const [subCategories, setSubCategories] = useState<SubCat[] | []>([])
 	const [specializations, setSpecializations] = useState<SubCat[] | []>([])
+	const [preview, setPreview] = useState<string | null>(null)
 
 	useEffect(() => {
-		setValue('sub_categories', 'Wybierz podkategorię kursu')
-		setValue('specialization', 'Wybierz specializacje kursu')
+		const file = imageFile?.[0]
+
+		if (!file) return
+
+		const isValidType = ACCEPTED_IMAGE_TYPES.includes(file.type)
+
+		if (!isValidType) {
+			setError('picture', {
+				type: 'manual',
+				message: 'Nieprawidłowy format pliku',
+			})
+			return
+		}
+
+		if (file && isValidType) {
+			clearErrors('picture')
+			const objectUrl = URL.createObjectURL(file)
+			setPreview(objectUrl)
+
+			// Sprzątanie po sobie!
+			return () => URL.revokeObjectURL(objectUrl)
+		} else {
+			setPreview(null)
+		}
+	}, [imageFile, setError, clearErrors])
+
+	useEffect(() => {
+		setValue('sub_categories', '')
+		setValue('specialization', '')
 	}, [selectedCategory, setValue])
 
 	useEffect(() => {
 		if (!selectedCategory) return
 
 		const fetchSubCategories = async () => {
-			setValue('specialization', 'Wybierz specializacje kursu')
-			// setValue('sub_categories', 'Wybierz podkategorię kursu')
+			setValue('specialization', '')
+
 			const subCategoryList = await getSubCategoriesOnClient(selectedCategory)
 			setSubCategories(subCategoryList)
 		}
@@ -59,40 +90,51 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 			const specializationsList = await getSpecializationsOnClient(selectedCategory, selectedSubCategory)
 
 			setSpecializations(specializationsList)
-			setValue('specialization', 'Wybierz specializacje kursu')
+			setValue('specialization', '')
 		}
 
 		fetchSpecializations()
 	}, [selectedSubCategory, selectedCategory, setValue])
 
-	const onSubmit: SubmitHandler<AddCourseType> = data => {
-		// const formData = new FormData()
-		// formData.append('email', data.email)
-		// formData.append('password', data.password)
-		console.log(data)
+	const onSubmit: SubmitHandler<AddCourseType> = async data => {
+		const formData = new FormData()
 
-		// const result = await login(formData)
-		// if (result?.error) {
-		// 	setError(result.error)
-		// 	reset()
-		// }
+		for (const key in data) {
+			if (key === 'picture') {
+				const fileList = data.picture as FileList
+				if (fileList && fileList.length > 0) {
+					formData.append('picture', fileList[0]) // ⬅️ tu wrzucasz tylko 1 plik
+				}
+			} else {
+				formData.append(key, data[key as keyof AddCourseType] as string)
+			}
+		}
+		// console.log(data)
+
+		const result = await createCourse(formData)
+
+		if (result?.error) {
+			console.log(result.error)
+		}
 	}
 
 	return (
 		<form
-			className="w-full px-3 py-8 border border-slate-200 bg-white rounded-lg flex flex-col flex-wrap gap-7 shadow-md shadow-stone-200 md:flex-row md:flex-wrap md:items-start   xl:gap-8 lg:py-14 md:justify-evenly 2xl:px-20"
+			className="w-full px-3 py-8 border border-slate-200 bg-white rounded-lg flex flex-col flex-wrap gap-7 shadow-md shadow-stone-200 md:flex-row md:flex-wrap md:items-end   xl:gap-8 lg:py-14 md:justify-evenly 2xl:px-20"
 			onSubmit={handleSubmit(onSubmit)}>
 			<div className="w-full md:max-w-md flex flex-col gap-7 xl:gap-8">
 				<PanelInput
+					preview={preview}
 					label="Obraz kursu"
 					type="file"
 					name="picture"
 					placeholder="Wybierz obraz kursu"
 					formRegister={register('picture')}
-					error={errors?.picture as FieldError | null | undefined}
+					error={errors?.picture as FieldError | null}
 					message={typeof errors?.picture?.message === 'string' ? errors.picture.message : null}
 					required
 				/>
+
 				<PanelInput
 					label="Tytuł "
 					type="text"
@@ -144,7 +186,8 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 					message={errors?.price?.message || null}
 					min={0}
 					disabled={isFree}
-					defaultValue={isFree ? 0 : 0}>
+					defaultValue={isFree ? 0 : undefined}
+					required>
 					<Checkbox
 						formRegister={register('free')}
 						id="free"
@@ -155,13 +198,14 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 				</PanelInput>
 				<PanelInput
 					label="Czas trwania kursu"
-					type="number"
+					type="text"
 					name="duration"
 					formRegister={register('duration')}
 					error={errors?.duration || null}
 					message={errors?.duration?.message || null}
-					placeholder="Czas trwania kursu w minutach"
+					placeholder="Czas trwania kursu np. 1h 10min"
 					min={1}
+					required
 				/>
 			</div>
 			<div className="w-full md:max-w-md flex flex-col gap-7 xl:gap-8">
