@@ -20,8 +20,6 @@ interface PanelInputProps {
 	textArea?: boolean
 	defaultValue?: string | number
 	preview?: string | null
-	description?: string
-	onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 function PanelInput({
@@ -42,8 +40,6 @@ function PanelInput({
 	textArea,
 	defaultValue,
 	preview,
-	description,
-	onChange,
 }: PanelInputProps) {
 	return (
 		<div
@@ -51,11 +47,6 @@ function PanelInput({
 			<div className={`${children ? 'flex items-center justify-between text-nowrap w-full gap-8' : ''}`}>
 				<label htmlFor={name} className={`block text-dark2 ${textArea ? 'mb-2' : 'mb-1'}`}>
 					{label} {required && <span className="text-red-400">*</span>}{' '}
-					{description && !!preview && (
-						<>
-							<br /> <span className="text-xs font-light">{description}</span>
-						</>
-					)}
 				</label>
 
 				{children}
@@ -83,7 +74,6 @@ function PanelInput({
 						maxLength={maxLenght}
 						disabled={disabled}
 						defaultValue={defaultValue}
-						onChange={onChange}
 					/>
 				)}
 				{type === 'file' && preview && (

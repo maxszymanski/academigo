@@ -24,6 +24,7 @@ interface ButtonProps {
 		| 'category'
 		| 'desktopCategory'
 		| 'transparentDark'
+		| 'submit'
 }
 
 const mainClass = 'rounded-full flex  items-center text-nowrap transition-colors duration-300 '
@@ -42,6 +43,7 @@ const variants = {
 	category: ' w-full   py-2.5 hover:text-primary hover:bg-slate50  mb-1 ',
 	desktopCategory:
 		'text-base w-fit px-10 py-5 hover:text-primary/80  hover:border-primary/70 border border-stone400 2xl:text-lg',
+	submit: 'text-primary border  border-slate-200 py-4 px-12 bg-slate50 hover:border-primary focus:border-primary  xl:text-base font-medium lg:px-16 2xl:text-lg',
 }
 
 function Button({

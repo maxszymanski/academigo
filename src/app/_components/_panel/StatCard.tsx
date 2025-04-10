@@ -4,7 +4,7 @@ interface Stat {
 	statType: string
 }
 
-function StatCard({ children, number = '', statType }: Stat) {
+function StatCard({ children, number = '-', statType }: Stat) {
 	return (
 		<div
 			tabIndex={1}
