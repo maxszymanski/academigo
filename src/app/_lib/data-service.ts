@@ -59,14 +59,16 @@ export async function getPlatforms() {
 	return data
 }
 export async function getCoursesCreatedByUser() {
-	await new Promise(resolve => setTimeout(resolve, 3000))
-
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
 	if (authError) return null
 
-	const { data, error } = await supabase.from('courses').select('*').eq('created_by', authData.user.id)
+	const { data, error } = await supabase
+		.from('courses')
+		.select('*')
+		.eq('created_by', authData.user.id)
+		.order('created_at')
 
 	if (error) {
 		throw new Error('Błąd pobierania kursów stworzonych przez użytkownika')

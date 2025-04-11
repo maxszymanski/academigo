@@ -22,7 +22,7 @@ function PanelNavigation() {
 					<RiGraduationCapFill className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Moje kursy</span>
 				</NavigationLink>
-				<NavigationLink href="/konto/dodaj-kurs" panelNav>
+				<NavigationLink href="/konto/kurs/dodaj-kurs" panelNav>
 					<FaPlus className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Dodaj kurs</span>
 				</NavigationLink>

@@ -62,16 +62,6 @@ function PanelInput({
 	}
 
 	useEffect(() => {
-		// if (image && ACCEPTED_IMAGE_TYPES.includes(image.type)) {
-		// 	clearErrors('picture')
-		// 	const objectUrl = URL.createObjectURL(image)
-		// 	setPreview(objectUrl)
-
-		// 	// Sprzątanie po sobie!
-		// 	return () => URL.revokeObjectURL(objectUrl)
-		// } else {
-		// 	setPreview(null)
-		// }
 		if (image && ACCEPTED_IMAGE_TYPES.includes(image.type)) {
 			clearErrors('picture')
 			const reader = new FileReader()
@@ -101,7 +91,7 @@ function PanelInput({
 							type="file"
 							id={name}
 							name={name}
-							className={`rounded-lg mt-1 text-sm px-5 py-3.5 border border-slate-200 bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 h-[200px] w-full max-w-[330px] cursor-pointer flex items-center justify-center} ${!!preview ? 'hidden' : ''}`}
+							className={`rounded-lg mt-1 text-sm px-5 py-3.5 border  bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 h-[200px] w-full max-w-[330px] cursor-pointer flex items-center justify-center} ${!!preview ? 'hidden' : ''} ${error ? 'border-red-500' : 'border-slate-200'}`}
 							accept="image/*"
 							ref={fileInputRef}
 							disabled={disabled}

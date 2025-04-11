@@ -115,8 +115,6 @@ export async function getUser() {
 }
 
 export async function getCurrentUser() {
-	await new Promise(resolve => setTimeout(resolve, 3000))
-
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -129,6 +127,4 @@ export async function getCurrentUser() {
 	if (error) throw new Error(error.message)
 
 	return user
-
-	// revalidatePath('/', 'layout')
 }
