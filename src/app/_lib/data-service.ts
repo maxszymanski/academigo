@@ -76,3 +76,15 @@ export async function getCoursesCreatedByUser() {
 
 	return data
 }
+
+export async function getCoursebyId(courseID: string | number) {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.from('courses').select('*').eq('id', courseID).single()
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}

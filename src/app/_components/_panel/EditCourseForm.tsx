@@ -18,7 +18,15 @@ import LoadingPortal from '../_ui/LoadingPortal'
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
 
-function EditCourseForm({ platforms, categories }: { platforms: string[]; categories: Category[] }) {
+function EditCourseForm({
+	platforms,
+	categories,
+	courseData,
+}: {
+	platforms: string[]
+	categories: Category[]
+	courseData: AddCourseType
+}) {
 	const {
 		register,
 		handleSubmit,
@@ -30,11 +38,11 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
 	})
-	const selectedCategory = useWatch({ control, name: 'categories' })
-	const selectedSubCategory = useWatch({ control, name: 'sub_categories' })
+	const selectedCategory = useWatch({ control, name: 'categories' }) || courseData.categories
+	const selectedSubCategory = useWatch({ control, name: 'sub_categories' }) || courseData.sub_categories
 
-	const [image, setImage] = useState<File | null>(null)
-	const [isFree, setIsFree] = useState(false)
+	const [image, setImage] = useState<File | null | string>(courseData.picture)
+	const [isFree, setIsFree] = useState(courseData.free)
 	const [serverError, setServerError] = useState<string | null>(null)
 
 	const [subCategories, setSubCategories] = useState<SubCat[] | []>([])
@@ -49,14 +57,19 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 		if (!selectedCategory) return
 
 		const fetchSubCategories = async () => {
-			setValue('specialization', '')
+			if (selectedSubCategory === courseData.sub_categories) {
+				setValue('specialization', courseData.specialization)
+				setValue('sub_categories', courseData.sub_categories)
+			} else {
+				setValue('specialization', '')
+			}
 
 			const subCategoryList = await getSubCategoriesOnClient(selectedCategory)
 			setSubCategories(subCategoryList)
 		}
 
 		fetchSubCategories()
-	}, [selectedCategory, selectedSubCategory, setValue])
+	}, [selectedCategory, selectedSubCategory, setValue, courseData.sub_categories, courseData.specialization])
 
 	useEffect(() => {
 		if (!selectedSubCategory) return
@@ -65,13 +78,16 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 			const specializationsList = await getSpecializationsOnClient(selectedCategory, selectedSubCategory)
 
 			setSpecializations(specializationsList)
-			setValue('specialization', '')
+			// setValue('specialization', '')
 		}
 
 		fetchSpecializations()
 	}, [selectedSubCategory, selectedCategory, setValue])
 
 	const onSubmit: SubmitHandler<AddCourseType> = async data => {
+		console.log(data)
+		console.log(image)
+
 		if (!image) {
 			setError('picture', {
 				type: 'manual',
@@ -80,9 +96,9 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 			return
 		}
 
-		const isValidType = ACCEPTED_IMAGE_TYPES.includes(image.type)
+		const isValidType = typeof image === 'string' || ACCEPTED_IMAGE_TYPES.includes(image.type)
 
-		const isValidSize = image.size < MAX_FILE_SIZE
+		const isValidSize = image == courseData.picture || (typeof image != 'string' && image?.size < MAX_FILE_SIZE)
 
 		if (!isValidType) {
 			setError('picture', {
@@ -113,11 +129,11 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 		formData.append('data', JSON.stringify(restData))
 		formData.append('picture', image)
 
-		const result = await createCourse(formData)
+		// const result = await createCourse(formData)
 
-		if (result?.error) {
-			setServerError(result.error)
-		}
+		// if (result?.error) {
+		// 	setServerError(result.error)
+		// }
 	}
 
 	return (
@@ -137,6 +153,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						clearErrors={clearErrors}
 						error={errors?.picture as FieldError | null}
 						message={typeof errors?.picture?.message === 'string' ? errors.picture.message : null}
+						editImg={courseData.picture}
 					/>
 
 					<PanelInput
@@ -148,6 +165,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						message={errors?.title?.message || null}
 						placeholder="Wpisz tytuł kursu"
 						required
+						defaultValue={courseData.title}
 					/>
 
 					<PanelInput
@@ -159,6 +177,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						error={errors?.short_description || null}
 						message={errors?.short_description?.message || null}
 						required
+						defaultValue={courseData.short_description}
 					/>
 
 					<CustomSelect
@@ -169,6 +188,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						formRegister={register('platform')}
 						error={errors?.platform || null}
 						message={errors?.platform?.message || null}
+						defaultValue={courseData.platform}
 					/>
 					<PanelInput
 						label="Link do kursu"
@@ -179,6 +199,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						error={errors?.course_link || null}
 						message={errors?.course_link?.message || null}
 						required
+						defaultValue={courseData.course_link}
 					/>
 					<PanelInput
 						label="Cena kursu"
@@ -190,7 +211,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						message={errors?.price?.message || null}
 						min={0}
 						disabled={isFree}
-						defaultValue={isFree ? '0' : undefined}
+						defaultValue={isFree ? '0' : courseData.price === '' ? '0' : undefined}
 						required>
 						<Checkbox
 							formRegister={register('free')}
@@ -198,6 +219,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 							name="free"
 							label="Darmowy kurs"
 							onClick={() => setIsFree(is => !is)}
+							checked={isFree}
 						/>
 					</PanelInput>
 					<PanelInput
@@ -210,6 +232,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						placeholder="Czas trwania kursu np. 1h 10min"
 						min={1}
 						required
+						defaultValue={courseData.duration}
 					/>
 				</div>
 				<div className="w-full md:max-w-md flex flex-col gap-7 xl:gap-8">
@@ -221,6 +244,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						error={errors?.categories || null}
 						message={errors?.categories?.message || null}
 						name="categories"
+						defaultValue={courseData.categories}
 					/>
 					<CustomSelect
 						subCategoriesData={subCategories}
@@ -230,7 +254,8 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						error={errors?.sub_categories || null}
 						message={errors?.sub_categories?.message || null}
 						name="sub_categories"
-						disabled={subCategories.length === 0}
+						disabled={subCategories.length === 0 && !courseData.sub_categories}
+						defaultValue={courseData.sub_categories}
 					/>
 					<CustomSelect
 						subCategoriesData={specializations}
@@ -240,7 +265,8 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						error={errors?.specialization || null}
 						message={errors?.specialization?.message || null}
 						name="specialization"
-						disabled={specializations.length === 0}
+						disabled={specializations.length === 0 && !courseData.specialization}
+						defaultValue={courseData.specialization}
 					/>
 					<CustomSelect
 						optionsData={difficultyLevels}
@@ -250,6 +276,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						error={errors?.level || null}
 						message={errors?.level?.message || null}
 						name="level"
+						defaultValue={courseData.level}
 					/>
 					<CustomSelect
 						optionsData={languages}
@@ -259,6 +286,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						formRegister={register('language')}
 						error={errors?.language || null}
 						message={errors?.language?.message || null}
+						defaultValue={courseData.language}
 					/>
 
 					<PanelInput
@@ -269,6 +297,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						formRegister={register('author_name')}
 						error={errors?.author_name || null}
 						message={errors?.author_name?.message || null}
+						defaultValue={courseData.author_name || ''}
 					/>
 					<PanelInput
 						label="Link do profilu autora"
@@ -278,6 +307,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 						formRegister={register('author_link')}
 						error={errors?.author_link || null}
 						message={errors?.author_link?.message || null}
+						defaultValue={courseData.author_link || ''}
 					/>
 				</div>
 				<PanelInput
@@ -289,6 +319,7 @@ function EditCourseForm({ platforms, categories }: { platforms: string[]; catego
 					error={errors?.long_description || null}
 					message={errors?.long_description?.message || null}
 					required
+					defaultValue={courseData.long_description}
 				/>
 				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4">
 					<Button variant="submit" restClass="relative" disabled={isSubmitting}>

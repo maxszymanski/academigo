@@ -14,8 +14,9 @@ interface FileInputProps {
 	control: Control<AddCourseType>
 	setError: UseFormSetError<AddCourseType>
 	clearErrors: UseFormClearErrors<AddCourseType>
-	image: File | null
+	image: File | null | string
 	setImage: React.Dispatch<React.SetStateAction<File | null>>
+	editImg?: string
 }
 
 function PanelInput({
@@ -29,10 +30,11 @@ function PanelInput({
 	name,
 	image,
 	setImage,
+	editImg,
 }: FileInputProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null)
 
-	const [preview, setPreview] = useState<string | null>(null)
+	const [preview, setPreview] = useState<string | null>(editImg || null)
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault()
@@ -62,6 +64,8 @@ function PanelInput({
 	}
 
 	useEffect(() => {
+		if (typeof image === 'string') return
+
 		if (image && ACCEPTED_IMAGE_TYPES.includes(image.type)) {
 			clearErrors('picture')
 			const reader = new FileReader()
@@ -69,10 +73,12 @@ function PanelInput({
 				setPreview(reader.result as string)
 			}
 			reader.readAsDataURL(image)
+		} else if (editImg) {
+			return
 		} else {
 			setPreview(null)
 		}
-	}, [image, clearErrors])
+	}, [image, clearErrors, editImg])
 
 	return (
 		<div className={` flex flex-col w-full  md:max-w-md max-w-[330px] self-center`}>

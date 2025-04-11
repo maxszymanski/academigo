@@ -59,6 +59,7 @@ function PanelInput({
 						name={name}
 						{...formRegister}
 						disabled={disabled}
+						defaultValue={defaultValue}
 					/>
 				) : (
 					<input

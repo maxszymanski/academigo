@@ -16,6 +16,7 @@ function CustomSelect({
 	subCategoriesData,
 	specializationsData,
 	disabled = false,
+	defaultValue,
 }: {
 	optionsData?: string[]
 	categoriesData?: Category[]
@@ -28,6 +29,7 @@ function CustomSelect({
 	error?: FieldError | null
 	message?: string | null
 	disabled?: boolean
+	defaultValue?: string
 }) {
 	return (
 		<div className="w-full md:max-w-md ">
@@ -40,7 +42,7 @@ function CustomSelect({
 					name={name}
 					id={name}
 					className={` w-full rounded-lg  text-sm px-5 py-3.5 border  bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none text-dark2 disabled:cursor-not-allowed md:max-w-md 2xl:max-h-[50px] cursor-pointer disabled:text-dark2/80 appearance-none disabled:bg-stone-100 ${error ? 'border-red-500' : 'border-slate-200'}`}
-					defaultValue=""
+					defaultValue={defaultValue || ''}
 					disabled={disabled}
 					{...formRegister}>
 					<option value="" disabled className="bg-[#C8C8C8] text-white">
