@@ -15,7 +15,7 @@ interface FileInputProps {
 	setError: UseFormSetError<AddCourseType>
 	clearErrors: UseFormClearErrors<AddCourseType>
 	image: File | null | string
-	setImage: React.Dispatch<React.SetStateAction<File | null>>
+	setImage: React.Dispatch<React.SetStateAction<File | null | string>>
 	editImg?: string
 }
 
@@ -112,7 +112,7 @@ function PanelInput({
 						className="relative w-full max-w-[330px] md:w-[330px] h-[200px] overflow-hidden rounded-lg block cursor-pointer mt-1 border border-slate-200 bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300  hover:border-slate-400 after:contents-[''] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-transparent after:opacity-0 hover:after:opacity-100 hover:after:bg-slate-200/30 after:duration-300 after:transition-colors"
 						htmlFor="picture"
 						tabIndex={1}>
-						<Image src={preview || '/'} fill alt="zdjecie podglądowe" className="object-cover" />
+						<Image src={preview || '/'} fill alt="zdjecie podglądowe" className="object-cover" priority />
 					</label>
 				)}
 				{!preview && (

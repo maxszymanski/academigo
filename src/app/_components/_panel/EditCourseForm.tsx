@@ -12,11 +12,16 @@ import { ACCEPTED_IMAGE_TYPES, addCourseSchema, AddCourseType, MAX_FILE_SIZE } f
 import Spinner from '../_ui/Spinner'
 import { Category, SubCat } from '@/app/_types/types'
 import { getSpecializationsOnClient, getSubCategoriesOnClient } from '@/app/_lib/client-service'
-import { createCourse } from '@/app/_actions/mutations'
+import { updateCourse } from '@/app/_actions/mutations'
 import LoadingPortal from '../_ui/LoadingPortal'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
+
+export type ExtendedCourseType = AddCourseType & {
+	id: string
+	created_by: string
+}
 
 function EditCourseForm({
 	platforms,
@@ -25,7 +30,7 @@ function EditCourseForm({
 }: {
 	platforms: string[]
 	categories: Category[]
-	courseData: AddCourseType
+	courseData: ExtendedCourseType
 }) {
 	const {
 		register,
@@ -84,10 +89,11 @@ function EditCourseForm({
 		fetchSpecializations()
 	}, [selectedSubCategory, selectedCategory, setValue])
 
-	const onSubmit: SubmitHandler<AddCourseType> = async data => {
-		console.log(data)
-		console.log(image)
+	useEffect(() => {
+		if (isFree) setValue('price', '0')
+	}, [isFree, setValue])
 
+	const onSubmit: SubmitHandler<AddCourseType> = async data => {
 		if (!image) {
 			setError('picture', {
 				type: 'manual',
@@ -129,17 +135,17 @@ function EditCourseForm({
 		formData.append('data', JSON.stringify(restData))
 		formData.append('picture', image)
 
-		// const result = await createCourse(formData)
+		const result = await updateCourse(formData, courseData.id)
 
-		// if (result?.error) {
-		// 	setServerError(result.error)
-		// }
+		if (result?.error) {
+			setServerError(result.error)
+		}
 	}
 
 	return (
 		<>
 			{' '}
-			{isSubmitting && <LoadingPortal information="Dodawanie kursu" />}
+			{isSubmitting && <LoadingPortal information="Edytowanie kursu" />}
 			<form
 				className="w-full px-3 py-8 border border-slate-200 bg-white rounded-lg flex flex-col flex-wrap gap-7 shadow-md shadow-stone-200 md:flex-row md:flex-wrap md:items-end   xl:gap-8 lg:py-14 md:justify-evenly 2xl:px-20"
 				onSubmit={handleSubmit(onSubmit)}>
@@ -211,7 +217,7 @@ function EditCourseForm({
 						message={errors?.price?.message || null}
 						min={0}
 						disabled={isFree}
-						defaultValue={isFree ? '0' : courseData.price === '' ? '0' : undefined}
+						defaultValue={isFree ? '0' : courseData.price}
 						required>
 						<Checkbox
 							formRegister={register('free')}
@@ -323,7 +329,7 @@ function EditCourseForm({
 				/>
 				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4">
 					<Button variant="submit" restClass="relative" disabled={isSubmitting}>
-						{isSubmitting ? 'Dodawanie' : 'Dodaj kurs'}
+						{isSubmitting ? 'Edytowanie' : 'Edytuj kurs'}
 						{isSubmitting && <Spinner restClass="ml-6 absolute right-3 md:right-4" />}
 					</Button>
 					{serverError && <span className="text-sm text-red-500 mt-2 pl-1 block">{serverError}</span>}

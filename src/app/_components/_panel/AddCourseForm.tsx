@@ -33,7 +33,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 	const selectedCategory = useWatch({ control, name: 'categories' })
 	const selectedSubCategory = useWatch({ control, name: 'sub_categories' })
 
-	const [image, setImage] = useState<File | null>(null)
+	const [image, setImage] = useState<File | null | string>(null)
 	const [isFree, setIsFree] = useState(false)
 	const [serverError, setServerError] = useState<string | null>(null)
 
@@ -71,6 +71,10 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 		fetchSpecializations()
 	}, [selectedSubCategory, selectedCategory, setValue])
 
+	useEffect(() => {
+		if (isFree) setValue('price', '0')
+	}, [isFree, setValue])
+
 	const onSubmit: SubmitHandler<AddCourseType> = async data => {
 		if (!image) {
 			setError('picture', {
@@ -80,9 +84,9 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 			return
 		}
 
-		const isValidType = ACCEPTED_IMAGE_TYPES.includes(image.type)
+		const isValidType = typeof image != 'string' && ACCEPTED_IMAGE_TYPES.includes(image.type)
 
-		const isValidSize = image.size < MAX_FILE_SIZE
+		const isValidSize = typeof image != 'string' && image.size < MAX_FILE_SIZE
 
 		if (!isValidType) {
 			setError('picture', {
@@ -118,10 +122,6 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 		if (result?.error) {
 			setServerError(result.error)
 		}
-
-		// for (const key in data) {
-		// 	formData.append(key, data[key as keyof AddCourseType] as string)
-		// }
 	}
 
 	return (

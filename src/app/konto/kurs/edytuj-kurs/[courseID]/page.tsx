@@ -1,12 +1,12 @@
 import EditCourseForm from '@/app/_components/_panel/EditCourseForm'
-import { getCategories, getCoursebyId, getPlatforms } from '@/app/_lib/data-service'
+import { getCategories, getCourseById, getPlatforms } from '@/app/_lib/data-service'
 
 async function page({ params }: { params: { courseID: string } }) {
 	const { courseID } = await params
 	const [platforms, categories, course] = await Promise.all([
 		getPlatforms(),
 		getCategories(),
-		getCoursebyId(courseID),
+		getCourseById(courseID),
 	])
 
 	return (

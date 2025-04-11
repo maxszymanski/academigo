@@ -33,6 +33,18 @@ export const signUpSchema = z
 		path: ['confirmPassword'],
 	})
 
+const pictureSchema = z.union([
+	z
+		.instanceof(File)
+		.refine(file => ACCEPTED_IMAGE_TYPES.includes(file.type), {
+			message: 'Nieprawidłowy format pliku',
+		})
+		.refine(file => file.size < MAX_FILE_SIZE, {
+			message: 'Plik musi być mniejszy niż 500KB',
+		}),
+	z.string().url('Nieprawidłowy adres URL'),
+])
+
 export const addCourseSchema = z
 	.object({
 		title: z
@@ -115,14 +127,7 @@ export const addCourseSchemaServer = z
 		course_link: z.string().url('Link do kursu musi być poprawnym adresem URL'),
 		author_name: z.string().nullable(),
 		author_link: z.string().nullable(),
-		picture: z
-			.instanceof(File)
-			.refine(file => ACCEPTED_IMAGE_TYPES.includes(file.type), {
-				message: 'Nieprawidłowy format pliku',
-			})
-			.refine(file => file.size < MAX_FILE_SIZE, {
-				message: 'Plik musi być mniejszy niż 500KB',
-			}),
+		picture: pictureSchema,
 	})
 	.refine(data => data.free || (data.price && data.price.length > 0), {
 		message: 'Cena kursu jest wymagana, jeśli kurs nie jest darmowy',
