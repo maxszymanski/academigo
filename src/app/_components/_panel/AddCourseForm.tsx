@@ -117,7 +117,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 			console.log(result.error)
 		}
 	}
-
+	console.log(preview)
 	return (
 		<form
 			className="w-full px-3 py-8 border border-slate-200 bg-white rounded-lg flex flex-col flex-wrap gap-7 shadow-md shadow-stone-200 md:flex-row md:flex-wrap md:items-end   xl:gap-8 lg:py-14 md:justify-evenly 2xl:px-20"
