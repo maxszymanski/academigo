@@ -1,29 +1,22 @@
 'use server'
 
+import { redirect } from 'next/navigation'
 import { addCourseSchemaServer } from '../_lib/validators'
 import { createClient } from '../utils/supabase/server'
+import { getCourseById } from '../_lib/data-service'
+import { revalidatePath } from 'next/cache'
 
 export async function createCourse(data: FormData) {
+	const parsedData = JSON.parse(data.get('data') as string)
+	const picture = data.get('picture') as File
+
 	const result = addCourseSchemaServer.safeParse({
-		title: data.get('title') as string,
-		short_description: data.get('short_description') as string,
-		long_description: data.get('long_description') as string,
-		platform: data.get('platform') as string,
-		price: data.get('price') as string,
-		free: data.get('free') === 'on',
-		duration: data.get('duration') as string,
-		level: data.get('level') as string,
-		categories: data.get('categories') as string,
-		sub_categories: data.get('sub_categories') as string,
-		specialization: data.get('specialization') as string,
-		picture: data.get('picture') as File,
-		course_link: data.get('course_link') as string,
-		language: data.get('language') as string,
-		author_name: data.get('author_name') as string,
-		author_link: data.get('author_link') as string,
+		...parsedData,
+		picture,
 	})
 
 	if (!result.success) {
+		console.log(result.error.format())
 		return { error: 'Wystąpił problem podczas dodawania kursu, proszę spróbować ponownie później.' }
 	}
 
@@ -37,8 +30,6 @@ export async function createCourse(data: FormData) {
 	}
 	const fileName = `picture-${authData.user.id}-${Math.random()}`
 
-	console.log(fileName)
-
 	const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
 		cacheControl: '3600',
 		upsert: false,
@@ -47,11 +38,80 @@ export async function createCourse(data: FormData) {
 	if (storageError) throw new Error(storageError.message)
 
 	const pictureLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/pictures/${fileName}`
-	// const { data: courseData, error } = await supabase.from('courses').insert(data)
+	const { error } = await supabase.from('courses').insert({
+		...result.data,
+		picture: pictureLink,
+		created_by: authData.user.id,
+	})
 
-	// if (error) {
-	// 	throw new Error('Błąd podczas dodawania kursu')
-	// }
+	if (error) {
+		return { error: 'Wystąpił problem podczas dodawania kursu, proszę spróbować ponownie później.' }
+	}
 
-	// return courseData
+	redirect('/konto')
+}
+
+export async function updateCourse(data: FormData, courseID: string | number) {
+	const parsedData = JSON.parse(data.get('data') as string)
+	const picture = data.get('picture') as File | string
+
+	const result = addCourseSchemaServer.safeParse({
+		...parsedData,
+		picture,
+	})
+
+	if (!result.success) {
+		console.log(result.error.format())
+		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
+	}
+
+	const course = await getCourseById(courseID)
+
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Nie można znaleźć użytkownika' }
+	}
+
+	if (authData.user.id != course.created_by) {
+		return { error: 'Użytkownik nie posiada uprawnień do edycji tego kursu!' }
+	}
+
+	let pictureLink
+
+	if (typeof result.data.picture === 'string') {
+		pictureLink = result.data.picture
+	} else {
+		const fileName = `picture-${authData.user.id}-${Math.random()}`
+		const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
+			cacheControl: '3600',
+			upsert: false,
+		})
+
+		if (storageError) {
+			throw new Error(storageError.message)
+		} else {
+			pictureLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/pictures/${fileName}`
+		}
+	}
+
+	const { error } = await supabase
+		.from('courses')
+		.update({
+			...result.data,
+			picture: pictureLink,
+		})
+		.eq('id', courseID)
+		.eq('created_by', authData.user.id)
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
+	}
+
+	// revalidatePath(`/konto/kurs/edytuj-kurs/${courseID}`)
+	revalidatePath(`/konto/kurs/edytuj-kurs/${courseID}`)
+	redirect('/konto')
 }

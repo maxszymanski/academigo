@@ -20,8 +20,6 @@ interface PanelInputProps {
 	textArea?: boolean
 	defaultValue?: string | number
 	preview?: string | null
-	description?: string
-	onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 function PanelInput({
@@ -42,8 +40,6 @@ function PanelInput({
 	textArea,
 	defaultValue,
 	preview,
-	description,
-	onChange,
 }: PanelInputProps) {
 	return (
 		<div
@@ -51,11 +47,6 @@ function PanelInput({
 			<div className={`${children ? 'flex items-center justify-between text-nowrap w-full gap-8' : ''}`}>
 				<label htmlFor={name} className={`block text-dark2 ${textArea ? 'mb-2' : 'mb-1'}`}>
 					{label} {required && <span className="text-red-400">*</span>}{' '}
-					{description && !!preview && (
-						<>
-							<br /> <span className="text-xs font-light">{description}</span>
-						</>
-					)}
 				</label>
 
 				{children}
@@ -64,17 +55,18 @@ function PanelInput({
 				{textArea ? (
 					<textarea
 						placeholder={placeholder}
-						className={`peer block max-h-36 min-h-96 w-full resize-y appearance-none border border-slate200 text-sm outline-none focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 px-5 py-3.5 rounded-lg  bg-slate50 mt-1 `}
+						className={`peer block max-h-36 min-h-96 w-full resize-y appearance-none border  text-sm outline-none focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 px-5 py-3.5 rounded-lg  bg-slate50 mt-1 ${error ? 'border-red-500' : 'border-slate-200'}`}
 						name={name}
 						{...formRegister}
 						disabled={disabled}
+						defaultValue={defaultValue}
 					/>
 				) : (
 					<input
 						type={type}
 						name={name}
 						id={name}
-						className={`rounded-lg mt-1 text-sm px-5 py-3.5 border border-slate-200 bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 ${type === 'file' ? 'h-[200px] w-[330px] cursor-pointer flex items-center justify-center ' : 'w-full '} ${!!preview ? 'hidden' : ''}`}
+						className={`rounded-lg mt-1 text-sm px-5 py-3.5 border  bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 ${type === 'file' ? 'h-[200px] w-[330px] cursor-pointer flex items-center justify-center ' : 'w-full '} ${!!preview ? 'hidden' : ''} ${error ? 'border-red-500' : 'border-slate-200'}`}
 						placeholder={placeholder}
 						{...formRegister}
 						min={min}
@@ -83,7 +75,6 @@ function PanelInput({
 						maxLength={maxLenght}
 						disabled={disabled}
 						defaultValue={defaultValue}
-						onChange={onChange}
 					/>
 				)}
 				{type === 'file' && preview && (

@@ -1,19 +1,24 @@
+import { getCoursesCreatedByUser } from '@/app/_lib/data-service'
 import StatCard from './StatCard'
 import { BiSolidBookmark, BiSolidBookAdd, BiSolidBookHeart, BiSolidStar } from 'react-icons/bi'
 
-function DashboardStats() {
+async function DashboardStats() {
+	const courses = await getCoursesCreatedByUser()
+
 	return (
 		<section className="flex w-full items-center justify-evenly gap-5 overflow-x-auto px-5 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2 sm:gap-8 md:py-6 lg:px-6">
-			<StatCard number="0" statType="Dodanych kursów">
+			<StatCard
+				number={!courses || courses.length < 1 ? '-' : courses.length.toString()}
+				statType="Dodanych kursów">
 				<BiSolidBookAdd className="size-20 text-primary/90" />
 			</StatCard>
-			<StatCard number="15" statType="Polubionych kursów">
+			<StatCard number="-" statType="Polubionych kursów">
 				<BiSolidBookHeart className="size-20 text-primary/90" />
 			</StatCard>
-			<StatCard number="38" statType="Zapisanych kursów">
+			<StatCard number="-" statType="Zapisanych kursów">
 				<BiSolidBookmark className="size-20 text-primary/90" />
 			</StatCard>
-			<StatCard number="38" statType="Ocenionych kursów">
+			<StatCard number="-" statType="Ocenionych kursów">
 				<BiSolidStar className="size-20 text-primary/90" />
 			</StatCard>
 		</section>

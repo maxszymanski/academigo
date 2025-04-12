@@ -127,6 +127,4 @@ export async function getCurrentUser() {
 	if (error) throw new Error(error.message)
 
 	return user
-
-	// revalidatePath('/', 'layout')
 }

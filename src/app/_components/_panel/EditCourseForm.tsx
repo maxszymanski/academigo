@@ -12,13 +12,26 @@ import { ACCEPTED_IMAGE_TYPES, addCourseSchema, AddCourseType, MAX_FILE_SIZE } f
 import Spinner from '../_ui/Spinner'
 import { Category, SubCat } from '@/app/_types/types'
 import { getSpecializationsOnClient, getSubCategoriesOnClient } from '@/app/_lib/client-service'
-import { createCourse } from '@/app/_actions/mutations'
+import { updateCourse } from '@/app/_actions/mutations'
 import LoadingPortal from '../_ui/LoadingPortal'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
 
-function AddCourseForm({ platforms, categories }: { platforms: string[]; categories: Category[] }) {
+export type ExtendedCourseType = AddCourseType & {
+	id: string
+	created_by: string
+}
+
+function EditCourseForm({
+	platforms,
+	categories,
+	courseData,
+}: {
+	platforms: string[]
+	categories: Category[]
+	courseData: ExtendedCourseType
+}) {
 	const {
 		register,
 		handleSubmit,
@@ -30,11 +43,11 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
 	})
-	const selectedCategory = useWatch({ control, name: 'categories' })
-	const selectedSubCategory = useWatch({ control, name: 'sub_categories' })
+	const selectedCategory = useWatch({ control, name: 'categories' }) || courseData.categories
+	const selectedSubCategory = useWatch({ control, name: 'sub_categories' }) || courseData.sub_categories
 
-	const [image, setImage] = useState<File | null | string>(null)
-	const [isFree, setIsFree] = useState(false)
+	const [image, setImage] = useState<File | null | string>(courseData.picture)
+	const [isFree, setIsFree] = useState(courseData.free)
 	const [serverError, setServerError] = useState<string | null>(null)
 
 	const [subCategories, setSubCategories] = useState<SubCat[] | []>([])
@@ -49,14 +62,19 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 		if (!selectedCategory) return
 
 		const fetchSubCategories = async () => {
-			setValue('specialization', '')
+			if (selectedSubCategory === courseData.sub_categories) {
+				setValue('specialization', courseData.specialization)
+				setValue('sub_categories', courseData.sub_categories)
+			} else {
+				setValue('specialization', '')
+			}
 
 			const subCategoryList = await getSubCategoriesOnClient(selectedCategory)
 			setSubCategories(subCategoryList)
 		}
 
 		fetchSubCategories()
-	}, [selectedCategory, selectedSubCategory, setValue])
+	}, [selectedCategory, selectedSubCategory, setValue, courseData.sub_categories, courseData.specialization])
 
 	useEffect(() => {
 		if (!selectedSubCategory) return
@@ -65,7 +83,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 			const specializationsList = await getSpecializationsOnClient(selectedCategory, selectedSubCategory)
 
 			setSpecializations(specializationsList)
-			setValue('specialization', '')
+			// setValue('specialization', '')
 		}
 
 		fetchSpecializations()
@@ -84,9 +102,9 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 			return
 		}
 
-		const isValidType = typeof image != 'string' && ACCEPTED_IMAGE_TYPES.includes(image.type)
+		const isValidType = typeof image === 'string' || ACCEPTED_IMAGE_TYPES.includes(image.type)
 
-		const isValidSize = typeof image != 'string' && image.size < MAX_FILE_SIZE
+		const isValidSize = image == courseData.picture || (typeof image != 'string' && image?.size < MAX_FILE_SIZE)
 
 		if (!isValidType) {
 			setError('picture', {
@@ -117,17 +135,17 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 		formData.append('data', JSON.stringify(restData))
 		formData.append('picture', image)
 
-		const result = await createCourse(formData)
+		const result = await updateCourse(formData, courseData.id)
 
 		if (result?.error) {
 			setServerError(result.error)
 		}
 	}
-	console.log(preview)
+
 	return (
 		<>
 			{' '}
-			{isSubmitting && <LoadingPortal information="Dodawanie kursu" />}
+			{isSubmitting && <LoadingPortal information="Edytowanie kursu" />}
 			<form
 				className="w-full px-3 py-8 border border-slate-200 bg-white rounded-lg flex flex-col flex-wrap gap-7 shadow-md shadow-stone-200 md:flex-row md:flex-wrap md:items-end   xl:gap-8 lg:py-14 md:justify-evenly 2xl:px-20"
 				onSubmit={handleSubmit(onSubmit)}>
@@ -141,6 +159,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						clearErrors={clearErrors}
 						error={errors?.picture as FieldError | null}
 						message={typeof errors?.picture?.message === 'string' ? errors.picture.message : null}
+						editImg={courseData.picture}
 					/>
 
 					<PanelInput
@@ -152,6 +171,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						message={errors?.title?.message || null}
 						placeholder="Wpisz tytuł kursu"
 						required
+						defaultValue={courseData.title}
 					/>
 
 					<PanelInput
@@ -163,6 +183,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.short_description || null}
 						message={errors?.short_description?.message || null}
 						required
+						defaultValue={courseData.short_description}
 					/>
 
 					<CustomSelect
@@ -173,6 +194,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						formRegister={register('platform')}
 						error={errors?.platform || null}
 						message={errors?.platform?.message || null}
+						defaultValue={courseData.platform}
 					/>
 					<PanelInput
 						label="Link do kursu"
@@ -183,6 +205,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.course_link || null}
 						message={errors?.course_link?.message || null}
 						required
+						defaultValue={courseData.course_link}
 					/>
 					<PanelInput
 						label="Cena kursu"
@@ -194,7 +217,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						message={errors?.price?.message || null}
 						min={0}
 						disabled={isFree}
-						defaultValue={isFree ? '0' : undefined}
+						defaultValue={isFree ? '0' : courseData.price}
 						required>
 						<Checkbox
 							formRegister={register('free')}
@@ -202,6 +225,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 							name="free"
 							label="Darmowy kurs"
 							onClick={() => setIsFree(is => !is)}
+							checked={isFree}
 						/>
 					</PanelInput>
 					<PanelInput
@@ -214,6 +238,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						placeholder="Czas trwania kursu np. 1h 10min"
 						min={1}
 						required
+						defaultValue={courseData.duration}
 					/>
 				</div>
 				<div className="w-full md:max-w-md flex flex-col gap-7 xl:gap-8">
@@ -225,6 +250,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.categories || null}
 						message={errors?.categories?.message || null}
 						name="categories"
+						defaultValue={courseData.categories}
 					/>
 					<CustomSelect
 						subCategoriesData={subCategories}
@@ -234,7 +260,8 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.sub_categories || null}
 						message={errors?.sub_categories?.message || null}
 						name="sub_categories"
-						disabled={subCategories.length === 0}
+						disabled={subCategories.length === 0 && !courseData.sub_categories}
+						defaultValue={courseData.sub_categories}
 					/>
 					<CustomSelect
 						subCategoriesData={specializations}
@@ -244,7 +271,8 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.specialization || null}
 						message={errors?.specialization?.message || null}
 						name="specialization"
-						disabled={specializations.length === 0}
+						disabled={specializations.length === 0 && !courseData.specialization}
+						defaultValue={courseData.specialization}
 					/>
 					<CustomSelect
 						optionsData={difficultyLevels}
@@ -254,6 +282,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.level || null}
 						message={errors?.level?.message || null}
 						name="level"
+						defaultValue={courseData.level}
 					/>
 					<CustomSelect
 						optionsData={languages}
@@ -263,6 +292,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						formRegister={register('language')}
 						error={errors?.language || null}
 						message={errors?.language?.message || null}
+						defaultValue={courseData.language}
 					/>
 
 					<PanelInput
@@ -273,6 +303,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						formRegister={register('author_name')}
 						error={errors?.author_name || null}
 						message={errors?.author_name?.message || null}
+						defaultValue={courseData.author_name || ''}
 					/>
 					<PanelInput
 						label="Link do profilu autora"
@@ -282,6 +313,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						formRegister={register('author_link')}
 						error={errors?.author_link || null}
 						message={errors?.author_link?.message || null}
+						defaultValue={courseData.author_link || ''}
 					/>
 				</div>
 				<PanelInput
@@ -293,10 +325,11 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 					error={errors?.long_description || null}
 					message={errors?.long_description?.message || null}
 					required
+					defaultValue={courseData.long_description}
 				/>
 				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4">
 					<Button variant="submit" restClass="relative" disabled={isSubmitting}>
-						{isSubmitting ? 'Dodawanie' : 'Dodaj kurs'}
+						{isSubmitting ? 'Edytowanie' : 'Edytuj kurs'}
 						{isSubmitting && <Spinner restClass="ml-6 absolute right-3 md:right-4" />}
 					</Button>
 					{serverError && <span className="text-sm text-red-500 mt-2 pl-1 block">{serverError}</span>}
@@ -306,4 +339,4 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 	)
 }
 
-export default AddCourseForm
+export default EditCourseForm

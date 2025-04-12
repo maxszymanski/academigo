@@ -58,3 +58,33 @@ export async function getPlatforms() {
 
 	return data
 }
+export async function getCoursesCreatedByUser() {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	const { data, error } = await supabase
+		.from('courses')
+		.select('*')
+		.eq('created_by', authData.user.id)
+		.order('created_at')
+
+	if (error) {
+		throw new Error('Błąd pobierania kursów stworzonych przez użytkownika')
+	}
+
+	return data
+}
+
+export async function getCourseById(courseID: string | number) {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.from('courses').select('*').eq('id', courseID).single()
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
