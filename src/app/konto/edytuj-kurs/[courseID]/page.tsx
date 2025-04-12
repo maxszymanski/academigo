@@ -2,7 +2,9 @@ import DeleteModal from '@/app/_components/_panel/DeleteModal'
 import EditCourseForm from '@/app/_components/_panel/EditCourseForm'
 import { getCategories, getCourseById, getPlatforms } from '@/app/_lib/data-service'
 
-async function page({ params }: { params: { courseID: string } }) {
+type Params = Promise<{ courseID: string }>
+
+async function page({ params }: { params: Params }) {
 	const { courseID } = await params
 	const [platforms, categories, course] = await Promise.all([
 		getPlatforms(),

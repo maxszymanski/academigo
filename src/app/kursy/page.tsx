@@ -7,7 +7,9 @@ import SubCategories from '../_components/_courses/SubCategories'
 import Specialization from '../_components/_courses/Specialization'
 import CourseHeader from '../_components/_courses/CourseHeader'
 
-async function CoursePage({ searchParams }: { searchParams: { category: string; subcategory: string } }) {
+type Params = Promise<{ category: string; subcategory: string }>
+
+async function CoursePage({ searchParams }: { searchParams: Params }) {
 	const { category, subcategory } = await searchParams
 	const categories = await getCategories()
 
