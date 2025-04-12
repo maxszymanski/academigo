@@ -3,7 +3,7 @@ import PanelHeader from '../_components/_panel/PanelHeader'
 
 async function layout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="flex h-dvh flex-col-reverse bg-slate50 lg:flex-row">
+		<div className="flex h-dvh lg:h-screen flex-col-reverse bg-slate50 lg:flex-row relative">
 			<PanelNavigation />
 			<div className="w-full flex-1 overflow-y-auto lg:flex lg:flex-col scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
 				<PanelHeader />

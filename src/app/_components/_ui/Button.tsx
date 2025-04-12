@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 interface ButtonProps {
-	onClick?: () => void | undefined
+	onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | (() => void) | undefined
 	children: React.ReactNode
 	restClass?: string
 	href?: string | undefined
@@ -25,9 +25,11 @@ interface ButtonProps {
 		| 'desktopCategory'
 		| 'transparentDark'
 		| 'submit'
+		| 'danger'
 }
 
-const mainClass = 'rounded-full flex  items-center text-nowrap transition-colors duration-300 '
+const mainClass =
+	'rounded-full flex  items-center text-nowrap transition-colors duration-300 outline-primary outline-offset-2 relative'
 
 const variants = {
 	purple: 'hover:bg-primary/80 bg-primary text-sm text-white md:text-xs lg:text-sm xl:px-6 xl:py-3.5 py-2 px-4 text-center justify-center',
@@ -43,7 +45,8 @@ const variants = {
 	category: ' w-full   py-2.5 hover:text-primary hover:bg-slate50  mb-1 ',
 	desktopCategory:
 		'text-base w-fit px-10 py-5 hover:text-primary/80  hover:border-primary/70 border border-stone400 2xl:text-lg',
-	submit: 'text-primary border  border-slate-200 py-4 px-12 bg-slate50 hover:border-primary focus:border-primary  xl:text-base font-medium lg:px-16 2xl:text-lg',
+	submit: 'text-primary border  border-slate-200 py-4 px-12 bg-slate50 hover:border-primary focus:border-primary  xl:text-base font-medium lg:px-16 2xl:text-lg justify-center',
+	danger: 'text-white/80 border  border-red-700 py-4 px-12 bg-red-600 hover:bg-red-700 focus:bg-red-700  xl:text-base font-medium lg:px-16 2xl:text-lg',
 }
 
 function Button({

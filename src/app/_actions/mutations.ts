@@ -1,6 +1,5 @@
 'use server'
 
-import { redirect } from 'next/navigation'
 import { addCourseSchemaServer } from '../_lib/validators'
 import { createClient } from '../utils/supabase/server'
 import { getCourseById } from '../_lib/data-service'
@@ -47,8 +46,7 @@ export async function createCourse(data: FormData) {
 	if (error) {
 		return { error: 'Wystąpił problem podczas dodawania kursu, proszę spróbować ponownie później.' }
 	}
-
-	redirect('/konto')
+	revalidatePath('/konto/moje-kursy')
 }
 
 export async function updateCourse(data: FormData, courseID: string | number) {
@@ -61,7 +59,6 @@ export async function updateCourse(data: FormData, courseID: string | number) {
 	})
 
 	if (!result.success) {
-		console.log(result.error.format())
 		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
 	}
 
@@ -111,7 +108,29 @@ export async function updateCourse(data: FormData, courseID: string | number) {
 		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
 	}
 
-	// revalidatePath(`/konto/kurs/edytuj-kurs/${courseID}`)
-	revalidatePath(`/konto/kurs/edytuj-kurs/${courseID}`)
-	redirect('/konto')
+	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
+	revalidatePath(`/konto/moje-kursy`)
+	// redirect('/konto/moje-kursy')
+}
+
+export async function deleteCourse(courseID: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Użytkownik nie ma uprawnień do usunięcia tego kursu' }
+	}
+
+	const { error } = await supabase.from('courses').delete().eq('id', courseID).eq('created_by', authData.user.id)
+
+	if (error) {
+		if (error) {
+			return { error: 'Wystąpił problem przy usuwaniu kursu' }
+		}
+	}
+
+	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
+	revalidatePath(`/konto/moje-kursy`)
 }

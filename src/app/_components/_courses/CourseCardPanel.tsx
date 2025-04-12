@@ -4,6 +4,7 @@ import { FaStar } from 'react-icons/fa'
 import { CiBank } from 'react-icons/ci'
 import { FaHeart } from 'react-icons/fa6'
 import { ExtendedCourseType } from '../_panel/EditCourseForm'
+import { blurImage } from '@/app/utils/blurImage'
 
 function CourseCardPanel({
 	i = 8,
@@ -18,19 +19,24 @@ function CourseCardPanel({
 }) {
 	return (
 		<Link
-			href={`/konto/kurs/edytuj-kurs/${course.id}`}
+			href={`/konto/edytuj-kurs/${course.id}`}
 			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary ${
 				isMainPage ? (i < 8 ? 'flex flex-shrink-0' : 'flex flex-shrink-0 2xl:hidden') : 'flex'
 			} ${isList ? 'w-full ' : 'h-[370px] max-w-[330px] flex-col'} `}>
 			<div className="t-0 absolute right-0 rounded-bl-2xl bg-primary px-5 py-3 font-semibold text-white z-20">
 				{course.free ? 'Darmowy' : `${course.price} zł`}
 			</div>
-			<div className={`z-10 h-[200px] w-[330px] relative ${isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}>
+			<div
+				className={`z-10 h-[200px] w-[330px] relative ${isList ? 'rounded-2xl' : 'rounded-t-2xl border-b border-slate-200'}`}>
 				<Image
-					src="/course.jpg"
+					src={course.picture || '/course.jpg'}
 					fill
 					alt="course image"
 					className={` object-cover ${isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}
+					priority
+					quality={70}
+					placeholder="blur"
+					blurDataURL={blurImage}
 				/>
 			</div>
 			<div

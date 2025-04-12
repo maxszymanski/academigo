@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const MAX_FILE_SIZE = 500000
+export const MAX_FILE_SIZE = 2000000
 export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
 
 export const loginSchema = z.object({
@@ -40,7 +40,7 @@ const pictureSchema = z.union([
 			message: 'Nieprawidłowy format pliku',
 		})
 		.refine(file => file.size < MAX_FILE_SIZE, {
-			message: 'Plik musi być mniejszy niż 500KB',
+			message: 'Plik musi być mniejszy niż 2MB',
 		}),
 	z.string().url('Nieprawidłowy adres URL'),
 ])

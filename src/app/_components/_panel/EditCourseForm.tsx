@@ -14,6 +14,9 @@ import { Category, SubCat } from '@/app/_types/types'
 import { getSpecializationsOnClient, getSubCategoriesOnClient } from '@/app/_lib/client-service'
 import { updateCourse } from '@/app/_actions/mutations'
 import LoadingPortal from '../_ui/LoadingPortal'
+import DeleteCourse from './DeleteCourse'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -43,12 +46,12 @@ function EditCourseForm({
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
 	})
+	const router = useRouter()
 	const selectedCategory = useWatch({ control, name: 'categories' }) || courseData.categories
 	const selectedSubCategory = useWatch({ control, name: 'sub_categories' }) || courseData.sub_categories
 
 	const [image, setImage] = useState<File | null | string>(courseData.picture)
 	const [isFree, setIsFree] = useState(courseData.free)
-	const [serverError, setServerError] = useState<string | null>(null)
 
 	const [subCategories, setSubCategories] = useState<SubCat[] | []>([])
 	const [specializations, setSpecializations] = useState<SubCat[] | []>([])
@@ -83,7 +86,6 @@ function EditCourseForm({
 			const specializationsList = await getSpecializationsOnClient(selectedCategory, selectedSubCategory)
 
 			setSpecializations(specializationsList)
-			// setValue('specialization', '')
 		}
 
 		fetchSpecializations()
@@ -99,6 +101,7 @@ function EditCourseForm({
 				type: 'manual',
 				message: 'Plik jest wymagany',
 			})
+			toast.error('Plik jest wymagany')
 			return
 		}
 
@@ -111,14 +114,16 @@ function EditCourseForm({
 				type: 'manual',
 				message: 'Nieprawidłowy format pliku',
 			})
+			toast.error('Nieprawidłowy format pliku')
 			return
 		}
 
 		if (!isValidSize) {
 			setError('picture', {
 				type: 'manual',
-				message: 'Plik musi być mniejszy niż 1MB',
+				message: 'Plik musi być większy niż 2MB',
 			})
+			toast.error('Plik musi być większy niż 2MB')
 			return
 		}
 
@@ -138,7 +143,10 @@ function EditCourseForm({
 		const result = await updateCourse(formData, courseData.id)
 
 		if (result?.error) {
-			setServerError(result.error)
+			toast.error(result.error)
+		} else {
+			toast.success('Kurs został zaaktualizowany')
+			router.push('/konto/moje-kursy')
 		}
 	}
 
@@ -327,12 +335,14 @@ function EditCourseForm({
 					required
 					defaultValue={courseData.long_description}
 				/>
-				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4">
-					<Button variant="submit" restClass="relative" disabled={isSubmitting}>
-						{isSubmitting ? 'Edytowanie' : 'Edytuj kurs'}
-						{isSubmitting && <Spinner restClass="ml-6 absolute right-3 md:right-4" />}
-					</Button>
-					{serverError && <span className="text-sm text-red-500 mt-2 pl-1 block">{serverError}</span>}
+				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4 sm:pt-4 lg:pt-4">
+					<div className="flex items-center flex-wrap justify-center gap-8 md:gap-16">
+						<Button variant="submit" restClass="relative" disabled={isSubmitting}>
+							{isSubmitting ? 'Edytowanie' : 'Edytuj kurs'}
+							{isSubmitting && <Spinner restClass="ml-6 absolute right-3 md:right-4" />}
+						</Button>
+						<DeleteCourse />
+					</div>
 				</div>
 			</form>
 		</>
