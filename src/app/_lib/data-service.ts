@@ -88,3 +88,68 @@ export async function getCourseById(courseID: string | number) {
 
 	return data
 }
+
+export async function getNewestCourses() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase
+		.from('courses')
+		.select('*')
+		.order('created_at', { ascending: false })
+		.limit(12)
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
+export async function getPopularCourses() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.from('courses').select('*').order('title', { ascending: false }).limit(12)
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
+export async function getSelectedByUsCourses() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase
+		.from('courses')
+		.select('*')
+		.order('created_by', { ascending: false })
+		.limit(12)
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
+export async function getCoursesByFilter(type: string = '', specialization?: string | null) {
+	const supabase = await createClient()
+
+	let query = supabase.from('courses').select('*').order('created_at', { ascending: false })
+
+	if (type === 'darmowy') {
+		query = query.eq('free', true)
+	} else if (type === 'platny') {
+		query = query.eq('free', false)
+	}
+
+	if (specialization) {
+		query = query.eq('specialization', specialization)
+	}
+
+	const { data, error } = await query
+
+	if (error) {
+		throw new Error('Błąd pobierania kursów')
+	}
+
+	return data
+}

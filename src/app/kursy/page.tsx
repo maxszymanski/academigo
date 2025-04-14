@@ -1,17 +1,19 @@
 import Search from '../_components/_courses/Search'
 import Filters from '../_components/_courses/Filters'
 import SortAndResults from '../_components/_courses/SortAndResults'
-import { getCategories } from '../_lib/data-service'
+import { getCategories, getCoursesByFilter } from '../_lib/data-service'
 import CategoriesDesktop from '../_components/_courses/CategoriesDesktop'
 import SubCategories from '../_components/_courses/SubCategories'
 import Specialization from '../_components/_courses/Specialization'
 import CourseHeader from '../_components/_courses/CourseHeader'
+import CoursesResult from '../_components/_courses/CoursesResult'
 
-type Params = Promise<{ category: string; subcategory: string }>
+type Params = Promise<{ category: string; subcategory: string; specialization: string; type: string }>
 
 async function CoursePage({ searchParams }: { searchParams: Params }) {
-	const { category, subcategory } = await searchParams
+	const { category, subcategory, specialization, type } = await searchParams
 	const categories = await getCategories()
+	const courses = await getCoursesByFilter(type, specialization)
 
 	return (
 		<>
@@ -23,7 +25,9 @@ async function CoursePage({ searchParams }: { searchParams: Params }) {
 					<Filters secondChildren={<Specialization category={category} subCategory={subcategory} />}>
 						<SubCategories category={category} />
 					</Filters>
-					<SortAndResults categories={categories} category={category} subCategory={subcategory} />
+					<SortAndResults categories={categories} category={category} subCategory={subcategory}>
+						<CoursesResult courses={courses} />
+					</SortAndResults>
 				</section>
 			</main>
 		</>

@@ -17,6 +17,7 @@ import LoadingPortal from '../_ui/LoadingPortal'
 import DeleteCourse from './DeleteCourse'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { SpecializationType } from '../_courses/Specialization'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -54,7 +55,7 @@ function EditCourseForm({
 	const [isFree, setIsFree] = useState(courseData.free)
 
 	const [subCategories, setSubCategories] = useState<SubCat[] | []>([])
-	const [specializations, setSpecializations] = useState<SubCat[] | []>([])
+	const [specializations, setSpecializations] = useState<SpecializationType[] | []>([])
 
 	useEffect(() => {
 		setValue('sub_categories', '')
@@ -145,7 +146,7 @@ function EditCourseForm({
 		if (result?.error) {
 			toast.error(result.error)
 		} else {
-			toast.success('Kurs został zaaktualizowany')
+			toast.success('Kurs został zaktualizowany')
 			router.push('/konto/moje-kursy')
 		}
 	}
@@ -226,6 +227,8 @@ function EditCourseForm({
 						min={0}
 						disabled={isFree}
 						defaultValue={isFree ? '0' : courseData.price}
+						step="0.01"
+						inputMode="decimal"
 						required>
 						<Checkbox
 							formRegister={register('free')}
@@ -272,7 +275,7 @@ function EditCourseForm({
 						defaultValue={courseData.sub_categories}
 					/>
 					<CustomSelect
-						subCategoriesData={specializations}
+						specializationsData={specializations}
 						label="Specializacja kursu"
 						defaultOption="Wybierz specializacje kursu"
 						formRegister={register('specialization')}

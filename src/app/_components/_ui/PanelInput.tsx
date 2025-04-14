@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { FieldError } from 'react-hook-form'
 import { FaCamera } from 'react-icons/fa'
 
-interface PanelInputProps {
+type PanelInputProps = {
 	type?: string
 	placeholder: string
 	name: string
@@ -20,7 +20,7 @@ interface PanelInputProps {
 	textArea?: boolean
 	defaultValue?: string | number
 	preview?: string | null
-}
+} & React.InputHTMLAttributes<HTMLInputElement>
 
 function PanelInput({
 	type,
@@ -40,6 +40,7 @@ function PanelInput({
 	textArea,
 	defaultValue,
 	preview,
+	...rest
 }: PanelInputProps) {
 	return (
 		<div
@@ -60,6 +61,7 @@ function PanelInput({
 						{...formRegister}
 						disabled={disabled}
 						defaultValue={defaultValue}
+						lang="pl"
 					/>
 				) : (
 					<input
@@ -69,12 +71,14 @@ function PanelInput({
 						className={`rounded-lg mt-1 text-sm px-5 py-3.5 border  bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 ${type === 'file' ? 'h-[200px] w-[330px] cursor-pointer flex items-center justify-center ' : 'w-full '} ${!!preview ? 'hidden' : ''} ${error ? 'border-red-500' : 'border-slate-200'}`}
 						placeholder={placeholder}
 						{...formRegister}
+						lang="pl"
 						min={min}
 						max={max}
 						minLength={minLenght}
 						maxLength={maxLenght}
 						disabled={disabled}
 						defaultValue={defaultValue}
+						{...rest}
 					/>
 				)}
 				{type === 'file' && preview && (
