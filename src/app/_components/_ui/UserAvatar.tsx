@@ -6,7 +6,7 @@ function UserAvatar({ avatar, small = false }: { avatar?: string | null; small?:
 	return (
 		<Link
 			href="/konto/ustawienia"
-			className="hover:border-primary focus:border-primary border-2 border-primary2 rounded-full tranistion-color">
+			className="hover:border-primary focus:border-primary border-2 border-primary2 rounded-full tranistion-color duration-300">
 			<Image
 				priority
 				src={avatar ? avatar : DefaultUser}
