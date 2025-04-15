@@ -3,8 +3,19 @@ import Link from 'next/link'
 import { FaStar } from 'react-icons/fa'
 import { CiBank } from 'react-icons/ci'
 import { FaHeart } from 'react-icons/fa6'
-import { ExtendedCourseType } from '../_panel/EditCourseForm'
 import { blurImage } from '@/app/utils/blurImage'
+import { AddCourseType } from '@/app/_lib/validators'
+
+export type FullCourseDataType = AddCourseType & {
+	id: string
+	created_by: string
+	specialization_name: string
+	category_name: string
+	sub_category_name: string
+	likes_count: number
+	average_rating: number | null
+	ratings_count: number
+}
 
 function CourseCardPanel({
 	i = 8,
@@ -16,7 +27,7 @@ function CourseCardPanel({
 	i?: number
 	isMainPage?: boolean
 	isList?: boolean
-	course: ExtendedCourseType
+	course: FullCourseDataType
 	href: string
 }) {
 	return (
@@ -49,7 +60,7 @@ function CourseCardPanel({
 				</h3>
 				<div>
 					<p className="text-primary py-0.5">
-						<span className="font-medium">{course.specialization}</span>
+						<span className="font-medium">{course.specialization_name}</span>
 					</p>
 					<p className="text-stone400 py-0.5">
 						Poziom: <span className="ml-2 font-medium">{course.level}</span>
@@ -60,7 +71,8 @@ function CourseCardPanel({
 					<div className="flex items-center gap-1">
 						<FaStar className="mb-0.5 text-yellow-500" />{' '}
 						<p>
-							<span>0</span> <span>(brak ocen)</span>
+							<span>{course.average_rating || 0}</span>{' '}
+							<span>({course.ratings_count > 0 ? `${course.ratings_count} ocen` : 'Brak ocen'})</span>
 						</p>
 					</div>
 
@@ -70,7 +82,7 @@ function CourseCardPanel({
 					</div>
 					<div className="flex items-center gap-1">
 						<FaHeart className="mb-0.5 size-4 text-primary" />
-						<p>0</p>
+						<p>{course.likes_count || 0}</p>
 					</div>
 				</div>
 			</div>

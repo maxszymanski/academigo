@@ -65,7 +65,7 @@ export async function getCoursesCreatedByUser() {
 	if (authError) return null
 
 	const { data, error } = await supabase
-		.from('courses')
+		.from('full_course_data')
 		.select('*')
 		.eq('created_by', authData.user.id)
 		.order('created_at')
@@ -93,7 +93,7 @@ export async function getNewestCourses() {
 	const supabase = await createClient()
 
 	const { data, error } = await supabase
-		.from('courses')
+		.from('full_course_data')
 		.select('*')
 		.order('created_at', { ascending: false })
 		.limit(12)
@@ -107,7 +107,11 @@ export async function getNewestCourses() {
 export async function getPopularCourses() {
 	const supabase = await createClient()
 
-	const { data, error } = await supabase.from('courses').select('*').order('title', { ascending: false }).limit(12)
+	const { data, error } = await supabase
+		.from('full_course_data')
+		.select('*')
+		.order('average_rating', { ascending: true })
+		.limit(12)
 
 	if (error) {
 		throw new Error('Błąd pobierania danych kursu')
@@ -119,8 +123,9 @@ export async function getSelectedByUsCourses() {
 	const supabase = await createClient()
 
 	const { data, error } = await supabase
-		.from('courses')
+		.from('full_course_data')
 		.select('*')
+		.eq('promoted', true)
 		.order('created_by', { ascending: false })
 		.limit(12)
 
@@ -130,10 +135,15 @@ export async function getSelectedByUsCourses() {
 
 	return data
 }
-export async function getCoursesByFilter(type: string = '', specialization?: string | null) {
+export async function getCoursesByFilter(
+	type: string = '',
+	category?: string | null,
+	subCategory?: string | null,
+	specialization?: string | null
+) {
 	const supabase = await createClient()
 
-	let query = supabase.from('courses').select('*').order('created_at', { ascending: false })
+	let query = supabase.from('full_course_data').select('*').order('created_at', { ascending: false })
 
 	if (type === 'darmowy') {
 		query = query.eq('free', true)
@@ -141,6 +151,12 @@ export async function getCoursesByFilter(type: string = '', specialization?: str
 		query = query.eq('free', false)
 	}
 
+	if (category && !subCategory && !specialization) {
+		query = query.eq('categories', category)
+	}
+	if (subCategory && !specialization) {
+		query = query.eq('sub_categories', subCategory)
+	}
 	if (specialization) {
 		query = query.eq('specialization', specialization)
 	}

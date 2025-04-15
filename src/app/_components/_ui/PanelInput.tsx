@@ -4,7 +4,7 @@ import { FaCamera } from 'react-icons/fa'
 
 type PanelInputProps = {
 	type?: string
-	placeholder: string
+	placeholder?: string
 	name: string
 	error?: FieldError | null
 	message?: string | null

@@ -19,8 +19,6 @@ function NavigationLink({
 	const pathname = usePathname()
 	const isActive = pathname.includes(href) && href != '/konto'
 
-	console.log(pathname)
-
 	return (
 		<li className="list-none">
 			{onClick ? (

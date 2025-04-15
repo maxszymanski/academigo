@@ -1,10 +1,9 @@
 'use client'
 
 import useAppStore from '@/app/stores/store'
-import { ExtendedCourseType } from '../_panel/EditCourseForm'
-import CourseCardPanel from './CourseCardPanel'
+import CourseCardPanel, { FullCourseDataType } from './CourseCardPanel'
 
-function CoursesResult({ courses }: { courses: ExtendedCourseType[] }) {
+function CoursesResult({ courses }: { courses: FullCourseDataType[] }) {
 	const cardView = useAppStore(state => state.cardView)
 	return (
 		<div className="relative flex w-full flex-wrap justify-center gap-x-5 gap-y-6 pt-12 lg:justify-evenly xl:gap-x-2 2xl:justify-between 2xl:gap-y-10">

@@ -13,7 +13,7 @@ type Params = Promise<{ category: string; subcategory: string; specialization: s
 async function CoursePage({ searchParams }: { searchParams: Params }) {
 	const { category, subcategory, specialization, type } = await searchParams
 	const categories = await getCategories()
-	const courses = await getCoursesByFilter(type, specialization)
+	const courses = await getCoursesByFilter(type, category, subcategory, specialization)
 
 	return (
 		<>
