@@ -2,10 +2,10 @@
 import { useRef } from 'react'
 import Button from '../_ui/Button'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
-import { ExtendedCourseType } from '../_panel/EditCourseForm'
-import CourseCardPanel from './CourseCardPanel'
 
-function CoursesBox({ category, coursesList }: { category: string; coursesList: ExtendedCourseType[] }) {
+import CourseCardPanel, { FullCourseDataType } from './CourseCardPanel'
+
+function CoursesBox({ category, coursesList }: { category: string; coursesList: FullCourseDataType[] }) {
 	const containerRef = useRef<HTMLDivElement | null>(null)
 
 	const scrollLeft = () => {
