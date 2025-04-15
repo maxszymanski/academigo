@@ -20,7 +20,7 @@ function CourseCardPanel({
 	return (
 		<Link
 			href={`/konto/edytuj-kurs/${course.id}`}
-			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary ${
+			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary outline-offset-2 outline-primary ${
 				isMainPage ? (i < 8 ? 'flex flex-shrink-0' : 'flex flex-shrink-0 2xl:hidden') : 'flex'
 			} ${isList ? 'w-full ' : 'h-[370px] max-w-[330px] flex-col'} `}>
 			<div className="t-0 absolute right-0 rounded-bl-2xl bg-primary px-5 py-3 font-semibold text-white z-20">

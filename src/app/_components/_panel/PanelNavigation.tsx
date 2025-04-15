@@ -18,7 +18,7 @@ function PanelNavigation() {
 					<MdDashboard className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Panel</span>
 				</NavigationLink>
-				<NavigationLink href="/konto/moje-kursy" panelNav>
+				<NavigationLink href="/konto/moje-kursy/dodane" panelNav>
 					<RiGraduationCapFill className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Moje kursy</span>
 				</NavigationLink>

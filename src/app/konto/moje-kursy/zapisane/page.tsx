@@ -1,5 +1,4 @@
 import CourseCardPanel from '@/app/_components/_courses/CourseCardPanel'
-
 import { getCoursesCreatedByUser } from '@/app/_lib/data-service'
 
 async function page() {
