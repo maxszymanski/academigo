@@ -17,9 +17,11 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
 			const params = new URLSearchParams(searchParams.toString())
 			if (currentSubCategory === slug) {
 				params.delete('subcategory')
+				params.delete('specialization')
 			} else {
 				params.set('category', categorySlug)
 				params.set('subcategory', slug)
+				params.delete('specialization')
 			}
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })

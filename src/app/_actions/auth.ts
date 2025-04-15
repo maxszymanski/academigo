@@ -105,13 +105,15 @@ export async function logout() {
 	redirect('/')
 }
 
-export async function getUser() {
+export async function getUsers() {
 	const supabase = await createClient()
 
-	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
-
-	return authData.user
+	const { data: allUsers, error } = await supabase
+		.from('full_user_data')
+		.select('*')
+		.order('created_courses', { ascending: false })
+	if (error) throw new Error(error.message)
+	return allUsers
 }
 
 export async function getCurrentUser() {
@@ -122,7 +124,7 @@ export async function getCurrentUser() {
 
 	const userEmail = authData.user?.email
 
-	const { data: user, error } = await supabase.from('users').select('*').eq('email', userEmail).single()
+	const { data: user, error } = await supabase.from('full_user_data').select('*').eq('email', userEmail).single()
 
 	if (error) throw new Error(error.message)
 

@@ -65,7 +65,7 @@ export async function getCoursesCreatedByUser() {
 	if (authError) return null
 
 	const { data, error } = await supabase
-		.from('courses')
+		.from('full_course_data')
 		.select('*')
 		.eq('created_by', authData.user.id)
 		.order('created_at')
@@ -88,3 +88,139 @@ export async function getCourseById(courseID: string | number) {
 
 	return data
 }
+
+export async function getNewestCourses() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase
+		.from('full_course_data')
+		.select('*')
+		.order('created_at', { ascending: false })
+		.limit(12)
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
+export async function getPopularCourses() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase
+		.from('full_course_data')
+		.select('*')
+		.order('average_rating', { ascending: true })
+		.limit(12)
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
+export async function getSelectedByUsCourses() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase
+		.from('full_course_data')
+		.select('*')
+		.eq('promoted', true)
+		.order('created_by', { ascending: false })
+		.limit(12)
+
+	if (error) {
+		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
+export async function getCoursesByFilter(
+	type: string = '',
+	category?: string | null,
+	subCategory?: string | null,
+	specialization?: string | null
+) {
+	const supabase = await createClient()
+
+	let query = supabase.from('full_course_data').select('*').order('created_at', { ascending: false })
+
+	if (type === 'darmowy') {
+		query = query.eq('free', true)
+	} else if (type === 'platny') {
+		query = query.eq('free', false)
+	}
+
+	if (category && !subCategory && !specialization) {
+		query = query.eq('categories', category)
+	}
+	if (subCategory && !specialization) {
+		query = query.eq('sub_categories', subCategory)
+	}
+	if (specialization) {
+		query = query.eq('specialization', specialization)
+	}
+
+	const { data, error } = await query
+
+	if (error) {
+		throw new Error('Błąd pobierania kursów')
+	}
+
+	return data
+}
+
+// export async function getLikedCourses() {
+// 	const supabase = await createClient()
+
+// 	const { data: authData, error: authError } = await supabase.auth.getUser()
+// 	if (authError) return null
+
+// 	const { data, error } = await supabase
+// 		.from('user_likes')
+// 		.select('*')
+// 		.eq('user_id', authData.user.id)
+// 		.order('created_at')
+
+// 	if (error) {
+// 		throw new Error('Błąd pobierania kursów polubionych przez użytkownika')
+// 	}
+
+// 	return data
+// }
+// export async function getRatedCourses() {
+// 	const supabase = await createClient()
+
+// 	const { data: authData, error: authError } = await supabase.auth.getUser()
+// 	if (authError) return null
+
+// 	const { data, error } = await supabase
+// 		.from('user_ratings')
+// 		.select('*')
+// 		.eq('user_id', authData.user.id)
+// 		.order('created_at')
+
+// 	if (error) {
+// 		throw new Error('Błąd pobierania kursów ocenionych przez użytkownika')
+// 	}
+
+// 	return data
+// }
+// export async function getSavedCourses() {
+// 	const supabase = await createClient()
+
+// 	const { data: authData, error: authError } = await supabase.auth.getUser()
+// 	if (authError) return null
+
+// 	const { data, error } = await supabase
+// 		.from('user_saved_courses')
+// 		.select('*')
+// 		.eq('user_id', authData.user.id)
+// 		.order('created_at')
+
+// 	if (error) {
+// 		throw new Error('Błąd pobierania kursów zapisanych przez użytkownika')
+// 	}
+
+// 	return data
+// }

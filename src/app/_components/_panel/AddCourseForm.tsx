@@ -16,6 +16,7 @@ import { createCourse } from '@/app/_actions/mutations'
 import LoadingPortal from '../_ui/LoadingPortal'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { SpecializationType } from '../_courses/Specialization'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -40,7 +41,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 	const [isFree, setIsFree] = useState(false)
 
 	const [subCategories, setSubCategories] = useState<SubCat[] | []>([])
-	const [specializations, setSpecializations] = useState<SubCat[] | []>([])
+	const [specializations, setSpecializations] = useState<SpecializationType[] | []>([])
 
 	useEffect(() => {
 		setValue('sub_categories', '')
@@ -203,6 +204,8 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						min={0}
 						disabled={isFree}
 						defaultValue={isFree ? '0' : undefined}
+						step="0.01"
+						inputMode="decimal"
 						required>
 						<Checkbox
 							formRegister={register('free')}
@@ -245,7 +248,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						disabled={subCategories.length === 0}
 					/>
 					<CustomSelect
-						subCategoriesData={specializations}
+						specializationsData={specializations}
 						label="Specializacja kursu"
 						defaultOption="Wybierz specializacje kursu"
 						formRegister={register('specialization')}

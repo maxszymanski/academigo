@@ -16,7 +16,7 @@ function Navigation({ isUser = false }: { isUser?: boolean }) {
 	return (
 		<nav
 			className={`z-40 flex w-full flex-col gap-2 xl:container md:flex-row md:items-center md:justify-between md:px-6 md:py-6 xl:mx-auto ${
-				blackNav ? 'absolute bg-dark lg:hidden' : 'fixed bg-white md:relative'
+				blackNav ? 'fixed bg-dark lg:hidden ' : 'fixed bg-white md:relative'
 			}`}>
 			<MobileNav blackNav={blackNav} pathname={pathname} />
 			<Logo />

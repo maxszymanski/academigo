@@ -21,22 +21,23 @@ function CourseCard({
 			href="/kursy/programowanie"
 			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary ${
 				isMainPage ? (i < 8 ? 'flex flex-shrink-0' : 'flex flex-shrink-0 2xl:hidden') : 'flex'
-			} ${isList ? 'w-full ' : 'h-[370px] max-w-[330px] flex-col'} `}>
+			} ${!isMainPage && isList ? 'w-full ' : 'h-[370px] max-w-[330px] flex-col'} `}>
 			<div className="t-0 absolute right-0 rounded-bl-2xl bg-primary px-5 py-3 font-semibold text-white z-20">
 				49,99 zł
 			</div>
-			<div className={`z-10 h-[200px] w-[330px] relative ${isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}>
+			<div
+				className={`z-10 h-[200px] w-[330px] relative ${!isMainPage && isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}>
 				<Image
 					src="/course.jpg"
 					fill
 					alt="course image"
-					className={` object-cover ${isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}
+					className={` object-cover ${!isMainPage && isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}
 				/>
 			</div>
 			<div
-				className={`flex flex-1 flex-col justify-between rounded-b-2xl text-stone400 ${isList ? 'px-6 py-3' : 'px-3 py-2'}`}>
+				className={`flex flex-1 flex-col justify-between rounded-b-2xl text-stone400 ${!isMainPage && isList ? 'px-6 py-3' : 'px-3 py-2'}`}>
 				<h3
-					className={`text-base font-semibold text-stone400 overflow-hidden overflow-ellipsis whitespace-normal line-clamp-2  ${isList ? 'max-w-[70%]' : 'pr-2'} `}>
+					className={`text-base font-semibold text-stone400 overflow-hidden overflow-ellipsis whitespace-normal line-clamp-2  ${!isMainPage && isList ? 'max-w-[70%]' : 'pr-2'} `}>
 					{name}
 				</h3>
 				<p className="text-stone400 py-8">

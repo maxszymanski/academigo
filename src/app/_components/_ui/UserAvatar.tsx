@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DefaultUser from '@/assets/default-user.webp'
 
-function UserAvatar({ avatar }: { avatar?: string | null }) {
+function UserAvatar({ avatar, small = false }: { avatar?: string | null; small?: boolean }) {
 	return (
 		<Link
 			href="/konto/ustawienia"
@@ -12,7 +12,7 @@ function UserAvatar({ avatar }: { avatar?: string | null }) {
 				src={avatar ? avatar : DefaultUser}
 				width={44}
 				height={44}
-				className=" h-[42px] w-[42px] rounded-full  object-cover   xl:h-11 xl:w-11 "
+				className={`  rounded-full  object-cover ${small ? 'h-6 w-6' : 'h-[42px] w-[42px] xl:h-11 xl:w-11'}   `}
 				alt="zdjęcie użytkownika"
 			/>
 		</Link>
