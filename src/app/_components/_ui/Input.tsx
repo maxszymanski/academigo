@@ -13,6 +13,7 @@ interface InputType {
 	wrapperClass?: string
 	children?: React.ReactNode
 	disabled?: boolean
+	inputRef?: React.Ref<HTMLInputElement>
 }
 
 function Input({
@@ -27,6 +28,7 @@ function Input({
 	wrapperClass = '',
 	children,
 	disabled = false,
+	inputRef,
 }: InputType) {
 	return (
 		<div className={`relative flex flex-col  w-full items-center justify-center px-3 ${wrapperClass}`}>
@@ -36,6 +38,7 @@ function Input({
 				</div>
 			)}
 			<input
+				ref={inputRef || undefined}
 				type={type}
 				placeholder={placeholder}
 				className={`${restClass} w-full border-b border-white/40 bg-transparent py-2.5 text-sm text-white/80 outline-none transition-colors duration-300 placeholder:text-white/50 hover:border-white focus:border-white ${

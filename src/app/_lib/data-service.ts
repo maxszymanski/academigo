@@ -139,7 +139,8 @@ export async function getCoursesByFilter(
 	type: string = '',
 	category?: string | null,
 	subCategory?: string | null,
-	specialization?: string | null
+	specialization?: string | null,
+	search?: string | null
 ) {
 	const supabase = await createClient()
 
@@ -161,6 +162,10 @@ export async function getCoursesByFilter(
 		query = query.eq('specialization', specialization)
 	}
 
+	if (search) {
+		query = query.ilike('title', `%${search}%`)
+	}
+
 	const { data, error } = await query
 
 	if (error) {
@@ -170,24 +175,24 @@ export async function getCoursesByFilter(
 	return data
 }
 
-// export async function getLikedCourses() {
-// 	const supabase = await createClient()
+export async function getLikedCourses() {
+	const supabase = await createClient()
 
-// 	const { data: authData, error: authError } = await supabase.auth.getUser()
-// 	if (authError) return null
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
 
-// 	const { data, error } = await supabase
-// 		.from('user_likes')
-// 		.select('*')
-// 		.eq('user_id', authData.user.id)
-// 		.order('created_at')
+	const { data, error } = await supabase
+		.from('user_likes')
+		.select('course_id')
+		.eq('user_id', authData.user.id)
+		.order('created_at')
 
-// 	if (error) {
-// 		throw new Error('Błąd pobierania kursów polubionych przez użytkownika')
-// 	}
+	if (error) {
+		throw new Error('Błąd pobierania kursów polubionych przez użytkownika')
+	}
 
-// 	return data
-// }
+	return data
+}
 // export async function getRatedCourses() {
 // 	const supabase = await createClient()
 

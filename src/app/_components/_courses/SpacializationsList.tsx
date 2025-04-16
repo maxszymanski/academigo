@@ -15,6 +15,7 @@ function SpecializationsList({ specializations }: { specializations: Specializat
 	const handleCategoryClick = (slug: string, subCategorySlug: string, categorySlug: string) => {
 		startTransition(() => {
 			const params = new URLSearchParams(searchParams.toString())
+			params.delete('search')
 			if (currentSpecialization === slug) {
 				params.delete('specialization')
 			} else {

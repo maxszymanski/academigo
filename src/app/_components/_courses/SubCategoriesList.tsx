@@ -15,6 +15,7 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
 	const handleCategoryClick = (slug: string, categorySlug: string) => {
 		startTransition(() => {
 			const params = new URLSearchParams(searchParams.toString())
+			params.delete('search')
 			if (currentSubCategory === slug) {
 				params.delete('subcategory')
 				params.delete('specialization')

@@ -17,7 +17,14 @@ function CategoriesList({ categories }: { categories: Category[] }) {
 
 	const handleCategoryClick = (slug: string) => {
 		startTransition(() => {
-			router.push(`/kursy?category=${slug}`, { scroll: false })
+			const params = new URLSearchParams(searchParams.toString())
+			params.delete('search')
+			if (currentCategory === slug) {
+				params.delete('category')
+			} else {
+				params.set('category', slug)
+				router.push(`/kursy?category=${slug}`, { scroll: false })
+			}
 		})
 	}
 

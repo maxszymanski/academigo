@@ -21,8 +21,8 @@ async function SortAndResults({
 	children: React.ReactNode
 }) {
 	return (
-		<div className="w-full max-w-[6xl]">
-			<div className="mx-auto flex w-full max-w-[328px] flex-wrap items-center justify-center gap-y-5 px-4 md:max-w-full md:flex-nowrap md:justify-between lg:justify-end lg:px-2">
+		<div className="w-full max-w-6xl">
+			<div className="mx-auto flex w-full max-w-[328px] flex-wrap items-center justify-center gap-y-5 sm:px-4 md:max-w-full md:flex-nowrap md:justify-between lg:justify-end lg:px-2">
 				<Categories categories={categories} />
 				<div className="relative flex w-full flex-wrap-reverse items-center justify-center gap-5 md:justify-end lg:gap-8">
 					<View />
