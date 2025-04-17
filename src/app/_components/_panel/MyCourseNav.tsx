@@ -5,8 +5,8 @@ import { BiSolidBookmark, BiSolidBookAdd, BiSolidBookHeart, BiSolidStar } from '
 
 function MyCourseNav() {
 	return (
-		<nav className="w-full overflow-x-auto">
-			<ul className="flex items-center lg:justify-center justify-evenly gap-2 lg:gap-12 w-full overflow-x-auto pb-4">
+		<nav className="w-full overflow-x-auto scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
+			<ul className="flex items-center lg:justify-center justify-evenly gap-2 lg:gap-12 w-full  pb-4 ">
 				<NavigationLink href="/konto/moje-kursy/dodane" restClass="text-sm" activeClass="text-slate-500">
 					<BiSolidBookAdd className="size-5 lg:size-6 mr-1 lg:mr-2 " /> <span>Dodane</span>
 				</NavigationLink>

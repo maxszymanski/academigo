@@ -179,11 +179,11 @@ export async function getLikedCourses() {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
+	if (authError) return []
 
 	const { data, error } = await supabase
 		.from('user_likes')
-		.select('course_id')
+		.select('course_id, full_course_data(*)')
 		.eq('user_id', authData.user.id)
 		.order('created_at')
 
@@ -191,26 +191,59 @@ export async function getLikedCourses() {
 		throw new Error('Błąd pobierania kursów polubionych przez użytkownika')
 	}
 
-	return data
+	const formattedData = data.map(item => ({
+		course_id: item.course_id,
+		full_course_data: Array.isArray(item.full_course_data) ? item.full_course_data[0] : item.full_course_data,
+	}))
+
+	return formattedData.map(item => item.full_course_data) || []
 }
-// export async function getRatedCourses() {
-// 	const supabase = await createClient()
+export async function getRatedCourses() {
+	const supabase = await createClient()
 
-// 	const { data: authData, error: authError } = await supabase.auth.getUser()
-// 	if (authError) return null
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return []
 
-// 	const { data, error } = await supabase
-// 		.from('user_ratings')
-// 		.select('*')
-// 		.eq('user_id', authData.user.id)
-// 		.order('created_at')
+	const { data, error } = await supabase
+		.from('user_ratings')
+		.select('course_id, full_course_data(*)')
+		.eq('user_id', authData.user.id)
+		.order('created_at')
 
-// 	if (error) {
-// 		throw new Error('Błąd pobierania kursów ocenionych przez użytkownika')
-// 	}
+	if (error) {
+		throw new Error('Błąd pobierania kursów ocenionych przez użytkownika')
+	}
 
-// 	return data
-// }
+	const formattedData = data.map(item => ({
+		course_id: item.course_id,
+		full_course_data: Array.isArray(item.full_course_data) ? item.full_course_data[0] : item.full_course_data,
+	}))
+
+	return formattedData.map(item => item.full_course_data) || []
+}
+export async function getSavedCourses() {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return []
+
+	const { data, error } = await supabase
+		.from('user_saved_courses')
+		.select('course_id, full_course_data(*)')
+		.eq('user_id', authData.user.id)
+		.order('created_at')
+
+	if (error) {
+		throw new Error('Błąd pobierania kursów zapisanych przez użytkownika')
+	}
+
+	const formattedData = data.map(item => ({
+		course_id: item.course_id,
+		full_course_data: Array.isArray(item.full_course_data) ? item.full_course_data[0] : item.full_course_data,
+	}))
+
+	return formattedData.map(item => item.full_course_data) || []
+}
 // export async function getSavedCourses() {
 // 	const supabase = await createClient()
 

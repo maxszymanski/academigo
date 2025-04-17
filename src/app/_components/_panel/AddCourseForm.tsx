@@ -182,6 +182,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						formRegister={register('platform')}
 						error={errors?.platform || null}
 						message={errors?.platform?.message || null}
+						required
 					/>
 					<PanelInput
 						label="Link do kursu"
@@ -236,6 +237,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.categories || null}
 						message={errors?.categories?.message || null}
 						name="categories"
+						required
 					/>
 					<CustomSelect
 						subCategoriesData={subCategories}
@@ -246,6 +248,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						message={errors?.sub_categories?.message || null}
 						name="sub_categories"
 						disabled={subCategories.length === 0}
+						required
 					/>
 					<CustomSelect
 						specializationsData={specializations}
@@ -256,6 +259,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						message={errors?.specialization?.message || null}
 						name="specialization"
 						disabled={specializations.length === 0}
+						required
 					/>
 					<CustomSelect
 						optionsData={difficultyLevels}
@@ -265,6 +269,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						error={errors?.level || null}
 						message={errors?.level?.message || null}
 						name="level"
+						required
 					/>
 					<CustomSelect
 						optionsData={languages}
@@ -274,6 +279,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						formRegister={register('language')}
 						error={errors?.language || null}
 						message={errors?.language?.message || null}
+						required
 					/>
 
 					<PanelInput

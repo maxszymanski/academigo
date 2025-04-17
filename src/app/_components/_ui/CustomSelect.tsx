@@ -17,6 +17,7 @@ function CustomSelect({
 	specializationsData,
 	disabled = false,
 	defaultValue,
+	required = false,
 }: {
 	optionsData?: string[]
 	categoriesData?: Category[]
@@ -30,18 +31,19 @@ function CustomSelect({
 	message?: string | null
 	disabled?: boolean
 	defaultValue?: string
+	required?: boolean
 }) {
 	return (
 		<div className="w-full md:max-w-md ">
 			<label htmlFor={name} className={`block text-dark2 mb-1`} aria-disabled={disabled}>
 				{label}
-				<span className="text-red-400"> *</span>
+				{required && <span className="text-red-400">*</span>}
 			</label>
 			<div className="relative mt-1">
 				<select
 					name={name}
 					id={name}
-					className={` w-full rounded-lg  text-sm px-5 py-3.5 border  bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none text-dark2 disabled:cursor-not-allowed md:max-w-md 2xl:max-h-[50px] cursor-pointer disabled:text-dark2/80 appearance-none disabled:bg-stone-100 ${error ? 'border-red-500' : 'border-slate-200'}`}
+					className={` w-full rounded-lg mt-1 text-sm px-5 py-3.5 border  bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none text-dark2 disabled:cursor-not-allowed md:max-w-md 2xl:max-h-[50px] cursor-pointer disabled:text-dark2/80 appearance-none disabled:bg-stone-100 ${error ? 'border-red-500' : 'border-slate-200'}`}
 					defaultValue={defaultValue || ''}
 					disabled={disabled}
 					{...formRegister}>
@@ -80,7 +82,7 @@ function CustomSelect({
 							</option>
 						))}
 				</select>
-				<div className="absolute right-3 top-1/2 -translate-y-1/2  pointer-events-none text-gray-400">
+				<div className="absolute right-3 top-1/2 -translate-y-1/2  pointer-events-none text-gray-400 mt-1">
 					<FaChevronDown />
 				</div>
 			</div>

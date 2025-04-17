@@ -204,6 +204,7 @@ function EditCourseForm({
 						error={errors?.platform || null}
 						message={errors?.platform?.message || null}
 						defaultValue={courseData.platform}
+						required
 					/>
 					<PanelInput
 						label="Link do kursu"
@@ -262,6 +263,7 @@ function EditCourseForm({
 						message={errors?.categories?.message || null}
 						name="categories"
 						defaultValue={courseData.categories}
+						required
 					/>
 					<CustomSelect
 						subCategoriesData={subCategories}
@@ -273,6 +275,7 @@ function EditCourseForm({
 						name="sub_categories"
 						disabled={subCategories.length === 0 && !courseData.sub_categories}
 						defaultValue={courseData.sub_categories}
+						required
 					/>
 					<CustomSelect
 						specializationsData={specializations}
@@ -284,6 +287,7 @@ function EditCourseForm({
 						name="specialization"
 						disabled={specializations.length === 0 && !courseData.specialization}
 						defaultValue={courseData.specialization}
+						required
 					/>
 					<CustomSelect
 						optionsData={difficultyLevels}
@@ -294,6 +298,7 @@ function EditCourseForm({
 						message={errors?.level?.message || null}
 						name="level"
 						defaultValue={courseData.level}
+						required
 					/>
 					<CustomSelect
 						optionsData={languages}
@@ -304,6 +309,7 @@ function EditCourseForm({
 						error={errors?.language || null}
 						message={errors?.language?.message || null}
 						defaultValue={courseData.language}
+						required
 					/>
 
 					<PanelInput
