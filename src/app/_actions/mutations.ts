@@ -1,6 +1,11 @@
 'use server'
 
-import { addCourseSchemaServer } from '../_lib/validators'
+import {
+	addCourseSchemaServer,
+	updatePersonalDataSchema,
+	UpdatePersonalDataType,
+	pictureSchemaServer,
+} from '../_lib/validators'
 import { createClient } from '../utils/supabase/server'
 import { getCourseById } from '../_lib/data-service'
 import { revalidatePath } from 'next/cache'
@@ -47,6 +52,52 @@ export async function createCourse(data: FormData) {
 		return { error: 'Wystąpił problem podczas dodawania kursu, proszę spróbować ponownie później.' }
 	}
 	revalidatePath('/konto/moje-kursy')
+}
+
+export async function updateAvatar(data: FormData) {
+	const avatar = data.get('avatar') as File | string
+
+	const result = pictureSchemaServer.safeParse(avatar)
+
+	if (!result.success) {
+		return { error: 'Wystąpił problem podczas edytowania zdjęcia, proszę spróbować ponownie później.' }
+	}
+
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Nie można znaleźć użytkownika' }
+	}
+
+	let avatarLink
+
+	if (typeof result.data === 'string') {
+		avatarLink = result.data
+	} else {
+		const fileName = `avatar-${authData.user.id}-${Math.random()}`
+		const { error: storageError } = await supabase.storage.from('avatars').upload(fileName, result.data, {
+			cacheControl: '3600',
+			upsert: false,
+		})
+
+		if (storageError) {
+			throw new Error(storageError.message)
+		} else {
+			avatarLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/avatars/${fileName}`
+		}
+	}
+
+	const { error } = await supabase.from('users').update({ avatar: avatarLink }).eq('id', authData.user.id)
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas edytowania avataru, proszę spróbować ponownie później.' }
+	}
+
+	revalidatePath(`/konto/`)
+	revalidatePath(`/konto/o-mnie`)
 }
 
 export async function updateCourse(data: FormData, courseID: string | number) {
@@ -109,8 +160,7 @@ export async function updateCourse(data: FormData, courseID: string | number) {
 	}
 
 	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
-	revalidatePath(`/konto/moje-kursy`)
-	// redirect('/konto/moje-kursy')
+	revalidatePath(`/konto/moje-kursy/dodane`)
 }
 
 export async function deleteCourse(courseID: string) {
@@ -133,4 +183,35 @@ export async function deleteCourse(courseID: string) {
 
 	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
 	revalidatePath(`/konto/moje-kursy`)
+}
+
+export async function UpdatePersonalUserData(updateData: UpdatePersonalDataType) {
+	const result = updatePersonalDataSchema.safeParse({
+		...updateData,
+	})
+
+	if (!result.success) {
+		return { error: 'Wystąpił problem podczas edytowania , proszę spróbować ponownie później.' }
+	}
+
+	const supabase = await createClient()
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+
+	if (authError) return { error: 'Użytkownik nie ma uprawnień do edytowania danych' }
+
+	const { error } = await supabase
+		.from('users')
+		.update({
+			...result.data,
+		})
+		.eq('id', authData.user.id)
+
+	if (error) {
+		if (error) {
+			return { error: 'Wystąpił problem podczas edycji danych' }
+		}
+	}
+
+	revalidatePath('/konto/')
+	revalidatePath('/konto/o-mnie')
 }

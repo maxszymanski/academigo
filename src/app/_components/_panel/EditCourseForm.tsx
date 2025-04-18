@@ -122,9 +122,9 @@ function EditCourseForm({
 		if (!isValidSize) {
 			setError('picture', {
 				type: 'manual',
-				message: 'Plik musi być większy niż 2MB',
+				message: 'Plik musi być mniejszy niż 2MB',
 			})
-			toast.error('Plik musi być większy niż 2MB')
+			toast.error('Plik musi być mniejszy niż 2MB')
 			return
 		}
 
@@ -138,8 +138,8 @@ function EditCourseForm({
 
 		const formData = new FormData()
 
-		formData.append('data', JSON.stringify(restData))
 		formData.append('picture', image)
+		formData.append('data', JSON.stringify(restData))
 
 		const result = await updateCourse(formData, courseData.id)
 
@@ -147,7 +147,7 @@ function EditCourseForm({
 			toast.error(result.error)
 		} else {
 			toast.success('Kurs został zaktualizowany')
-			router.push('/konto/moje-kursy')
+			router.push('/konto/moje-kursy/dodane')
 		}
 	}
 

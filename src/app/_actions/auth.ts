@@ -85,7 +85,6 @@ export async function signup(formData: FormData) {
 			id: userId,
 			email: result.data.email,
 			username: result.data.username,
-			gender: result.data.gender,
 		})
 		if (createError) {
 			return { error: 'Wystąpił problem podczas rejestracji, proszę spróbować ponownie.' }

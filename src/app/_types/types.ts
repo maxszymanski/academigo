@@ -26,4 +26,7 @@ export interface CurrentUserType {
 	created_courses: number
 	saved_courses: number
 	rated_courses: number
+	age: string | null
+	country: string | null
+	city: string | null
 }

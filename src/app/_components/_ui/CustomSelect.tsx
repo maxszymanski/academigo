@@ -37,7 +37,7 @@ function CustomSelect({
 		<div className="w-full md:max-w-md ">
 			<label htmlFor={name} className={`block text-dark2 mb-1`} aria-disabled={disabled}>
 				{label}
-				{required && <span className="text-red-400">*</span>}
+				{required && <span className="text-red-400"> *</span>}
 			</label>
 			<div className="relative mt-1">
 				<select

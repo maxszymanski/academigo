@@ -50,7 +50,7 @@ export async function getSpecializations(categorySlug: string | null, subCategor
 export async function getPlatforms() {
 	const supabase = await createClient()
 
-	const { data, error } = await supabase.from('settings').select('*').eq('name', 'platforms')
+	const { data, error } = await supabase.from('settings').select('*').eq('name', 'platforms').single()
 
 	if (error) {
 		throw new Error('Błąd pobierania platform')
@@ -58,6 +58,19 @@ export async function getPlatforms() {
 
 	return data
 }
+
+export async function getGenders() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.from('settings').select('*').eq('name', 'genders').single()
+
+	if (error) {
+		throw new Error('Błąd pobierania kategorii płci')
+	}
+
+	return data
+}
+
 export async function getCoursesCreatedByUser() {
 	const supabase = await createClient()
 

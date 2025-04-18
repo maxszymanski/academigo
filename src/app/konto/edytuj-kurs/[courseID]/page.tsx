@@ -18,7 +18,7 @@ async function page({ params }: { params: Params }) {
 			<section className="w-full px-4 lg:px-6 ">
 				<h1 className="text-primary text-3xl text-center font-semibold mb-12">Edytuj kurs</h1>
 
-				<EditCourseForm platforms={platforms[0].value} categories={categories} courseData={course} />
+				<EditCourseForm platforms={platforms.value} categories={categories} courseData={course} />
 			</section>
 		</>
 	)

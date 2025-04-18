@@ -21,19 +21,13 @@ export const signUpSchema = z
 			.string()
 			.nonempty('Potwierdzenie hasła nie może być puste')
 			.min(8, 'Hasło musi mieć co najmniej 8 znaków'),
-		gender: z
-			.enum(['kobieta', 'mężczyzna'])
-			.nullable()
-			.refine(value => value !== null, {
-				message: 'Proszę wybrać płeć',
-			}),
 	})
 	.refine(data => data.password === data.confirmPassword, {
 		message: 'Hasła muszą być takie same',
 		path: ['confirmPassword'],
 	})
 
-const pictureSchema = z.union([
+export const pictureSchemaServer = z.union([
 	z
 		.instanceof(File)
 		.refine(file => ACCEPTED_IMAGE_TYPES.includes(file.type), {
@@ -44,6 +38,13 @@ const pictureSchema = z.union([
 		}),
 	z.string().url('Nieprawidłowy adres URL'),
 ])
+
+export const avatarSchema = z.object({
+	avatar: z.any().nullable(),
+})
+export const pictureSchema = z.object({
+	picture: z.any().nullable(),
+})
 
 export const addCourseSchema = z
 	.object({
@@ -127,13 +128,28 @@ export const addCourseSchemaServer = z
 		course_link: z.string().url('Link do kursu musi być poprawnym adresem URL'),
 		author_name: z.string().nullable(),
 		author_link: z.string().nullable(),
-		picture: pictureSchema,
+		picture: pictureSchemaServer,
 	})
 	.refine(data => data.free || (data.price && data.price.length > 0), {
 		message: 'Cena kursu jest wymagana, jeśli kurs nie jest darmowy',
 		path: ['price'],
 	})
 
+export const updatePersonalDataSchema = z.object({
+	username: z
+		.string()
+		.nonempty('Nazwa użytkownika nie może być pusta')
+		.min(3, 'Nazwa użytkownika musi mieć co najmniej 3 znaki')
+		.max(20, 'Nazwa użytkownika może mieć maksymalnie 20 znaków'),
+	gender: z.string().nullable(),
+	country: z.string().nonempty('Prosze wybrać kraj'),
+	city: z.string().nullable(),
+	age: z.string().nullable(),
+})
+
 export type LoginType = z.infer<typeof loginSchema>
 export type AddCourseType = z.infer<typeof addCourseSchema>
 export type SignUpType = z.infer<typeof signUpSchema>
+export type UpdatePersonalDataType = z.infer<typeof updatePersonalDataSchema>
+export type pictureType = z.infer<typeof pictureSchema>
+export type avatarType = z.infer<typeof avatarSchema>

@@ -23,7 +23,7 @@ function PanelHello({ gender, username }: { gender: string | null; username: str
 			</div>
 			<Image
 				priority
-				src={gender === 'kobieta' ? StudentGirl : Student}
+				src={gender === 'Kobieta' ? StudentGirl : Student}
 				alt="obraz studenta"
 				width={200}
 				height={200}
