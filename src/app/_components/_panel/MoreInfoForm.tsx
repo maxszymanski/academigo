@@ -1,15 +1,15 @@
 'use client'
-import { countryOptions } from '@/app/utils/countries'
+
 import CustomSelect from '../_ui/CustomSelect'
 import PanelInput from '../_ui/PanelInput'
 import SettingsBox from './SettingsBox'
 import Button from '../_ui/Button'
 import { CurrentUserType } from '@/app/_types/types'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { updatePersonalDataSchema, UpdatePersonalDataType } from '@/app/_lib/validators'
+import { updateRoleSchema, UpdateRoleType } from '@/app/_lib/validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Spinner from '../_ui/Spinner'
-import { UpdatePersonalUserData } from '@/app/_actions/mutations'
+import { UpdateRole } from '@/app/_actions/mutations'
 import toast from 'react-hot-toast'
 import LoadingPortal from '../_ui/LoadingPortal'
 
@@ -20,14 +20,13 @@ function MoreInfoForm({ user }: { user: CurrentUserType }) {
 		register,
 		handleSubmit,
 
-		formState: { errors, isSubmitting },
-	} = useForm<UpdatePersonalDataType>({
-		resolver: zodResolver(updatePersonalDataSchema),
+		formState: { isSubmitting },
+	} = useForm<UpdateRoleType>({
+		resolver: zodResolver(updateRoleSchema),
 	})
 
-	const onSubmit: SubmitHandler<UpdatePersonalDataType> = async data => {
-		const result = await UpdatePersonalUserData(data)
-
+	const onSubmit: SubmitHandler<UpdateRoleType> = async data => {
+		const result = await UpdateRole(data)
 		if (result?.error) {
 			toast.error(result.error)
 		} else {
@@ -51,7 +50,7 @@ function MoreInfoForm({ user }: { user: CurrentUserType }) {
 					label="Zawód"
 					name="proffesion"
 					placeholder="Podaj swój zawód"
-					defaultValue={user.proffesion}
+					defaultValue={user.proffesion || ''}
 					formRegister={register('proffesion')}
 				/>
 

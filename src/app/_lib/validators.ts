@@ -146,6 +146,16 @@ export const updatePersonalDataSchema = z.object({
 	city: z.string().nullable(),
 	age: z.string().nullable(),
 })
+export const updateSocialSchema = z.object({
+	page: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
+	linkedin: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
+	github: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
+	social: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
+})
+export const updateRoleSchema = z.object({
+	role: z.string().nullable(),
+	proffesion: z.string().nullable(),
+})
 
 export type LoginType = z.infer<typeof loginSchema>
 export type AddCourseType = z.infer<typeof addCourseSchema>
@@ -153,3 +163,5 @@ export type SignUpType = z.infer<typeof signUpSchema>
 export type UpdatePersonalDataType = z.infer<typeof updatePersonalDataSchema>
 export type pictureType = z.infer<typeof pictureSchema>
 export type avatarType = z.infer<typeof avatarSchema>
+export type UpdateSocialType = z.infer<typeof updateSocialSchema>
+export type UpdateRoleType = z.infer<typeof updateRoleSchema>

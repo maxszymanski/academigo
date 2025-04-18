@@ -29,4 +29,10 @@ export interface CurrentUserType {
 	age: string | null
 	country: string | null
 	city: string | null
+	page: string | null
+	linkedin: string | null
+	github: string | null
+	social: string | null
+	role: string | null
+	proffesion: string | null
 }

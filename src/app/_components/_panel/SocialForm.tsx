@@ -1,30 +1,29 @@
 'use client'
-import CustomSelect from '../_ui/CustomSelect'
 import PanelInput from '../_ui/PanelInput'
 import SettingsBox from './SettingsBox'
 import Button from '../_ui/Button'
 import { CurrentUserType } from '@/app/_types/types'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { updatePersonalDataSchema, UpdatePersonalDataType } from '@/app/_lib/validators'
+import { updateSocialSchema, UpdateSocialType } from '@/app/_lib/validators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Spinner from '../_ui/Spinner'
-import { UpdatePersonalUserData } from '@/app/_actions/mutations'
+
 import toast from 'react-hot-toast'
 import LoadingPortal from '../_ui/LoadingPortal'
+import { UpdateSocials } from '@/app/_actions/mutations'
 
 function SocialForm({ user }: { user: CurrentUserType }) {
 	const {
 		register,
 		handleSubmit,
 
-		formState: { errors, isSubmitting },
-	} = useForm<UpdatePersonalDataType>({
-		resolver: zodResolver(updatePersonalDataSchema),
+		formState: { isSubmitting },
+	} = useForm<UpdateSocialType>({
+		resolver: zodResolver(updateSocialSchema),
 	})
 
-	const onSubmit: SubmitHandler<UpdatePersonalDataType> = async data => {
-		const result = await UpdatePersonalUserData(data)
-
+	const onSubmit: SubmitHandler<UpdateSocialType> = async data => {
+		const result = await UpdateSocials(data)
 		if (result?.error) {
 			toast.error(result.error)
 		} else {

@@ -5,6 +5,10 @@ import {
 	updatePersonalDataSchema,
 	UpdatePersonalDataType,
 	pictureSchemaServer,
+	UpdateSocialType,
+	UpdateRoleType,
+	updateSocialSchema,
+	updateRoleSchema,
 } from '../_lib/validators'
 import { createClient } from '../utils/supabase/server'
 import { getCourseById } from '../_lib/data-service'
@@ -187,6 +191,66 @@ export async function deleteCourse(courseID: string) {
 
 export async function UpdatePersonalUserData(updateData: UpdatePersonalDataType) {
 	const result = updatePersonalDataSchema.safeParse({
+		...updateData,
+	})
+
+	if (!result.success) {
+		return { error: 'Wystąpił problem podczas edytowania , proszę spróbować ponownie później.' }
+	}
+
+	const supabase = await createClient()
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+
+	if (authError) return { error: 'Użytkownik nie ma uprawnień do edytowania danych' }
+
+	const { error } = await supabase
+		.from('users')
+		.update({
+			...result.data,
+		})
+		.eq('id', authData.user.id)
+
+	if (error) {
+		if (error) {
+			return { error: 'Wystąpił problem podczas edycji danych' }
+		}
+	}
+
+	revalidatePath('/konto/')
+	revalidatePath('/konto/o-mnie')
+}
+export async function UpdateRole(updateData: UpdateRoleType) {
+	const result = updateRoleSchema.safeParse({
+		...updateData,
+	})
+
+	if (!result.success) {
+		return { error: 'Wystąpił problem podczas edytowania , proszę spróbować ponownie później.' }
+	}
+
+	const supabase = await createClient()
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+
+	if (authError) return { error: 'Użytkownik nie ma uprawnień do edytowania danych' }
+
+	const { error } = await supabase
+		.from('users')
+		.update({
+			...result.data,
+		})
+		.eq('id', authData.user.id)
+
+	if (error) {
+		if (error) {
+			return { error: 'Wystąpił problem podczas edycji danych' }
+		}
+	}
+
+	revalidatePath('/konto/')
+	revalidatePath('/konto/o-mnie')
+}
+export async function UpdateSocials(updateData: UpdateSocialType) {
+	const result = updateSocialSchema.safeParse({
 		...updateData,
 	})
 
