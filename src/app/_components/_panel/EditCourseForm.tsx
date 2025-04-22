@@ -350,7 +350,7 @@ function EditCourseForm({
 							{isSubmitting ? 'Edytowanie' : 'Edytuj kurs'}
 							{isSubmitting && <Spinner restClass="ml-6 absolute right-3 md:right-4" />}
 						</Button>
-						<DeleteCourse />
+						<DeleteCourse text="Usuń kurs" modalName="delete" />
 					</div>
 				</div>
 			</form>

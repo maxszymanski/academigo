@@ -51,7 +51,7 @@ function MoreInfoForm({ user }: { user: CurrentUserType }) {
 					name="proffesion"
 					placeholder="Podaj swój zawód"
 					defaultValue={user.proffesion || ''}
-					formRegister={register('proffesion')}
+					formRegister={register('profession')}
 				/>
 
 				<div className="px-8 w-full flex items-center justify-center pt-4">

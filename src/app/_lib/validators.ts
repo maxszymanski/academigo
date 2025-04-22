@@ -3,6 +3,14 @@ import { z } from 'zod'
 export const MAX_FILE_SIZE = 2000000
 export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
 
+const urlValidator = z
+	.string()
+	.trim()
+	.nullable()
+	.refine(val => !val || /^https?:\/\/[^\s$.?#].[^\s]*$/i.test(val), {
+		message: 'Link do strony musi być poprawnym adresem URL',
+	})
+
 export const loginSchema = z.object({
 	email: z.string().nonempty('Email jest wymagany').email('Nieprawidłowy email'),
 	password: z.string().nonempty('Hasło jest wymagane').min(8, 'Hasło musi mieć co najmniej 8 znaków'),
@@ -16,6 +24,18 @@ export const signUpSchema = z
 			.nonempty('Nazwa użytkownika nie może być pusta')
 			.min(3, 'Nazwa użytkownika musi mieć co najmniej 3 znaki')
 			.max(20, 'Nazwa użytkownika może mieć maksymalnie 20 znaków'),
+		password: z.string().nonempty('Hasło nie może być puste').min(8, 'Hasło musi mieć co najmniej 8 znaków'),
+		confirmPassword: z
+			.string()
+			.nonempty('Potwierdzenie hasła nie może być puste')
+			.min(8, 'Hasło musi mieć co najmniej 8 znaków'),
+	})
+	.refine(data => data.password === data.confirmPassword, {
+		message: 'Hasła muszą być takie same',
+		path: ['confirmPassword'],
+	})
+export const changePasswordSchema = z
+	.object({
 		password: z.string().nonempty('Hasło nie może być puste').min(8, 'Hasło musi mieć co najmniej 8 znaków'),
 		confirmPassword: z
 			.string()
@@ -147,16 +167,17 @@ export const updatePersonalDataSchema = z.object({
 	age: z.string().nullable(),
 })
 export const updateSocialSchema = z.object({
-	page: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
-	linkedin: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
-	github: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
-	social: z.string().url('Link do stony musi być poprawnym adresem URL').nullable(),
+	page: urlValidator,
+	linkedin: urlValidator,
+	github: urlValidator,
+	social: urlValidator,
 })
 export const updateRoleSchema = z.object({
 	role: z.string().nullable(),
-	proffesion: z.string().nullable(),
+	profession: z.string().nullable(),
 })
 
+export type ChangePasswordType = z.infer<typeof changePasswordSchema>
 export type LoginType = z.infer<typeof loginSchema>
 export type AddCourseType = z.infer<typeof addCourseSchema>
 export type SignUpType = z.infer<typeof signUpSchema>

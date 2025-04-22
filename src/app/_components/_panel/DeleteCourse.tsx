@@ -2,7 +2,7 @@
 import useAppStore from '@/app/stores/store'
 import Button from '../_ui/Button'
 
-function DeleteCourse() {
+function DeleteCourse({ modalName, text }: { modalName: string; text: string }) {
 	const openModal = useAppStore(state => state.openModal)
 	const setOpenModal = useAppStore(state => state.setOpenModal)
 	const closeModal = useAppStore(state => state.closeModal)
@@ -10,17 +10,17 @@ function DeleteCourse() {
 	const handleOpenDeleteModal = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		{
-			if (openModal === 'delete') {
+			if (openModal ===  modalName ) {
 				closeModal()
 			} else {
-				setOpenModal('delete')
+				setOpenModal(modalName )
 			}
 		}
 	}
 
 	return (
 		<Button variant="danger" restClass="relative" onClick={handleOpenDeleteModal}>
-			Usuń kurs
+			{text}
 		</Button>
 	)
 }

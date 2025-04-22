@@ -6,7 +6,7 @@ async function AddCourse() {
 
 	return (
 		<section className="w-full px-4 lg:px-6 ">
-			<h1 className="text-primary text-3xl text-center font-semibold mb-12">Dodaj nowy kurs</h1>
+			<h1 className="text-primary text-3xl text-center font-semibold mb-12 xl:mb-20">Dodaj nowy kurs</h1>
 			<AddCourseForm platforms={platforms.value} categories={categories} />
 		</section>
 	)

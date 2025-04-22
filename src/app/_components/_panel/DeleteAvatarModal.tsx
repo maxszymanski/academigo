@@ -3,30 +3,28 @@ import { useRef, useTransition } from 'react'
 import Modal from '../_ui/Modal'
 import useAppStore from '@/app/stores/store'
 import Button from '../_ui/Button'
-import { deleteCourse } from '@/app/_actions/mutations'
+import { deleteAvatar } from '@/app/_actions/mutations'
 import Spinner from '../_ui/Spinner'
 import LoadingPortal from '../_ui/LoadingPortal'
 import toast from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
 
-function DeleteModal({ courseID }: { courseID: string }) {
+function DeleteAvatarModal({ setImage }: { setImage: React.Dispatch<React.SetStateAction<File | null | string>> }) {
 	const modalRef = useRef<HTMLDivElement | null>(null)
 	const closeModal = useAppStore(state => state.closeModal)
 	const openModal = useAppStore(state => state.openModal)
 	const [isPending, startTransition] = useTransition()
-	const router = useRouter()
 
-	if (openModal != 'delete') return null
+	if (openModal != 'delete-avatar') return null
 
-	const handleDeleteCourse = () => {
+	const handleDeleteAvatar = () => {
 		startTransition(async () => {
-			const res = await deleteCourse(courseID)
+			const res = await deleteAvatar()
 
 			if (res?.error) {
-				toast.error(res.error)
+				toast.error('Wystąpił problem podczas usuwania zdjęcia')
 			} else {
-				toast.success('Kurs został usunięty')
-				router.push('/konto/moje-kursy')
+				setImage(null)
+				toast.success('Zdjęcie zostało usuniętę')
 				closeModal()
 			}
 		})
@@ -34,18 +32,18 @@ function DeleteModal({ courseID }: { courseID: string }) {
 
 	return (
 		<>
-			{isPending && <LoadingPortal information="Usuwanie kursu" />}
-			<Modal modalRef={modalRef} closeModal={closeModal} fullPageModal buttonId="delete">
+			{isPending && <LoadingPortal information="Usuwanie zdjęcia" />}
+			<Modal modalRef={modalRef} closeModal={closeModal} fullPageModal buttonId="deleteAvatar">
 				<div className="p-8">
-					<p className="text-dark2 md:text-lg pb-10">Czy jesteś pewny, że chcesz usunąć kurs?</p>
+					<p className="text-dark2 md:text-lg pb-10">Czy jesteś pewny, że chcesz usunąć zdjęcie?</p>
 					<div className="flex items-center flex-wrap justify-center gap-8">
 						<Button
 							variant="danger"
 							id="delete-course"
-							restClass="2xl:!text-base min-w-[177px]"
+							restClass="2xl:!text-base w-[177px]"
 							disabled={isPending}
-							onClick={handleDeleteCourse}>
-							Usuń kurs
+							onClick={handleDeleteAvatar}>
+							Usuń zdjęcie
 							{isPending && <Spinner restClass="ml-6 absolute right-3 md:right-4" />}
 						</Button>
 						<Button variant="submit" onClick={closeModal} restClass="2xl:!text-base min-w-[177px] ">
@@ -58,4 +56,4 @@ function DeleteModal({ courseID }: { courseID: string }) {
 	)
 }
 
-export default DeleteModal
+export default DeleteAvatarModal

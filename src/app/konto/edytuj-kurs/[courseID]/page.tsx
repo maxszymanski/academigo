@@ -16,7 +16,7 @@ async function page({ params }: { params: Params }) {
 		<>
 			<DeleteModal courseID={courseID} />
 			<section className="w-full px-4 lg:px-6 ">
-				<h1 className="text-primary text-3xl text-center font-semibold mb-12">Edytuj kurs</h1>
+				<h1 className="text-primary text-3xl text-center font-semibold mb-12 xl:mb-20">Edytuj kurs</h1>
 
 				<EditCourseForm platforms={platforms.value} categories={categories} courseData={course} />
 			</section>

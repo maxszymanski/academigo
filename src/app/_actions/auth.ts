@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '../utils/supabase/server'
-import { loginSchema, signUpSchema } from '../_lib/validators'
+import { changePasswordSchema, ChangePasswordType, loginSchema, signUpSchema } from '../_lib/validators'
 
 export async function login(formData: FormData) {
 	const result = loginSchema.safeParse({
@@ -111,10 +111,23 @@ export async function getUsers() {
 		.from('full_user_data')
 		.select('*')
 		.order('created_courses', { ascending: false })
-	if (error) throw new Error(error.message)
+	if (error) {
+		return { error: 'Wystąpił problem podczas pobierania danych' }
+	}
 	return allUsers
 }
 
+export async function getUserAccount() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.auth.getUser()
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas pobierania danych użytkownika' }
+	}
+
+	return data.user
+}
 export async function getCurrentUser() {
 	const supabase = await createClient()
 
@@ -125,7 +138,27 @@ export async function getCurrentUser() {
 
 	const { data: user, error } = await supabase.from('full_user_data').select('*').eq('email', userEmail).single()
 
-	if (error) throw new Error(error.message)
+	if (error) {
+		return { error: 'Wystąpił problem podczas pobierania danych' }
+	}
 
 	return user
+}
+
+export async function updatePassword(updateData: ChangePasswordType) {
+	const result = changePasswordSchema.safeParse({
+		...updateData,
+	})
+
+	if (!result.success) {
+		return { error: 'Wystąpił problem podczas aktualizacji hasła , proszę spróbować ponownie później.' }
+	}
+
+	const supabase = await createClient()
+
+	const { error } = await supabase.auth.updateUser({ password: result.data?.password })
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas edycjowania danych' }
+	}
 }

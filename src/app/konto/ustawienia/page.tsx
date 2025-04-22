@@ -1,22 +1,28 @@
-import PanelInput from '@/app/_components/_ui/PanelInput'
+import { getUserAccount } from '@/app/_actions/auth'
+import AccountInformation from '@/app/_components/_panel/AccountInformation'
+import PasswordForm from '@/app/_components/_panel/PasswordForm'
+import { User } from '@supabase/supabase-js'
 
-function Settings() {
+async function Settings() {
+	const user: User | { error: string } = await getUserAccount()
+
+	if ('error' in user) {
+		return (
+			<section className="w-full px-4 lg:px-6 ">
+				<h1 className="text-primary text-3xl text-center font-semibold mb-12 xl:mb-20">Ustawienia</h1>
+				<p className="text-red-500 text-center">Wystąpił błąd: {user.error}</p>
+			</section>
+		)
+	}
+
+	const hasPassword: boolean = user.app_metadata?.providers?.includes('email')
+
 	return (
 		<section className="w-full px-4 lg:px-6 ">
-			<h1 className="text-primary text-3xl text-center font-semibold mb-12">Ustawienia</h1>
-			<div className="w-full px-3 py-8 bg-transparent rounded-lg flex flex-col flex-wrap gap-7  md:flex-row md:flex-wrap   xl:gap-8 lg:py-14 md:justify-evenly 2xl:px-20 min-h-[800px]">
-				<form className="bg-white h-[500px] w-[500px] rounded-lg border-slate-200 outline-none border shadow-stone-200 shadow-md px-3 py-8">
-					<h2>Zmień hasło</h2>
-					<div>
-						<PanelInput label="Nowe hasło" type="password" name="password" placeholder="Wpisz nowe hasło" />
-						<PanelInput
-							label="Powtórz hasło"
-							type="password_confirm"
-							name="password_confirm"
-							placeholder="Powtórz hasło"
-						/>
-					</div>
-				</form>
+			<h1 className="text-primary text-3xl text-center font-semibold mb-12 xl:mb-20">Ustawienia</h1>
+			<div>
+				{hasPassword && <PasswordForm />}
+				<AccountInformation user={user} isGoogleAccount={!hasPassword} />
 			</div>
 		</section>
 	)

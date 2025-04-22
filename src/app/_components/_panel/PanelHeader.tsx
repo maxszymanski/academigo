@@ -21,7 +21,7 @@ async function PanelHeader() {
 				</div>
 			</div>
 
-			<Button href="/" restClass="rounded-xl">
+			<Button href="/kursy" restClass="rounded-xl">
 				<FaArrowLeftLong className="mr-3 size-4" /> Wyjście
 			</Button>
 		</header>

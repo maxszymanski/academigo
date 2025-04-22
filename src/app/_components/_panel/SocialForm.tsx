@@ -17,7 +17,7 @@ function SocialForm({ user }: { user: CurrentUserType }) {
 		register,
 		handleSubmit,
 
-		formState: { isSubmitting },
+		formState: { errors, isSubmitting },
 	} = useForm<UpdateSocialType>({
 		resolver: zodResolver(updateSocialSchema),
 	})
@@ -34,13 +34,15 @@ function SocialForm({ user }: { user: CurrentUserType }) {
 	return (
 		<SettingsBox title="Social Media">
 			{isSubmitting && <LoadingPortal information="Aktualizowanie danych" />}
-			<form className="flex flex-col gap-5  w-full " onSubmit={handleSubmit(onSubmit)}>
+			<form className="flex flex-col gap-5 w-full " onSubmit={handleSubmit(onSubmit)}>
 				<PanelInput
 					label="Strona internetowa"
 					name="page"
 					placeholder="Strona internetowa"
 					defaultValue={user?.page || ''}
 					formRegister={register('page')}
+					error={errors?.page || null}
+					message={errors?.page?.message || null}
 				/>
 				<PanelInput
 					label="Konto LinkedIn"
@@ -48,6 +50,8 @@ function SocialForm({ user }: { user: CurrentUserType }) {
 					placeholder="Konto LinkedIn"
 					defaultValue={user?.linkedin || ''}
 					formRegister={register('linkedin')}
+					error={errors?.linkedin || null}
+					message={errors?.linkedin?.message || null}
 				/>
 				<PanelInput
 					label="Konto GitHub"
@@ -55,6 +59,8 @@ function SocialForm({ user }: { user: CurrentUserType }) {
 					placeholder="Konto Github"
 					defaultValue={user?.github || ''}
 					formRegister={register('github')}
+					error={errors?.github || null}
+					message={errors?.github?.message || null}
 				/>
 				<PanelInput
 					label="Konto społecznościowe"
@@ -62,6 +68,8 @@ function SocialForm({ user }: { user: CurrentUserType }) {
 					placeholder="Konto społecznościowe"
 					defaultValue={user?.social || ''}
 					formRegister={register('social')}
+					error={errors?.social || null}
+					message={errors?.social?.message || null}
 				/>
 
 				<div className="px-8 w-full flex items-center justify-center pt-4">
