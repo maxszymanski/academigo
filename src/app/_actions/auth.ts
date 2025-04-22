@@ -112,7 +112,7 @@ export async function getUsers() {
 		.select('*')
 		.order('created_courses', { ascending: false })
 	if (error) {
-		return { error: 'Wystąpił problem podczas pobierania danych' }
+		throw new Error(error.message)
 	}
 	return allUsers
 }
@@ -123,7 +123,7 @@ export async function getUserAccount() {
 	const { data, error } = await supabase.auth.getUser()
 
 	if (error) {
-		return { error: 'Wystąpił problem podczas pobierania danych użytkownika' }
+		throw new Error(error.message)
 	}
 
 	return data.user
