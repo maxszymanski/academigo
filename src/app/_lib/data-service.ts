@@ -93,7 +93,7 @@ export async function getCoursesCreatedByUser() {
 export async function getCourseById(courseID: string | number) {
 	const supabase = await createClient()
 
-	const { data, error } = await supabase.from('courses').select('*').eq('id', courseID).single()
+	const { data, error } = await supabase.from('full_course_data').select('*').eq('id', courseID).single()
 
 	if (error) {
 		throw new Error('Błąd pobierania danych kursu')
@@ -257,21 +257,3 @@ export async function getSavedCourses() {
 
 	return formattedData.map(item => item.full_course_data) || []
 }
-// export async function getSavedCourses() {
-// 	const supabase = await createClient()
-
-// 	const { data: authData, error: authError } = await supabase.auth.getUser()
-// 	if (authError) return null
-
-// 	const { data, error } = await supabase
-// 		.from('user_saved_courses')
-// 		.select('*')
-// 		.eq('user_id', authData.user.id)
-// 		.order('created_at')
-
-// 	if (error) {
-// 		throw new Error('Błąd pobierania kursów zapisanych przez użytkownika')
-// 	}
-
-// 	return data
-// }

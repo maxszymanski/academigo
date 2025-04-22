@@ -11,7 +11,7 @@ async function page() {
 
 	return (
 		<>
-			<section className="w-full px-4 lg:px-6 py-6">
+			<section className="w-full px-4 lg:px-6 pb-8">
 				<h1 className="text-primary text-3xl text-center font-semibold mb-12 xl:mb-20">O mnie</h1>
 				<div className="w-full flex flex-wrap gap-14 justify-evenly items-start">
 					<div className="w-full flex flex-col gap-14 items-center lg:gap-20 2xl:gap-28 md:max-w-md 2xl:max-w-lg">
