@@ -295,3 +295,48 @@ export async function deleteAvatar() {
 	revalidatePath(`/konto/`)
 	revalidatePath(`/konto/o-mnie`)
 }
+export async function likeCourse(courseId: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Nie można znaleźć użytkownika' }
+	}
+	const { error } = await supabase
+		.from('user_likes')
+		.insert([{ user_id: authData.user.id, course_id: courseId }])
+		.select()
+
+	if (error) {
+		return
+	}
+
+	revalidatePath(`/kursy/${courseId}`)
+	revalidatePath(`/konto/`)
+	revalidatePath(`/konto/moje-kursy/polubione`)
+}
+export async function unlikeCourse(courseId: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Nie można znaleźć użytkownika' }
+	}
+	const { error } = await supabase
+		.from('user_likes')
+		.delete()
+		.eq('user_id', authData.user.id)
+		.eq('course_id', courseId)
+
+	if (error) {
+		return
+	}
+
+	revalidatePath(`/kursy/${courseId}`)
+	revalidatePath(`/konto/`)
+	revalidatePath(`/konto/moje-kursy/polubione`)
+}

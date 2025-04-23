@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | (() => void) | undefined
 	children: React.ReactNode
 	restClass?: string
@@ -10,6 +10,7 @@ interface ButtonProps {
 	id?: string | undefined
 	value?: number | string | undefined
 	isActiveClass?: string | undefined
+	target?: string
 
 	variant?:
 		| 'purple'
@@ -36,7 +37,7 @@ const variants = {
 	purple: 'hover:bg-primary/80 bg-primary text-sm text-white md:text-xs lg:text-sm xl:px-6 xl:py-3.5 py-2 px-4 text-center justify-center  ',
 	lightPurple: 'hover:bg-primary/80 bg-primary text-white px-4 justify-center ',
 	white: 'bg-white text-primary font-semibold tracking-wide text-base hover:bg-white/85 px-4 py-3.5 justify-center ',
-	search: 'bg-white text-primary font-semibold tracking-wide text-base hover:bg-white/85 px-4 py-2 justify-center ',
+	search: 'bg-transparent text-primary font-medium tracking-wide text-sm sm:text-base hover:text-primary/80 p-2 justify-center lg:text-second lg:hover:text-white/85',
 	transparent: 'text-sm bg-transparent text-white/50 hover:text-white ',
 	transparentDark: 'bg-transparent text-dark2 hover:text-dark2/80 ',
 	arrow: 'text-primary  py-3 px-3 absolute z-40   mb-2 hover:text-primary/80 justify-center  ',
@@ -62,12 +63,18 @@ function Button({
 	id = undefined,
 	disabled = false,
 	isActiveClass = '',
+	target = '_self',
+	...rest
 }: ButtonProps) {
 	const variantClass = variants[variant] || variants.purple
 
 	if (href)
 		return (
-			<Link href={href} className={` ${mainClass} ${variantClass} ${restClass} `}>
+			<Link
+				href={href}
+				rel="noopener noreferrer"
+				target={target}
+				className={` ${mainClass} ${variantClass} ${restClass} `}>
 				{children}
 			</Link>
 		)
@@ -78,7 +85,8 @@ function Button({
 				onClick={onClick}
 				className={`${mainClass} ${restClass} ${variantClass} ${isActive ? isActiveClass : 'text-dark2'}`}
 				disabled={disabled}
-				id={id}>
+				id={id}
+				{...rest}>
 				{children}
 			</button>
 		)
