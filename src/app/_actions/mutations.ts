@@ -340,3 +340,72 @@ export async function unlikeCourse(courseId: string) {
 	revalidatePath(`/konto/`)
 	revalidatePath(`/konto/moje-kursy/polubione`)
 }
+
+export async function saveCourse(courseId: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Nie można znaleźć użytkownika' }
+	}
+	const { error } = await supabase
+		.from('user_saved_courses')
+		.insert([{ user_id: authData.user.id, course_id: courseId }])
+		.select()
+
+	if (error) {
+		return
+	}
+
+	revalidatePath(`/kursy/${courseId}`)
+	revalidatePath(`/konto/`)
+	revalidatePath(`/konto/moje-kursy/zapisane`)
+}
+export async function unSaveCourse(courseId: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Nie można znaleźć użytkownika' }
+	}
+	const { error } = await supabase
+		.from('user_saved_courses')
+		.delete()
+		.eq('user_id', authData.user.id)
+		.eq('course_id', courseId)
+
+	if (error) {
+		return
+	}
+
+	revalidatePath(`/kursy/${courseId}`)
+	revalidatePath(`/konto/`)
+	revalidatePath(`/konto/moje-kursy/zapisane`)
+}
+
+export async function rateCourse(courseId: string, rating: number) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	if (!authData.user) {
+		return { error: 'Nie można znaleźć użytkownika' }
+	}
+	const { error } = await supabase
+		.from('user_ratings')
+		.insert([{ user_id: authData.user.id, course_id: courseId, rating: rating }])
+		.select()
+
+	if (error) {
+		return
+	}
+
+	revalidatePath(`/kursy/${courseId}`)
+	revalidatePath(`/konto/`)
+	revalidatePath(`/konto/moje-kursy/ocenione`)
+}

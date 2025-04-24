@@ -50,15 +50,20 @@ function SingleHeader({ course }: { course: FullCourseDataType }) {
 						{course.title}
 					</h1>
 					<p className="text-sm xl:text-base 2xl:text-lg 2xl:leading-8">{course.short_description}</p>
-					{course.author_link && course.author_link ? (
-						<Button variant="search" restClass="lg:pl-0 lg:mt-6" href={course.author_link} target="_blank">
-							{course.author_name}
-						</Button>
-					) : !course.author_link && course.author_name ? (
-						<p className="text-primary font-medium tracking-wide text-sm sm:text-base  lg:text-second lg:mt-6">
-							{course.author_name}
-						</p>
-					) : null}
+					{course.author_name && (
+						<div className="flex items-center gap-2 lg:mt-6 w-full justify-center lg:justify-start">
+							<p>Autor:</p>
+							{course.author_link && course.author_link ? (
+								<Button variant="search" restClass="" href={course.author_link} target="_blank">
+									{course.author_name}
+								</Button>
+							) : !course.author_link && course.author_name ? (
+								<p className="text-primary font-medium tracking-wide text-sm sm:text-base  lg:text-second ">
+									{course.author_name}
+								</p>
+							) : null}
+						</div>
+					)}
 				</div>
 				<div className=" flex flex-col gap-8 w-full md:max-w-80 xl:max-w-md md:gap-12 2xl:pt-2">
 					<div className="flex items-end justify-evenly gap-10 lg:gap-16  text-dark2 w-full xl:text-lg 2xl:text-2xl">

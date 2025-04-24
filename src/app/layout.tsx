@@ -4,6 +4,7 @@ import './globals.css'
 import Navigation from './_components/_ui/Navigation'
 import { getCurrentUser } from './_actions/auth'
 import { Toaster } from 'react-hot-toast'
+import '@smastrom/react-rating/style.css'
 
 const poppins = Poppins({
 	subsets: ['latin'],
