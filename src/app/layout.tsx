@@ -49,9 +49,11 @@ export default async function RootLayout({
 									color: '#ef4444',
 								},
 							},
+							loading: { duration: 3000 },
+
 							style: {
-								fontSize: '16px',
-								padding: '16px 20px',
+								fontSize: '14px',
+								padding: '12px 16px',
 								backgroundColor: '#f1f5f9',
 								color: '#2e4fbb',
 								border: '1px solid #f3f4f6',
@@ -60,6 +62,7 @@ export default async function RootLayout({
 								boxShadow: '0px 2px 12px 0px #bae6fd',
 								fontFamily: 'poppins',
 								textAlign: 'center',
+								width: '318px',
 							},
 						}}
 					/>

@@ -9,7 +9,6 @@ import Button from '../_ui/Button'
 import { FiClock } from 'react-icons/fi'
 import { PiUserSound } from 'react-icons/pi'
 import { TbAntennaBars5 } from 'react-icons/tb'
-import Link from 'next/link'
 import Ratings from './Ratings'
 
 function SingleDetails({
@@ -17,11 +16,13 @@ function SingleDetails({
 	userId,
 	isLiked,
 	isSavedCourse,
+	rate,
 }: {
 	course: FullCourseDataType
-	userId: string | null
+	userId?: string
 	isLiked: boolean
 	isSavedCourse: boolean
+	rate?: number
 }) {
 	return (
 		<div className="absolute right-5 -top-10  flex-shrink-0 flex-grow-0 rounded-lg bg-white w-full max-w-[360px]  text-dark2 shadow-md shadow-stone-200   lg:flex flex-col  overflow-hidden z-20 hidden  ">
@@ -62,27 +63,29 @@ function SingleDetails({
 					restClass="px-6 xl:text-xl xl:px-10 xl:py-5  w-full hidden lg:flex border border-primary !py-2.5 my-4 hover:!bg-slate50">
 					Odkryj kurs
 				</Button>
-				{userId ? (
-					<div className="w-full">
-						<p>Zarządzaj kursem</p>
-						<div className="flex gap-2 items-center w-full">
-							<LikeButton courseId={course.id} isLikedCourse={isLiked} />
-							<SaveCourseButton courseId={course.id} isSavedCourse={isSavedCourse} />
-							<Ratings courseId={course.id} />
-						</div>
+
+				<div className="w-full">
+					<div className="flex gap-2 items-center w-full justify-evenly">
+						<LikeButton
+							courseId={course.id}
+							isLikedCourse={isLiked}
+							userId={userId}
+							courseLikes={course.likes_count}
+						/>
+						<SaveCourseButton
+							courseId={course.id}
+							isSavedCourse={isSavedCourse}
+							userId={userId}
+							savedCount={course.saved_count}
+						/>
+						<Ratings
+							courseId={course.id}
+							courseRate={rate}
+							userId={userId}
+							ratedCount={course.ratings_count}
+						/>
 					</div>
-				) : (
-					<div>
-						<p className="text-nowrap">
-							<Link
-								className="text-primary hover:text-primary2 w-fit transition-colors duration-300 "
-								href="/panel/zaloguj-sie">
-								Zaloguj się
-							</Link>{' '}
-							aby odkryć dodatkowe opcje
-						</p>
-					</div>
-				)}
+				</div>
 			</div>
 		</div>
 	)

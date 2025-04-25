@@ -234,6 +234,28 @@ export async function getRatedCourses() {
 
 	return formattedData.map(item => item.full_course_data) || []
 }
+
+export async function getRatedCourse(courseId: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return []
+
+	const { data, error } = await supabase
+		.from('user_ratings')
+		.select('*')
+		.eq('user_id', authData.user.id)
+		.eq('course_id', courseId)
+		.order('created_at')
+		.single()
+
+	if (error) {
+		console.log(error.message)
+		throw new Error('Błąd pobierania oceny kursu')
+	}
+	return data
+}
+
 export async function getSavedCourses() {
 	const supabase = await createClient()
 
