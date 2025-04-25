@@ -15,6 +15,7 @@ export type FullCourseDataType = AddCourseType & {
 	likes_count: number
 	average_rating: number | null
 	ratings_count: number
+	saved_count: number
 }
 
 function CourseCardPanel({

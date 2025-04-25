@@ -299,11 +299,11 @@ export async function likeCourse(courseId: string) {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
 
-	if (!authData.user) {
-		return { error: 'Nie można znaleźć użytkownika' }
+	if (authError) {
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
+
 	const { error } = await supabase
 		.from('user_likes')
 		.insert([{ user_id: authData.user.id, course_id: courseId }])
@@ -321,16 +321,16 @@ export async function unlikeCourse(courseId: string) {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
 
-	if (!authData.user) {
-		return { error: 'Nie można znaleźć użytkownika' }
+	if (authError) {
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
+
 	const { error } = await supabase
 		.from('user_likes')
 		.delete()
-		.eq('user_id', authData.user.id)
 		.eq('course_id', courseId)
+		.eq('user_id', authData.user.id)
 
 	if (error) {
 		return
@@ -348,7 +348,7 @@ export async function saveCourse(courseId: string) {
 	if (authError) return null
 
 	if (!authData.user) {
-		return { error: 'Nie można znaleźć użytkownika' }
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
 	const { error } = await supabase
 		.from('user_saved_courses')
@@ -370,7 +370,7 @@ export async function unSaveCourse(courseId: string) {
 	if (authError) return null
 
 	if (!authData.user) {
-		return { error: 'Nie można znaleźć użytkownika' }
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
 	const { error } = await supabase
 		.from('user_saved_courses')
@@ -387,22 +387,34 @@ export async function unSaveCourse(courseId: string) {
 	revalidatePath(`/konto/moje-kursy/zapisane`)
 }
 
-export async function rateCourse(courseId: string, rating: number) {
+export async function rateCourse(courseId: string, rating: number, update: boolean) {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
 	if (authError) return null
 
 	if (!authData.user) {
-		return { error: 'Nie można znaleźć użytkownika' }
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
-	const { error } = await supabase
-		.from('user_ratings')
-		.insert([{ user_id: authData.user.id, course_id: courseId, rating: rating }])
-		.select()
+	if (update) {
+		const { error: updateError } = await supabase
+			.from('user_ratings')
+			.update({ rating: rating })
+			.eq('user_id', authData.user.id)
+			.eq('course_id', courseId)
 
-	if (error) {
-		return
+		if (updateError) {
+			return { error: 'Błąd podczas zmiany ocenianiy kursu. Proszę spróbowac ponownie' }
+		}
+	} else {
+		const { error: insertError } = await supabase
+			.from('user_ratings')
+			.insert([{ user_id: authData.user.id, course_id: courseId, rating: rating }])
+			.select()
+
+		if (insertError) {
+			return { error: 'Błąd podczas zmiany ocenianiy kursu. Proszę spróbowac ponownie' }
+		}
 	}
 
 	revalidatePath(`/kursy/${courseId}`)

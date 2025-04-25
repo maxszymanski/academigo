@@ -1,7 +1,7 @@
 import { getCurrentUser } from '@/app/_actions/auth'
 import SingleHeader from '@/app/_components/_courses/SingleHeader'
 import SingleDetails from '@/app/_components/_courses/SingleDetails'
-import { getCourseById, getLikedCourses, getRatedCourses, getSavedCourses } from '@/app/_lib/data-service'
+import { getCourseById, getLikedCourses, getRatedCourse, getSavedCourses } from '@/app/_lib/data-service'
 
 type Params = Promise<{ singleCourse: string }>
 
@@ -10,9 +10,8 @@ async function page({ params }: { params: Params }) {
 	const likedCourses = await getLikedCourses()
 	const savedCourses = await getSavedCourses()
 	const course = await getCourseById(singleCourse)
-	const user = (await getCurrentUser()) || null
-	const ratedCourses = await getRatedCourses()
-	console.log(ratedCourses)
+	const user = await getCurrentUser()
+	const ratedCourse = await getRatedCourse(singleCourse)
 
 	const isLikedCourse: boolean = likedCourses.some(course => course.id === singleCourse)
 	const isSavedCourse: boolean = savedCourses.some(course => course.id === singleCourse)
@@ -27,6 +26,7 @@ async function page({ params }: { params: Params }) {
 						userId={user?.id}
 						isLiked={isLikedCourse}
 						isSavedCourse={isSavedCourse}
+						rate={ratedCourse?.rating}
 					/>
 				</div>
 			</main>

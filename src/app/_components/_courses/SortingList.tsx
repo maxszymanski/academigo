@@ -30,12 +30,6 @@ function SortingList() {
             })
         })
     }
-    // useEffect(() => {
-    //     if (!isPending && shouldCloseModal && openModal === 'sort') {
-    //         closeModal()
-    //         setShouldCloseModal(false)
-    //     }
-    // }, [isPending, closeModal, openModal, shouldCloseModal])
 
     return (
         <div className="flex justify-center px-8 py-6 text-xs text-stone400 xl:text-sm">

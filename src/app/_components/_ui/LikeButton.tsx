@@ -6,35 +6,74 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { useState } from 'react'
 import { likeCourse, unlikeCourse } from '@/app/_actions/mutations'
 
-function LikeButton({ courseId, isLikedCourse }: { courseId: string; isLikedCourse: boolean }) {
+function LikeButton({
+	courseId,
+	isLikedCourse,
+	userId,
+	courseLikes,
+}: {
+	courseId: string
+	isLikedCourse: boolean
+	userId?: string
+	courseLikes: number
+}) {
 	const [isLiked, setIsLiked] = useState(isLikedCourse || false)
+	const [likesCount, setLikesCount] = useState(courseLikes || 0)
 
 	const handleLike = async () => {
-		setIsLiked(is => !is)
-
+		if (!userId) {
+			toast.error('Funkcja dostępna tylko dla zalogowanych użytkowników')
+			return
+		}
 		if (!isLiked) {
-			toast.success('Kurs dodany do ulubionych')
-			await likeCourse(courseId)
+			try {
+				setIsLiked(true)
+				setLikesCount(l => l + 1)
+				await toast.promise(likeCourse(courseId), {
+					loading: 'Dodawanie kursu do polubionych',
+					success: 'Kurs został dodany do polubionych',
+					error: 'Wystąpił błąd podczas dodawania',
+				})
+			} catch (error) {
+				setIsLiked(false)
+				setLikesCount(l => l - 1)
+				console.error(error)
+			}
 		}
 		if (isLiked) {
-			toast.error('Kurs usunięty z ulubionych')
-			await unlikeCourse(courseId)
+			try {
+				setIsLiked(false)
+				setLikesCount(l => l - 1)
+				await toast.promise(unlikeCourse(courseId), {
+					loading: 'Usuwanie kursu z polubionych',
+					success: 'Kurs został usunięty z polubionych',
+					error: 'Wystąpił błąd podczas usuwania',
+				})
+			} catch (error) {
+				setIsLiked(true)
+				setLikesCount(l => l + 1)
+				console.error(error)
+			}
 		}
 	}
 
 	return (
-		<Button
-			variant="transparent"
-			restClass="!text-primary hover:!text-primary/80 p-2"
-			onClick={handleLike}
-			title={isLiked ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
-			aria-label={isLiked ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}>
-			{isLiked ? (
-				<FaHeart className="size-10 pointer-events-none" />
-			) : (
-				<FaRegHeart className="size-10 pointer-events-none" />
-			)}
-		</Button>
+		<div className="flex items-center gap-0.5">
+			<Button
+				variant="transparent"
+				restClass="!text-primary hover:!text-primary/80 p-0.5"
+				onClick={handleLike}
+				title={isLiked ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
+				aria-label={isLiked ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}>
+				{isLiked ? (
+					<FaHeart className="size-9 pointer-events-none" />
+				) : (
+					<FaRegHeart className="size-9 pointer-events-none" />
+				)}
+			</Button>
+
+			<p className="text-dark2 text-sm">{likesCount}</p>
+		</div>
 	)
 }
 
