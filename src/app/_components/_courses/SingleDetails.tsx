@@ -64,7 +64,7 @@ function SingleDetails({
 				</Button>
 				{userId ? (
 					<div className="w-full">
-						<p>Zarządzaj kursem</p>
+						{/* <p>Zarządzaj kursem</p> */}
 						<div className="flex gap-2 items-center w-full">
 							<LikeButton courseId={course.id} isLikedCourse={isLiked} />
 							<SaveCourseButton courseId={course.id} isSavedCourse={isSavedCourse} />

@@ -10,7 +10,9 @@ async function page({ params }: { params: Params }) {
 	const likedCourses = await getLikedCourses()
 	const savedCourses = await getSavedCourses()
 	const course = await getCourseById(singleCourse)
-	const user = await getCurrentUser()
+	const user = (await getCurrentUser()) || null
+	const ratedCourses = await getRatedCourses()
+	console.log(ratedCourses)
 
 	const isLikedCourse: boolean = likedCourses.some(course => course.id === singleCourse)
 	const isSavedCourse: boolean = savedCourses.some(course => course.id === singleCourse)
@@ -22,7 +24,7 @@ async function page({ params }: { params: Params }) {
 				<div className="w-full lg:container mx-auto relative  xl:py-20 px-4 py-10">
 					<SingleDetails
 						course={course}
-						userId={user.id}
+						userId={user?.id}
 						isLiked={isLikedCourse}
 						isSavedCourse={isSavedCourse}
 					/>

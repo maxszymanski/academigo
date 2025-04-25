@@ -14,15 +14,15 @@ const myStyles = {
 	itemStrokeWidth: 2,
 }
 
-function Ratings({ courseId, isRatedCourse }: { courseId: string; isRatedCourse: boolean }) {
-	const [rating, setRating] = useState(0)
+function Ratings({ courseId, courseRate }: { courseId: string; courseRate?: number }) {
+	const [rating, setRating] = useState(courseRate || 0)
 
 	// Catch Rating value
 	const handleRating = async (rate: number) => {
 		setRating(rate)
 
-		await rateCourse(courseId, rating)
-		toast.success('Kurs został dodany do zakładek')
+		// await rateCourse(courseId, rate)
+		toast.success(`Kurs został oceniony na ${rate} `)
 	}
 
 	return <Rating onChange={handleRating} value={rating} transition="zoom" itemStyles={myStyles} />
