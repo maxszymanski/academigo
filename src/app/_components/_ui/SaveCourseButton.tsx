@@ -71,10 +71,10 @@ function SaveCourseButton({
 	}
 
 	return (
-		<div className="flex items-center gap-0">
+		<div className="flex items-center gap-0.5">
 			<Button
 				variant="transparent"
-				restClass="!text-sky-400 hover:!text-sky-500 "
+				restClass="!text-sky-400 hover:!text-sky-500 p-0.5"
 				onClick={handleSave}
 				title={isSaved ? 'Usuń z zakładek' : 'Dodaj do zakładek'}
 				aria-label={isSaved ? 'Usuń z zakładek' : 'Dodaj do zakładek'}>
@@ -84,7 +84,7 @@ function SaveCourseButton({
 					<BiBookmark className="size-9 pointer-events-none" />
 				)}
 			</Button>
-			<p className="text-dark2 text-sm">{saved}</p>
+			<p className="text-dark2 text-base">{saved}</p>
 		</div>
 	)
 }

@@ -58,7 +58,7 @@ function LikeButton({
 	}
 
 	return (
-		<div className="flex items-center gap-0.5">
+		<div className="flex items-center gap-1">
 			<Button
 				variant="transparent"
 				restClass="!text-primary hover:!text-primary/80 p-0.5"
@@ -72,7 +72,7 @@ function LikeButton({
 				)}
 			</Button>
 
-			<p className="text-dark2 text-sm">{likesCount}</p>
+			<p className="text-dark2 text-base">{likesCount}</p>
 		</div>
 	)
 }

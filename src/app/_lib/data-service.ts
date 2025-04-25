@@ -239,7 +239,7 @@ export async function getRatedCourse(courseId: string) {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return []
+	if (authError) return null
 
 	const { data, error } = await supabase
 		.from('user_ratings')
@@ -251,7 +251,7 @@ export async function getRatedCourse(courseId: string) {
 
 	if (error) {
 		console.log(error.message)
-		throw new Error('Błąd pobierania oceny kursu')
+		return null
 	}
 	return data
 }

@@ -7,6 +7,7 @@ import { blurImage } from '@/app/utils/blurImage'
 import { AddCourseType } from '@/app/_lib/validators'
 
 export type FullCourseDataType = AddCourseType & {
+	created_at: string
 	id: string
 	created_by: string
 	specialization_name: string

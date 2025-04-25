@@ -14,10 +14,6 @@ const myStyles = {
 	itemStrokeWidth: 2,
 }
 
-<<<<<<< HEAD
-function Ratings({ courseId, courseRate }: { courseId: string; courseRate?: number }) {
-	const [rating, setRating] = useState(courseRate || 0)
-=======
 function Ratings({
 	courseId,
 	courseRate,
@@ -31,7 +27,6 @@ function Ratings({
 }) {
 	const [rating, setRating] = useState(courseRate || 0)
 	const [count, setCount] = useState(ratedCount || 0)
->>>>>>> 4786580f8bc73c73458e0229cb8a1272cf732b69
 
 	const handleRating = async (rate: number) => {
 		if (!userId) {
@@ -40,10 +35,6 @@ function Ratings({
 			return
 		}
 
-<<<<<<< HEAD
-		// await rateCourse(courseId, rate)
-		toast.success(`Kurs został oceniony na ${rate} `)
-=======
 		try {
 			toast.promise(rateCourse(courseId, rate, !!courseRate), {
 				loading: 'Dodawanie oceny kursu',
@@ -58,22 +49,22 @@ function Ratings({
 			console.error(error)
 			return
 		}
->>>>>>> 4786580f8bc73c73458e0229cb8a1272cf732b69
 	}
 
 	return (
-		<div className="flex w-full items-center justify-end gap-2">
+		<div className="flex w-full items-center  gap-2">
+			{/* <p className="text-sm text-dark2 leading-4 mt-1">4.5 / 5</p> */}
 			<Rating
 				onChange={handleRating}
 				value={rating}
 				transition="zoom"
 				itemStyles={myStyles}
-				style={{ height: '42px', maxWidth: '140px' }}
+				style={{ maxWidth: '200px' }}
 				spaceBetween="small"
 				spaceInside="small"
 			/>
 
-			<p className="text-sm text-dark2 leading-4">{count} ocen</p>
+			<p className="text-base text-dark2 leading-4 mt-1">{count} ocen</p>
 		</div>
 	)
 }
