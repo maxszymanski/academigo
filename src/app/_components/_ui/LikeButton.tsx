@@ -61,14 +61,14 @@ function LikeButton({
 		<div className="flex items-center gap-1">
 			<Button
 				variant="transparent"
-				restClass="!text-primary hover:!text-primary/80 p-0.5"
+				restClass="!text-primary hover:!text-primary/80 p-0.5 "
 				onClick={handleLike}
 				title={isLiked ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
 				aria-label={isLiked ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}>
 				{isLiked ? (
-					<FaHeart className="size-9 pointer-events-none" />
+					<FaHeart className="size-8 pointer-events-none" />
 				) : (
-					<FaRegHeart className="size-9 pointer-events-none" />
+					<FaRegHeart className="size-8 pointer-events-none" />
 				)}
 			</Button>
 

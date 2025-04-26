@@ -1,3 +1,5 @@
+import { AddCourseType } from '../_lib/validators'
+
 export interface Category {
 	id: number
 	name: string
@@ -35,4 +37,19 @@ export interface CurrentUserType {
 	social: string | null
 	role: string | null
 	proffesion: string | null
+	points: number
+}
+
+export type FullCourseDataType = AddCourseType & {
+	created_at: string
+	id: string
+	created_by: string
+	specialization_name: string
+	category_name: string
+	sub_category_name: string
+	likes_count: number
+	average_rating: number | null
+	ratings_count: number
+	saved_count: number
+	views_count: number
 }

@@ -52,19 +52,22 @@ function Ratings({
 	}
 
 	return (
-		<div className="flex w-full items-center  gap-2">
-			{/* <p className="text-sm text-dark2 leading-4 mt-1">4.5 / 5</p> */}
-			<Rating
-				onChange={handleRating}
-				value={rating}
-				transition="zoom"
-				itemStyles={myStyles}
-				style={{ maxWidth: '200px' }}
-				spaceBetween="small"
-				spaceInside="small"
-			/>
+		<div>
+			<p className=" text-dark2 leading-4 mb-4 ">Oceń kurs</p>
+			<div className="flex w-full items-center  gap-2">
+				<Rating
+					onChange={handleRating}
+					value={rating}
+					transition="zoom"
+					itemStyles={myStyles}
+					style={{ maxWidth: '200px' }}
+					spaceBetween="small"
+					spaceInside="small"
+					isRequired
+				/>
 
-			<p className="text-base text-dark2 leading-4 mt-1">{count} ocen</p>
+				<p className="text-base text-dark2 leading-4 mt-1">{count} ocen</p>
+			</div>
 		</div>
 	)
 }

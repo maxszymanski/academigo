@@ -22,7 +22,7 @@ function AccountInformation({ user, isGoogleAccount }: { user: User; isGoogleAcc
 	const formattedDate = format(new Date(user.created_at), 'd MMMM yyyy', { locale: pl })
 	return (
 		<SettingsBox title="Informacje o koncie">
-			<div className="flex flex-col gap-5">
+			<div className="flex flex-col gap-5 h-full">
 				<div className="text-dark2/80 text-sm md:text-base flex flex-col sm:flex-row flex-wrap gap-x-3 gap-y-1">
 					<p>Właściciel:</p>
 					<p className=" text-dark2 ">{user.user_metadata.name}</p>
@@ -39,7 +39,7 @@ function AccountInformation({ user, isGoogleAccount }: { user: User; isGoogleAcc
 					<p className=" text-dark2 ">{isGoogleAccount ? 'Połączone' : 'Nie Połączone'}</p>
 				</div>
 
-				<div className="flex items-center justify-center">
+				<div className="flex items-center justify-center mt-auto">
 					<Button
 						variant="transparentDark"
 						restClass="p-0.5 !text-red-600 hover:!text-red-400"

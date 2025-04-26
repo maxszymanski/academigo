@@ -2,11 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DefaultUser from '@/assets/default-user.webp'
 
-function UserAvatar({ avatar, small = false }: { avatar?: string | null; small?: boolean }) {
+function UserAvatar({ avatar, small = false, href }: { avatar?: string | null; small?: boolean; href: string }) {
 	return (
 		<Link
-			href="/konto/ustawienia"
-			className="hover:border-primary focus:border-primary border-2 border-primary2 rounded-full tranistion-color duration-300">
+			href={href}
+			className="hover:border-primary focus:border-primary border-2 border-primary2 rounded-full tranistion-color duration-300 block">
 			<Image
 				priority
 				src={avatar ? avatar : DefaultUser}

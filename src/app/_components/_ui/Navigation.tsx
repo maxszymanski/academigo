@@ -5,7 +5,7 @@ import MobileNav from './MobileNav'
 import NavigationList from './NavigationList'
 import AuthButton from './AuthButton'
 
-function Navigation({ isUser = false }: { isUser?: boolean }) {
+function Navigation({ isUser = false, userAvatar }: { isUser?: boolean; userAvatar?: string }) {
 	const pathname = usePathname()
 
 	const blackNav = pathname.includes('/panel')
@@ -21,7 +21,7 @@ function Navigation({ isUser = false }: { isUser?: boolean }) {
 			<MobileNav blackNav={blackNav} pathname={pathname} />
 			<Logo />
 			<NavigationList blackNav={blackNav}>
-				<AuthButton isUser={isUser} />
+				<AuthButton isUser={isUser} userAvatar={userAvatar} />
 			</NavigationList>
 		</nav>
 	)

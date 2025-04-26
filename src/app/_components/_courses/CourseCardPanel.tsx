@@ -4,20 +4,7 @@ import { FaStar } from 'react-icons/fa'
 import { CiBank } from 'react-icons/ci'
 import { FaHeart } from 'react-icons/fa6'
 import { blurImage } from '@/app/utils/blurImage'
-import { AddCourseType } from '@/app/_lib/validators'
-
-export type FullCourseDataType = AddCourseType & {
-	created_at: string
-	id: string
-	created_by: string
-	specialization_name: string
-	category_name: string
-	sub_category_name: string
-	likes_count: number
-	average_rating: number | null
-	ratings_count: number
-	saved_count: number
-}
+import { FullCourseDataType } from '@/app/_types/types'
 
 function CourseCardPanel({
 	i = 8,

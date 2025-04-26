@@ -396,6 +396,7 @@ export async function rateCourse(courseId: string, rating: number, update: boole
 	if (!authData.user) {
 		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
+
 	if (update) {
 		const { error: updateError } = await supabase
 			.from('user_ratings')
@@ -404,7 +405,7 @@ export async function rateCourse(courseId: string, rating: number, update: boole
 			.eq('course_id', courseId)
 
 		if (updateError) {
-			return { error: 'Błąd podczas zmiany ocenianiy kursu. Proszę spróbowac ponownie' }
+			return { error: 'Błąd podczas zmiany oceny kursu. Proszę spróbowac ponownie' }
 		}
 	} else {
 		const { error: insertError } = await supabase

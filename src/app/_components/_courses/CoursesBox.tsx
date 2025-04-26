@@ -3,7 +3,8 @@ import { useRef } from 'react'
 import Button from '../_ui/Button'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 
-import CourseCardPanel, { FullCourseDataType } from './CourseCardPanel'
+import CourseCardPanel from './CourseCardPanel'
+import { FullCourseDataType } from '@/app/_types/types'
 
 function CoursesBox({ category, coursesList }: { category: string; coursesList: FullCourseDataType[] }) {
 	const containerRef = useRef<HTMLDivElement | null>(null)

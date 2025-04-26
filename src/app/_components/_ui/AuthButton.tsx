@@ -1,11 +1,16 @@
 import Button from './Button'
+import UserAvatar from './UserAvatar'
 
-function AuthButton({ isUser = false }: { isUser?: boolean }) {
+function AuthButton({ isUser = false, userAvatar }: { isUser?: boolean; userAvatar?: string }) {
 	return (
-		<li>
-			<Button href={isUser ? '/konto' : '/panel/zaloguj-sie'} restClass=" xl:min-w-[160px]">
-				{isUser ? 'Panel studenta' : 'Zaloguj się'}
-			</Button>
+		<li className="">
+			{!isUser ? (
+				<Button href={isUser ? '/konto' : '/panel/zaloguj-sie'} restClass=" xl:min-w-[160px]">
+					Zaloguj się
+				</Button>
+			) : (
+				<UserAvatar avatar={userAvatar} href="/panel" />
+			)}
 		</li>
 	)
 }

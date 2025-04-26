@@ -19,8 +19,8 @@ async function page({ params }: { params: Params }) {
 	return (
 		<>
 			<SingleHeader course={course} />
-			<main className="relative  h-full min-h-screen w-full px-4   bg-slate50">
-				<div className="w-full lg:container mx-auto relative  xl:py-20 px-4 py-10">
+			<main className="relative  h-full min-h-screen w-full px-4 bg-slate50">
+				<div className="w-full container mx-auto relative flex flex-col items-center  xl:py-20  py-10 ">
 					<SingleDetails
 						course={course}
 						userId={user?.id}

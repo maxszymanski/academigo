@@ -13,7 +13,7 @@ async function PanelHeader() {
 	return (
 		<header className="flex w-full items-center justify-between py-4 pl-4 pr-6 text-dark lg:px-6 xl:mx-auto xl:max-w-[1440px]">
 			<div className="relative flex items-center gap-3">
-				<UserAvatar avatar={user.avatar} />
+				<UserAvatar avatar={user.avatar} href="/konto/ustawienia" />
 
 				<div className="text-sm">
 					<p className="font-semibold">{user.username}</p>

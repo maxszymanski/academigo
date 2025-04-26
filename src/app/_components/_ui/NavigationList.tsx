@@ -25,7 +25,7 @@ function NavigationList({ blackNav = false, children }: { blackNav?: boolean; ch
 				<NavigationLink href="/o-nas">O nas</NavigationLink>
 				<NavigationLink href="/kontakt">Kontakt</NavigationLink>
 			</div>
-			<div className="flex flex-col gap-5 md:flex-row lg:gap-4 xl:gap-6">
+			<div className="flex flex-col gap-5 md:flex-row lg:gap-4 xl:gap-6 items-center">
 				<li>
 					<Button href="/wspolpraca" restClass=" xl:min-w-[160px] ">
 						Zostań współtwórcą

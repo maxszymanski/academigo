@@ -1,7 +1,8 @@
 'use client'
 
 import useAppStore from '@/app/stores/store'
-import CourseCardPanel, { FullCourseDataType } from './CourseCardPanel'
+import CourseCardPanel from './CourseCardPanel'
+import { FullCourseDataType } from '@/app/_types/types'
 
 function CoursesResult({ courses }: { courses: FullCourseDataType[] }) {
 	const cardView = useAppStore(state => state.cardView)

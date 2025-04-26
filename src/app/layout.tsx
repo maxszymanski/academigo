@@ -27,6 +27,7 @@ export default async function RootLayout({
 	const user = await getCurrentUser()
 
 	const isUser = !!user?.id
+	const userAvatar = user?.avatar
 
 	return (
 		<html lang="pl" className="overflow-x-hidden scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
@@ -66,7 +67,7 @@ export default async function RootLayout({
 							},
 						}}
 					/>
-					<Navigation isUser={isUser} />
+					<Navigation isUser={isUser} userAvatar={userAvatar} />
 					{children}
 				</>
 			</body>

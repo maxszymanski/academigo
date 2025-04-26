@@ -1,19 +1,19 @@
 import { blurImage } from '@/app/utils/blurImage'
 import Image from 'next/image'
-import { FullCourseDataType } from './CourseCardPanel'
 
 import LikeButton from '../_ui/LikeButton'
 import SaveCourseButton from '../_ui/SaveCourseButton'
 import Button from '../_ui/Button'
 
 import { FiClock } from 'react-icons/fi'
-import { PiUserSound } from 'react-icons/pi'
+import { PiUserSound, PiCalendarPlus } from 'react-icons/pi'
 import { TbAntennaBars5 } from 'react-icons/tb'
 import Ratings from './Ratings'
 import { FaStar } from 'react-icons/fa'
 
 import { pl } from 'date-fns/locale'
 import { format } from 'date-fns'
+import { FullCourseDataType } from '@/app/_types/types'
 
 function SingleDetails({
 	course,
@@ -31,8 +31,8 @@ function SingleDetails({
 	const addCourseDay = format(new Date(course.created_at), 'd MMMM yyyy', { locale: pl })
 
 	return (
-		<div className="absolute right-5 -top-16  flex-shrink-0 flex-grow-0 rounded-lg bg-white w-full max-w-[360px]  text-dark2 shadow-md shadow-stone-200   lg:flex flex-col  overflow-hidden z-20 hidden  ">
-			<div className="z-30 h-[220px]   w-full relative border-b border-slate-200 ">
+		<div className="lg:absolute lg:right-5 lg:-top-16  flex-shrink-0 flex-grow-0 rounded-lg bg-white w-full max-w-[360px]  text-dark2 shadow-md shadow-stone-200   flex flex-col  overflow-hidden z-20  ">
+			<div className=" z-30 h-[220px]   w-full relative border-b border-slate-200 ">
 				<Image
 					src={course.picture || '/course.jpg'}
 					fill
@@ -61,6 +61,9 @@ function SingleDetails({
 					<p className="flex items-center gap-3">
 						<TbAntennaBars5 className="size-6 text-dark2/75" /> <span>{course.level}</span>
 					</p>
+					<p className="flex items-center gap-3">
+						<PiCalendarPlus className="size-6 text-dark2/75" /> <span>{addCourseDay}</span>
+					</p>
 				</div>
 				<Button
 					href={course.course_link}
@@ -70,32 +73,30 @@ function SingleDetails({
 					Odkryj kurs
 				</Button>
 
-				<div className="w-full flex flex-col gap-7 pt-4 ">
-					<div className="pl-1">
-						<p className=" text-dark2/75">
-							Dodany: <span className="ml-2 text-dark2/90">{addCourseDay}</span>{' '}
-							<span className="ml-2 text-dark2/90">Max</span>
-						</p>
-					</div>
+				<div className="w-full flex flex-col gap-6 pt-3 pb-1 ">
 					<Ratings courseId={course.id} courseRate={rate} userId={userId} ratedCount={course.ratings_count} />
-					<div className="flex gap-2 items-center w-full ">
-						<LikeButton
-							courseId={course.id}
-							isLikedCourse={isLiked}
-							userId={userId}
-							courseLikes={course.likes_count}
-						/>
-						<SaveCourseButton
-							courseId={course.id}
-							isSavedCourse={isSavedCourse}
-							userId={userId}
-							savedCount={course.saved_count}
-						/>
-						<div className="flex items-center gap-2 ml-auto">
-							<FaStar className=" text-yellow-400 size-8 " />{' '}
-							<p className="text-dark-2">
-								<span>{course?.average_rating || 0} / 5</span>{' '}
-							</p>
+					<div>
+						<p className="mb-4">Zapisz lub polub kurs</p>
+						<div className="flex gap-4 items-center w-full ">
+							<SaveCourseButton
+								courseId={course.id}
+								isSavedCourse={isSavedCourse}
+								userId={userId}
+								savedCount={course.saved_count}
+							/>
+							<LikeButton
+								courseId={course.id}
+								isLikedCourse={isLiked}
+								userId={userId}
+								courseLikes={course.likes_count}
+							/>
+
+							<div className="flex items-center gap-2 ml-auto">
+								<FaStar className=" text-yellow-400 size-8 " />{' '}
+								<p className="text-dark-2">
+									<span>{course?.average_rating || 0} / 5</span>{' '}
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>

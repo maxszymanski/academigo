@@ -1,15 +1,16 @@
-import { FaHeart, FaStar } from 'react-icons/fa'
+import { FaStar } from 'react-icons/fa'
 import Button from '../_ui/Button'
 import { CiBank } from 'react-icons/ci'
-import { FullCourseDataType } from './CourseCardPanel'
+import { PiEye } from 'react-icons/pi'
 import Image from 'next/image'
 import { blurImage } from '@/app/utils/blurImage'
 import { MdKeyboardArrowRight } from 'react-icons/md'
+import { FullCourseDataType } from '@/app/_types/types'
 
 function SingleHeader({ course }: { course: FullCourseDataType }) {
 	return (
-		<header className="lg:bg-gradient-primary pt-12 md:pt-0  lg:min-h-[492px]  lg:pt-4">
-			<div className="w-full  max-w-[600px]  lg:container mx-auto pt-8  flex flex-col items-center overflow-x-hidden lg:px-6 2xl:px-20">
+		<header className="lg:bg-gradient-primary pt-12 md:pt-0  lg:min-h-[492px]  lg:pt-4 w-full">
+			<div className="w-full  max-w-[600px]  lg:container mx-auto pt-8  flex flex-col items-center overflow-x-hidden sm:overflow-x-visible lg:px-6 2xl:px-20">
 				<div className="flex w-full  pb-2  px-2 items-center text-primary overflow-x-auto sm:justify-center scrollbar-none lg:justify-start lg:text-second">
 					<Button variant="search" restClass="" href={`/kursy?category=${course.categories}`}>
 						{course.category_name}
@@ -51,14 +52,18 @@ function SingleHeader({ course }: { course: FullCourseDataType }) {
 					</h1>
 					<p className="text-sm xl:text-base 2xl:text-lg 2xl:leading-8">{course.short_description}</p>
 					{course.author_name && (
-						<div className="flex items-center gap-2 lg:mt-6 w-full justify-center lg:justify-start">
+						<div className="flex items-center gap-2 lg:mt-6 w-full justify-center lg:justify-start flex-wrap">
 							<p>Autor:</p>
 							{course.author_link && course.author_link ? (
-								<Button variant="search" restClass="" href={course.author_link} target="_blank">
+								<Button
+									variant="search"
+									restClass="!text-wrap"
+									href={course.author_link}
+									target="_blank">
 									{course.author_name}
 								</Button>
 							) : !course.author_link && course.author_name ? (
-								<p className="text-primary font-medium tracking-wide text-sm sm:text-base  lg:text-second ">
+								<p className="text-primary font-medium tracking-wide text-sm sm:text-base  lg:text-second text-wrap">
 									{course.author_name}
 								</p>
 							) : null}
@@ -79,8 +84,8 @@ function SingleHeader({ course }: { course: FullCourseDataType }) {
 							<p>{course?.platform || ''}</p>
 						</div>
 						<div className="flex items-center gap-1 flex-col xl:gap-2">
-							<FaHeart className="mb-0.5 size-10 text-primary xl:size-14" />
-							<p>{course?.likes_count || 0}</p>
+							<PiEye className="mb-0.5 size-10 text-second xl:size-14" />
+							<p>{course?.views_count || 0}</p>
 						</div>
 					</div>
 					<div className="w-full flex items-center justify-center lg:block">

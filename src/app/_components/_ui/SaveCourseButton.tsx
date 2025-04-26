@@ -3,9 +3,10 @@
 import toast from 'react-hot-toast'
 import Button from './Button'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { saveCourse, unSaveCourse } from '@/app/_actions/mutations'
 import { BiBookmark, BiSolidBookmark } from 'react-icons/bi'
+import { trackCourseView } from '@/app/_lib/client-service'
 
 function SaveCourseButton({
 	courseId,
@@ -20,6 +21,12 @@ function SaveCourseButton({
 }) {
 	const [isSaved, setIsSaved] = useState(isSavedCourse || false)
 	const [saved, setSaved] = useState(savedCount || 0)
+
+	useEffect(() => {
+		if (courseId) {
+			trackCourseView(courseId)
+		}
+	}, [courseId])
 
 	const handleSave = async () => {
 		if (!userId) {
@@ -57,31 +64,20 @@ function SaveCourseButton({
 				console.error(error)
 			}
 		}
-
-		// setIsSaved(is => !is)
-
-		// if (!isSaved) {
-		// 	toast.success('Kurs został dodany do zakładek')
-		// 	await saveCourse(courseId)
-		// }
-		// if (isSaved) {
-		// 	toast.error('Kurs został usunięty z zakładek')
-		// 	await unSaveCourse(courseId)
-		// }
 	}
 
 	return (
 		<div className="flex items-center gap-0.5">
 			<Button
 				variant="transparent"
-				restClass="!text-sky-400 hover:!text-sky-500 p-0.5"
+				restClass="!text-fuchsia-700 hover:!text-fuchsia-600 p-0.5"
 				onClick={handleSave}
 				title={isSaved ? 'Usuń z zakładek' : 'Dodaj do zakładek'}
 				aria-label={isSaved ? 'Usuń z zakładek' : 'Dodaj do zakładek'}>
 				{isSaved ? (
-					<BiSolidBookmark className="size-9 pointer-events-none" />
+					<BiSolidBookmark className="size-8 pointer-events-none" />
 				) : (
-					<BiBookmark className="size-9 pointer-events-none" />
+					<BiBookmark className="size-8 pointer-events-none" />
 				)}
 			</Button>
 			<p className="text-dark2 text-base">{saved}</p>

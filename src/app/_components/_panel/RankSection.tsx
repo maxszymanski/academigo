@@ -1,9 +1,14 @@
 import { FaTrophy } from 'react-icons/fa6'
 import RankCard from './RankCard'
 import { CurrentUserType } from '@/app/_types/types'
+import { getUserRankByCourses, getUserRankByPoints } from '@/app/_lib/data-service'
+import { getTopUsersByCreatedCourses, getTopUsersByPoints } from '@/app/_actions/auth'
 
-function RankSection({ users, user }: { users: CurrentUserType[]; user: CurrentUserType }) {
-	const userRank = users.findIndex(cur => cur.id.toString() === user.id) + 1
+async function RankSection({ user }: { user: CurrentUserType }) {
+	const usersByCreatedCourses = await getTopUsersByCreatedCourses()
+	const usersByPoints = await getTopUsersByPoints()
+	const userRank = await getUserRankByCourses()
+	const userRankByPoints = await getUserRankByPoints()
 
 	return (
 		<div className="py-8">
@@ -11,9 +16,14 @@ function RankSection({ users, user }: { users: CurrentUserType[]; user: CurrentU
 				<FaTrophy className="size-8 text-yellow-400" /> Ranking użytkowników
 			</h2>
 			<div className="flex w-full items-center justify-evenly gap-5 overflow-x-auto px-5 py-6 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2 sm:gap-8">
-				<RankCard ranking={users} title="Najwięcej dodanych kursów" />
-				<RankCard title="Twój ranking" userRank={userRank} currentUser={user} />
-				<RankCard ranking={users} title="Najaktywniejsi użytkownicy" />
+				<RankCard ranking={usersByCreatedCourses} title="Najwięcej dodanych kursów" />
+				<RankCard
+					title="Twój ranking"
+					userRank={userRank}
+					currentUser={user}
+					userRankByPoints={userRankByPoints}
+				/>
+				<RankCard ranking={usersByPoints} title="Najaktywniejsi użytkownicy" pointsRank />
 			</div>
 		</div>
 	)

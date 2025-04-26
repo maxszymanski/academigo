@@ -104,13 +104,27 @@ export async function logout() {
 	redirect('/')
 }
 
-export async function getUsers() {
+export async function getTopUsersByCreatedCourses() {
 	const supabase = await createClient()
 
 	const { data: allUsers, error } = await supabase
 		.from('full_user_data')
 		.select('*')
 		.order('created_courses', { ascending: false })
+		.range(0, 4)
+	if (error) {
+		throw new Error(error.message)
+	}
+	return allUsers
+}
+export async function getTopUsersByPoints() {
+	const supabase = await createClient()
+
+	const { data: allUsers, error } = await supabase
+		.from('full_user_data')
+		.select('*')
+		.order('points', { ascending: false })
+		.range(0, 4)
 	if (error) {
 		throw new Error(error.message)
 	}

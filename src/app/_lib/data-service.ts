@@ -81,7 +81,7 @@ export async function getCoursesCreatedByUser() {
 		.from('full_course_data')
 		.select('*')
 		.eq('created_by', authData.user.id)
-		.order('created_at')
+		.order('created_at', { ascending: false })
 
 	if (error) {
 		throw new Error('Błąd pobierania kursów stworzonych przez użytkownika')
@@ -198,7 +198,7 @@ export async function getLikedCourses() {
 		.from('user_likes')
 		.select('course_id, full_course_data(*)')
 		.eq('user_id', authData.user.id)
-		.order('created_at')
+		.order('created_at', { ascending: false })
 
 	if (error) {
 		throw new Error('Błąd pobierania kursów polubionych przez użytkownika')
@@ -221,7 +221,7 @@ export async function getRatedCourses() {
 		.from('user_ratings')
 		.select('course_id, full_course_data(*)')
 		.eq('user_id', authData.user.id)
-		.order('created_at')
+		.order('created_at', { ascending: false })
 
 	if (error) {
 		throw new Error('Błąd pobierania kursów ocenionych przez użytkownika')
@@ -246,7 +246,6 @@ export async function getRatedCourse(courseId: string) {
 		.select('*')
 		.eq('user_id', authData.user.id)
 		.eq('course_id', courseId)
-		.order('created_at')
 		.single()
 
 	if (error) {
@@ -266,7 +265,7 @@ export async function getSavedCourses() {
 		.from('user_saved_courses')
 		.select('course_id, full_course_data(*)')
 		.eq('user_id', authData.user.id)
-		.order('created_at')
+		.order('created_at', { ascending: false })
 
 	if (error) {
 		throw new Error('Błąd pobierania kursów zapisanych przez użytkownika')
@@ -278,4 +277,59 @@ export async function getSavedCourses() {
 	}))
 
 	return formattedData.map(item => item.full_course_data) || []
+}
+
+export async function getUserRankByPoints() {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	const { data: currentUser, error } = await supabase
+		.from('full_user_data')
+		.select('points')
+		.eq('id', authData.user.id)
+		.single()
+	if (error) {
+		throw new Error('Nie znaleziono użytkownika')
+	}
+
+	const { count: higherCount, error: countError } = await supabase
+		.from('full_user_data')
+		.select('*', { count: 'exact', head: true })
+		.gt('points', currentUser.points)
+
+	if (countError) {
+		throw new Error('Błąd podczas obliczania pozycji w rankingu')
+	}
+	const rank = (higherCount ?? 0) + 1
+
+	return rank
+}
+export async function getUserRankByCourses() {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) return null
+
+	const { data: currentUser, error } = await supabase
+		.from('full_user_data')
+		.select('created_courses')
+		.eq('id', authData.user.id)
+		.single()
+	if (error) {
+		throw new Error('Nie znaleziono użytkownika')
+	}
+
+	const { count: higherCount, error: countError } = await supabase
+		.from('full_user_data')
+		.select('*', { count: 'exact', head: true })
+		.gt('created_courses', currentUser.created_courses)
+
+	if (countError) {
+		throw new Error('Błąd podczas obliczania pozycji w rankingu')
+	}
+	const rank = (higherCount ?? 0) + 1
+
+	return rank
 }
