@@ -17,6 +17,7 @@ import LoadingPortal from '../_ui/LoadingPortal'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { SpecializationType } from '../_courses/Specialization'
+import EditorText from './EditorText'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -301,7 +302,8 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						message={errors?.author_link?.message || null}
 					/>
 				</div>
-				<PanelInput
+				<EditorText />
+				{/* <PanelInput
 					textArea
 					label="Opis kursu"
 					name="long_description"
@@ -310,7 +312,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 					error={errors?.long_description || null}
 					message={errors?.long_description?.message || null}
 					required
-				/>
+				/> */}
 				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4">
 					<Button variant="submit" restClass="relative" disabled={isSubmitting}>
 						{isSubmitting ? 'Dodawanie' : 'Dodaj kurs'}

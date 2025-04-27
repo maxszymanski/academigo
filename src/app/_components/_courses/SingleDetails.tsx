@@ -31,8 +31,8 @@ function SingleDetails({
 	const addCourseDay = format(new Date(course.created_at), 'd MMMM yyyy', { locale: pl })
 
 	return (
-		<div className="lg:absolute lg:right-5 lg:-top-16  flex-shrink-0 flex-grow-0 rounded-lg bg-white w-full max-w-[360px]  text-dark2 shadow-md shadow-stone-200   flex flex-col  overflow-hidden z-20  ">
-			<div className=" z-30 h-[220px]   w-full relative border-b border-slate-200 ">
+		<div className="lg:absolute lg:right-5 lg:-top-16  flex-shrink-0 flex-grow-0 rounded-lg lg:bg-white w-full max-w-[360px]  text-dark2 lg:shadow-md shadow-stone-200   flex flex-col  overflow-hidden z-20  ">
+			<div className=" z-30 h-[220px] hidden lg:block   w-full relative border-b border-slate-200 ">
 				<Image
 					src={course.picture || '/course.jpg'}
 					fill
@@ -44,9 +44,9 @@ function SingleDetails({
 					blurDataURL={blurImage}
 				/>
 			</div>
-			<div className=" w-full px-4 pt-8 pb-2 text-dark2/90 flex flex-col gap-5">
+			<div className=" w-full lg:px-4 lg:pt-8 pb-2 text-dark2/90 flex flex-col gap-5">
 				<div>
-					<p className="font-semibold text-3xl 2xl:text-4xl">{course.price ? course.price : '0.00'} zł</p>
+					<p className="font-semibold text-5xl lg:text-4xl ">{course.price ? course.price : '0.00'} zł</p>
 					<p className="text-xs text-dark2/70 leading-5">
 						Cena może ulec zmianie. <br /> Sprawdź aktualną cenę na oficjalnej stronie kursu.
 					</p>
@@ -69,7 +69,7 @@ function SingleDetails({
 					href={course.course_link}
 					target="_blank"
 					variant="white"
-					restClass="px-6 xl:text-xl xl:px-10 xl:py-5  w-full hidden lg:flex border border-primary !py-2.5 mt-4 hover:!bg-slate50">
+					restClass="px-6 xl:text-xl xl:px-10 xl:py-5  w-full flex border border-primary !py-2.5 mt-4 hover:!bg-slate50">
 					Odkryj kurs
 				</Button>
 

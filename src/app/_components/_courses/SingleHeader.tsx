@@ -75,7 +75,7 @@ function SingleHeader({ course }: { course: FullCourseDataType }) {
 						<div className="flex items-center gap-1 flex-col xl:gap-2">
 							<FaStar className="mb-0.5 text-yellow-500 size-10 xl:size-14" />{' '}
 							<p>
-								<span>{course?.average_rating || 0} / 5</span>{' '}
+								<span>{course?.average_rating || 0} </span>{' '}
 							</p>
 						</div>
 
@@ -84,7 +84,7 @@ function SingleHeader({ course }: { course: FullCourseDataType }) {
 							<p>{course?.platform || ''}</p>
 						</div>
 						<div className="flex items-center gap-1 flex-col xl:gap-2">
-							<PiEye className="mb-0.5 size-10 text-second xl:size-14" />
+							<PiEye className="mb-0.5 size-10 text-dark2/80 lg:text-second xl:size-14" />
 							<p>{course?.views_count || 0}</p>
 						</div>
 					</div>

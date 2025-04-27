@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache'
 import { createClientOnBrowser } from '../utils/supabase/client'
 
 export async function getSubCategoriesOnClient(categorySlug?: string | null) {
@@ -70,6 +69,4 @@ export async function trackCourseView(courseId: string) {
 			user_id: null,
 		})
 	}
-
-	revalidatePath(`/kursy/${courseId}`)
 }
