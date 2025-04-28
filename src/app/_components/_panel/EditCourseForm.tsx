@@ -18,6 +18,7 @@ import DeleteCourse from './DeleteCourse'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { SpecializationType } from '../_courses/Specialization'
+import EditorText from './EditorText'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -46,7 +47,11 @@ function EditCourseForm({
 		formState: { errors, isSubmitting },
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
+		defaultValues: {
+			long_description: courseData?.long_description || '',
+		},
 	})
+	const [content, setContent] = useState(courseData.long_description || '')
 	const router = useRouter()
 	const selectedCategory = useWatch({ control, name: 'categories' }) || courseData.categories
 	const selectedSubCategory = useWatch({ control, name: 'sub_categories' }) || courseData.sub_categories
@@ -132,6 +137,16 @@ function EditCourseForm({
 			clearErrors('picture')
 			data.picture = image
 		}
+
+		if (content.length < 50) {
+			setError('long_description', {
+				type: 'manual',
+				message: 'Opis musi być dłuższy niż 50 znaków',
+			})
+			return
+		}
+
+		data.long_description = content
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { picture, ...restData } = data
@@ -333,7 +348,13 @@ function EditCourseForm({
 						defaultValue={courseData.author_link || ''}
 					/>
 				</div>
-				<PanelInput
+				<EditorText
+					control={control}
+					setContent={setContent}
+					error={errors?.long_description}
+					message={errors?.long_description?.message}
+				/>
+				{/* <PanelInput
 					textArea
 					label="Opis kursu"
 					name="long_description"
@@ -343,7 +364,7 @@ function EditCourseForm({
 					message={errors?.long_description?.message || null}
 					required
 					defaultValue={courseData.long_description}
-				/>
+				/> */}
 				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4 sm:pt-4 lg:pt-4">
 					<div className="flex items-center flex-wrap justify-center gap-8 md:gap-16">
 						<Button variant="submit" restClass="relative" disabled={isSubmitting}>

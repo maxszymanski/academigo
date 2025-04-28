@@ -76,10 +76,7 @@ export const addCourseSchema = z
 			.string()
 			.min(10, 'Krótki opis musi mieć co najmniej 10 znaków')
 			.max(255, 'Krótki opis może mieć maksymalnie 255 znaków'),
-		long_description: z
-			.string()
-			.min(50, 'Opis kursu musi mieć co najmniej 50 znaków')
-			.max(5000, 'Opis kursu może mieć maksymalnie 5000 znaków'),
+		long_description: z.string().optional(),
 		platform: z.string().refine(value => value !== '', {
 			message: 'Proszę wybrać platformę',
 		}),

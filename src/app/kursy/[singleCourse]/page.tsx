@@ -22,7 +22,7 @@ async function page({ params }: { params: Params }) {
 		<>
 			<SingleHeader course={course} />
 			<main className="relative  h-full min-h-screen w-full px-4 bg-slate50">
-				<div className="w-full container mx-auto relative flex flex-col items-center  xl:py-20  py-10 ">
+				<div className="w-full container mx-auto relative flex flex-col items-center  xl:py-20  py-10 lg:items-start  lg:justify-start">
 					<CourseDescription description={course.long_description} />
 					<SingleDetails
 						course={course}

@@ -34,6 +34,9 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
 	})
+
+	const [content, setContent] = useState('')
+
 	const router = useRouter()
 	const selectedCategory = useWatch({ control, name: 'categories' })
 	const selectedSubCategory = useWatch({ control, name: 'sub_categories' })
@@ -77,7 +80,8 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 
 	useEffect(() => {
 		if (isFree) setValue('price', '0')
-	}, [isFree, setValue])
+		clearErrors('price')
+	}, [isFree, setValue, clearErrors])
 
 	const onSubmit: SubmitHandler<AddCourseType> = async data => {
 		if (!image) {
@@ -105,9 +109,9 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 		if (!isValidSize) {
 			setError('picture', {
 				type: 'manual',
-				message: 'Plik musi być większy niż 2MB',
+				message: 'Plik musi być mniejszy niż 2MB',
 			})
-			toast.error('Plik musi być większy niż 2MB')
+			toast.error('Plik musi być mniejszy niż 2MB')
 			return
 		}
 
@@ -115,6 +119,16 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 			clearErrors('picture')
 			data.picture = image
 		}
+
+		if (content.length < 50) {
+			setError('long_description', {
+				type: 'manual',
+				message: 'Opis musi być dłuższy niż 50 znaków',
+			})
+			return
+		}
+
+		data.long_description = content
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { picture, ...restData } = data
@@ -302,17 +316,13 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						message={errors?.author_link?.message || null}
 					/>
 				</div>
-				<EditorText />
-				{/* <PanelInput
-					textArea
-					label="Opis kursu"
-					name="long_description"
-					placeholder="Wprowadź opis kursu"
-					formRegister={register('long_description')}
-					error={errors?.long_description || null}
-					message={errors?.long_description?.message || null}
-					required
-				/> */}
+				<EditorText
+					control={control}
+					setContent={setContent}
+					error={errors?.long_description}
+					message={errors?.long_description?.message}
+				/>
+
 				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4">
 					<Button variant="submit" restClass="relative" disabled={isSubmitting}>
 						{isSubmitting ? 'Dodawanie' : 'Dodaj kurs'}

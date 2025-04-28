@@ -1,33 +1,35 @@
-import React, { useRef, useState } from 'react'
-import Editor from './Editor'
-import Quill from 'quill'
+import { Control, Controller, FieldError } from 'react-hook-form'
+import { Editor } from './Editor'
+import { AddCourseType } from '@/app/_lib/validators'
 
-const Delta = Quill.import('delta')
+interface EditorProps {
+	error?: FieldError | null
+	message?: string | null
+	control: Control<AddCourseType>
+	setContent: React.Dispatch<React.SetStateAction<string>>
+}
 
-const EditorText = () => {
-	const [range, setRange] = useState()
-	const [lastChange, setLastChange] = useState()
-	const [readOnly, setReadOnly] = useState(false)
-
-	// Use a ref to access the quill instance directly
-	const quillRef = useRef()
-
+const EditorText = ({ error, message, control, setContent }: EditorProps) => {
 	return (
-		<div className="w-full flex flex-col border border-slate-200 peer  min-h-96  appearance-none  text-sm outline-none focus:ring-1 focus:ring-slate-300 transition-colors duration-300 hover:bg-slate-200 placeholder:select-none placeholder:dark2/90 text-dark2 disabled:cursor-not-allowed disabled:bg-slate-500 rounded-lg  bg-slate50 mt-1 overflow-hidden ">
-			<Editor
-				ref={quillRef}
-				readOnly={readOnly}
-				defaultValue={new Delta()
-					.insert('Hello')
-					.insert('\n', { header: 1 })
-					.insert('Some ')
-					.insert('initial', { bold: true })
-					.insert(' ')
-					.insert('content', { underline: true })
-					.insert('\n')}
-				onSelectionChange={setRange}
-				onTextChange={setLastChange}
-			/>
+		<div className="w-full flex flex-col">
+			<label htmlFor="Opis kursu" className="block text-dark2 mb-3">
+				Opis kursu <span className="text-red-400">*</span>
+			</label>
+			<div className="h-full">
+				<Controller
+					name="long_description"
+					control={control}
+					render={({ field: { value } }) => (
+						<Editor
+							onChange={setContent}
+							value={value}
+							placeholder="Wprowadź opis kursu"
+							error={error || null}
+						/>
+					)}
+				/>
+			</div>
+			{error && <p className="text-sm  text-red-500 mt-2 pl-1">{message}</p>}
 		</div>
 	)
 }

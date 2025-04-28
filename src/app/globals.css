@@ -38,6 +38,19 @@ body {
 	border-bottom: 3px solid transparent;
 	animation: rotation 0.5s linear infinite reverse;
 }
+
+.course-description p span {
+	@apply text-dark2/90;
+}
+.course-description h2 {
+	@apply text-dark2/90 text-3xl font-medium;
+}
+.course-description ol {
+	@apply text-dark2 text-sm list-disc list-inside;
+}
+.course-description ol li {
+	@apply !text-dark2/90 text-sm mt-2;
+}
 @keyframes rotation {
 	0% {
 		transform: rotate(0deg);

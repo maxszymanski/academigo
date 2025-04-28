@@ -1,12 +1,12 @@
-function CourseDescription({ description }: { description: string }) {
+import { sanitizeHTML } from '../../utils/sanitize'
+
+function CourseDescription({ description = '' }: { description?: string }) {
+	const safeHTML = sanitizeHTML(description)
+
 	return (
-		<div>
+		<div className="max-w-[70%]">
 			<p>Opis</p>
-			{description.split('\n').map((paragraph, idx) => (
-				<p className="leading-[170%] text-base mb-4" key={idx}>
-					{paragraph}
-				</p>
-			))}
+			<div className="course-description" dangerouslySetInnerHTML={{ __html: safeHTML }} />
 		</div>
 	)
 }
