@@ -39,18 +39,41 @@ body {
 	animation: rotation 0.5s linear infinite reverse;
 }
 
-.course-description p span {
-	@apply text-dark2/90;
+.course-description p {
+	@apply !text-dark2 py-1;
 }
+.course-description p span {
+	@apply !text-dark2;
+}
+
 .course-description h2 {
 	@apply text-dark2/90 text-3xl font-medium;
 }
-.course-description ol {
-	@apply text-dark2 text-sm list-disc list-inside;
+
+.course-description ol li[data-list='bullet'] {
+	@apply text-dark2 list-disc list-inside;
+}
+
+.course-description ul {
+	@apply text-dark2 list-decimal list-inside;
+}
+.course-description ol li span {
+	@apply !text-dark2;
 }
 .course-description ol li {
-	@apply !text-dark2/90 text-sm mt-2;
+	@apply !text-dark2 mt-3;
 }
+.course-description h3 strong {
+	@apply !text-2xl lg:!text-3xl font-semibold text-[#2a2b3f] pt-1;
+}
+
+.course-description ol,
+.course-description ul {
+	@apply text-dark2  py-2 sm:px-6 pl-2;
+}
+@media (min-width: 768px) {
+}
+
 @keyframes rotation {
 	0% {
 		transform: rotate(0deg);

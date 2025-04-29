@@ -1,3 +1,4 @@
+import { FullCourseDataType } from '../_types/types'
 import { createClient } from '../utils/supabase/server'
 
 export async function getCategories() {
@@ -90,13 +91,24 @@ export async function getCoursesCreatedByUser() {
 	return data
 }
 
-export async function getCourseById(courseID: string | number) {
+export async function getCourseById(courseID: string) {
 	const supabase = await createClient()
 
 	const { data, error } = await supabase.from('full_course_data').select('*').eq('id', courseID).single()
 
 	if (error) {
 		throw new Error('Błąd pobierania danych kursu')
+	}
+
+	return data
+}
+export async function getCourseModerator(userID: string) {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.from('full_user_data').select('*').eq('id', userID).single()
+
+	if (error) {
+		throw new Error('Błąd pobierania danych uzytkownika')
 	}
 
 	return data
@@ -332,4 +344,70 @@ export async function getUserRankByCourses() {
 	const rank = (higherCount ?? 0) + 1
 
 	return rank
+}
+
+export async function getRecommendedCourses(
+	courseID: string,
+	specialization?: string,
+	sub_category?: string,
+	category?: string
+) {
+	const supabase = await createClient()
+	let courses: FullCourseDataType[] = []
+	const limit = 6
+	// 1. Pobierz po specialization
+	if (specialization) {
+		const { data } = await supabase
+			.from('full_course_data')
+			.select('*')
+			.eq('specialization', specialization)
+			.neq('id', courseID)
+			.order('average_rating', { ascending: true })
+			.limit(limit - courses.length)
+
+		if (data && data.length > 0) courses = data
+	}
+
+	// 2. Jeśli za mało, pobierz po sub_category
+	if (courses.length < limit && sub_category) {
+		const { data } = await supabase
+			.from('full_course_data')
+			.select('*')
+			.eq('sub_categories', sub_category)
+			.neq('id', courseID)
+			.not('id', 'in', `(${courses.map(c => c.id).join(',')})`)
+			.order('average_rating', { ascending: true }) // unikalność
+			.limit(limit - courses.length)
+
+		if (data) courses = [...courses, ...data]
+	}
+
+	// 3. Jeśli nadal za mało, pobierz po category
+	if (courses.length < limit && category) {
+		const { data } = await supabase
+			.from('full_course_data')
+			.select('*')
+			.eq('categories', category)
+			.neq('id', courseID)
+			.not('id', 'in', `(${courses.map(c => c.id).join(',')})`)
+			.order('average_rating', { ascending: true })
+			.limit(limit - courses.length)
+
+		if (data) courses = [...courses, ...data]
+	}
+
+	// 4. Na końcu, jeśli nadal za mało, pobierz losowe kursy
+	if (courses.length < limit) {
+		const { data } = await supabase
+			.from('full_course_data')
+			.select('*')
+			.neq('id', courseID)
+			.not('id', 'in', `(${courses.map(c => c.id).join(',')})`)
+			.order('average_rating', { ascending: true })
+			.limit(limit - courses.length)
+
+		if (data) courses = [...courses, ...data]
+	}
+
+	return courses
 }

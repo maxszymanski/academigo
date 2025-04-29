@@ -28,15 +28,17 @@
 	color: inherit !important;
 	opacity: 0.76;
 }
+.ql-toolbar.ql-snow .ql-picker-options .ql-picker-item {
+	@apply hover:text-dark2 duration-300 transition-colors;
+}
 .ql-snow .ql-picker {
-	color: inherit !important;
+	@apply text-primary hover:text-dark2 duration-300 transition-colors;
 }
 .quill > .ql-container > .ql-editor.ql-blank::before {
-	color: inherit;
+	color: #925fe2;
 }
 .ql-snow.ql-toolbar button svg {
-	opacity: 0.76;
-	color: currentColor;
+	@apply text-primary bg-transparent hover:text-dark2 transition-colors duration-300 rounded-lg opacity-75 sm:size-5;
 }
 .ql-snow .ql-stroke {
 	stroke: currentColor !important;
@@ -44,8 +46,9 @@
 .ql-snow .ql-fill {
 	fill: currentColor !important;
 }
+
 .ql-picker-item {
-	color: #444 !important;
+	@apply text-primary;
 }
 .ql-tooltip > input {
 	background-color: transparent;
@@ -54,4 +57,17 @@
 
 .ql-tooltip .ql-hidden {
 	display: none !important;
+}
+
+.ql-editor p,
+.ql-editor li {
+	font-size: 14px;
+	margin-bottom: 0.5rem;
+}
+.ql-editor ol,
+.ql-editor ul {
+	padding: 0.5rem;
+}
+.ql-editor h3 strong {
+	font-size: 26px !important;
 }

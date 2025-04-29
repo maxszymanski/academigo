@@ -36,7 +36,7 @@ export interface CurrentUserType {
 	github: string | null
 	social: string | null
 	role: string | null
-	proffesion: string | null
+	profession: string | null
 	points: number
 }
 

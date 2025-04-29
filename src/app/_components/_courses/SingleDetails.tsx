@@ -31,7 +31,7 @@ function SingleDetails({
 	const addCourseDay = format(new Date(course.created_at), 'd MMMM yyyy', { locale: pl })
 
 	return (
-		<div className="lg:absolute lg:right-5 lg:-top-16  flex-shrink-0 flex-grow-0 rounded-lg lg:bg-white w-full max-w-[360px]  text-dark2 lg:shadow-md shadow-stone-200   flex flex-col  overflow-hidden z-20  ">
+		<div className="lg:sticky lg:right-5 lg:top-8 lg:-mt-32  flex-shrink-0 flex-grow-0 rounded-lg lg:bg-white w-full max-w-[360px]  text-dark2 lg:shadow-md shadow-stone-200   flex flex-col  overflow-hidden z-20  pb-12 lg:pb-0">
 			<div className=" z-30 h-[220px] hidden lg:block   w-full relative border-b border-slate-200 ">
 				<Image
 					src={course.picture || '/course.jpg'}
@@ -53,7 +53,7 @@ function SingleDetails({
 				</div>
 				<div className="flex flex-col gap-3 ">
 					<p className="flex items-center gap-3 ">
-						<FiClock className="size-5 text-dark2/75 mr-1" /> <span>{course.duration} godziny</span>
+						<FiClock className="size-5 text-dark2/75 mr-1" /> <span>{course.duration}</span>
 					</p>
 					<p className="flex items-center gap-3">
 						<PiUserSound className="size-6 text-dark2/75" /> <span>{course.language}</span>

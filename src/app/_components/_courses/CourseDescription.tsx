@@ -3,12 +3,7 @@ import { sanitizeHTML } from '../../utils/sanitize'
 function CourseDescription({ description = '' }: { description?: string }) {
 	const safeHTML = sanitizeHTML(description)
 
-	return (
-		<div className="max-w-[70%]">
-			<p>Opis</p>
-			<div className="course-description" dangerouslySetInnerHTML={{ __html: safeHTML }} />
-		</div>
-	)
+	return <div className="course-description text-sm sm:text-base" dangerouslySetInnerHTML={{ __html: safeHTML }} />
 }
 
 export default CourseDescription

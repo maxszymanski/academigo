@@ -19,6 +19,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { SpecializationType } from '../_courses/Specialization'
 import EditorText from './EditorText'
+import { template } from '@/app/utils/courseTemplate'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -48,7 +49,7 @@ function EditCourseForm({
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
 		defaultValues: {
-			long_description: courseData?.long_description || '',
+			long_description: courseData?.long_description || template,
 		},
 	})
 	const [content, setContent] = useState(courseData.long_description || '')
@@ -354,17 +355,7 @@ function EditCourseForm({
 					error={errors?.long_description}
 					message={errors?.long_description?.message}
 				/>
-				{/* <PanelInput
-					textArea
-					label="Opis kursu"
-					name="long_description"
-					placeholder="Wprowadź opis kursu"
-					formRegister={register('long_description')}
-					error={errors?.long_description || null}
-					message={errors?.long_description?.message || null}
-					required
-					defaultValue={courseData.long_description}
-				/> */}
+
 				<div className="flex flex-col gap-7 items-center justify-center w-full xl:pt-4 sm:pt-4 lg:pt-4">
 					<div className="flex items-center flex-wrap justify-center gap-8 md:gap-16">
 						<Button variant="submit" restClass="relative" disabled={isSubmitting}>

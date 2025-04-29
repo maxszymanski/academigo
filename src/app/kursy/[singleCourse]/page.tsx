@@ -1,19 +1,35 @@
 import { getCurrentUser } from '@/app/_actions/auth'
 import SingleHeader from '@/app/_components/_courses/SingleHeader'
 import SingleDetails from '@/app/_components/_courses/SingleDetails'
-import { getCourseById, getLikedCourses, getRatedCourse, getSavedCourses } from '@/app/_lib/data-service'
+import {
+	getCourseById,
+	getCourseModerator,
+	getLikedCourses,
+	getRatedCourse,
+	getRecommendedCourses,
+	getSavedCourses,
+} from '@/app/_lib/data-service'
 import CourseDescription from '@/app/_components/_courses/CourseDescription'
-import { FullCourseDataType } from '@/app/_types/types'
+import SingleShowMoreCourses from '@/app/_components/_courses/SingleShowMoreCourses'
+import CreatedBy from '@/app/_components/_courses/CreatedBy'
+// import { FullCourseDataType } from '@/app/_types/types'
 
 type Params = Promise<{ singleCourse: string }>
 
 async function page({ params }: { params: Params }) {
 	const { singleCourse } = await params
-	const likedCourses = await getLikedCourses()
-	const savedCourses = await getSavedCourses()
-	const course: FullCourseDataType = await getCourseById(singleCourse)
-	const user = await getCurrentUser()
-	const ratedCourse = await getRatedCourse(singleCourse)
+	const [likedCourses, savedCourses, course, user, ratedCourse] = await Promise.all([
+		getLikedCourses(),
+		getSavedCourses(),
+		getCourseById(singleCourse),
+		getCurrentUser(),
+		getRatedCourse(singleCourse),
+	])
+
+	const [moreCourses, moderator] = await Promise.all([
+		getRecommendedCourses(course.id, course.specialization, course.sub_categories, course.categories),
+		getCourseModerator(course.created_by),
+	])
 
 	const isLikedCourse: boolean = likedCourses.some(course => course.id === singleCourse)
 	const isSavedCourse: boolean = savedCourses.some(course => course.id === singleCourse)
@@ -21,9 +37,8 @@ async function page({ params }: { params: Params }) {
 	return (
 		<>
 			<SingleHeader course={course} />
-			<main className="relative  h-full min-h-screen w-full px-4 bg-slate50">
-				<div className="w-full container mx-auto relative flex flex-col items-center  xl:py-20  py-10 lg:items-start  lg:justify-start">
-					<CourseDescription description={course.long_description} />
+			<main className="relative  h-full min-h-screen w-full px-4 bg-slate50 pb-8">
+				<div className="w-full container mx-auto  flex flex-col items-center lg:flex-row-reverse  xl:py-14  py-10 lg:items-start  lg:justify-between">
 					<SingleDetails
 						course={course}
 						userId={user?.id}
@@ -31,7 +46,12 @@ async function page({ params }: { params: Params }) {
 						isSavedCourse={isSavedCourse}
 						rate={ratedCourse?.rating}
 					/>
+					<div className="lg:max-w-[60%] xl:max-w-[70%] xl:pr-2 2xl:px-4">
+						<CourseDescription description={course.long_description} />
+						<CreatedBy moderator={moderator} />
+					</div>
 				</div>
+				<SingleShowMoreCourses coursesList={moreCourses} />
 			</main>
 		</>
 	)

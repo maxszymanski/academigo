@@ -28,7 +28,7 @@ function RankCard({
 						<p className="mr-2 w-10 font-semibold text-primary">#{index + 1}</p>
 						<div className="flex w-full items-center justify-between">
 							<p className="font-medium flex items-center gap-1.5">
-								<UserAvatar small avatar={user.avatar} href={`/profil/${user.id}`} />
+								<UserAvatar size="h-6 w-6" avatar={user.avatar} href={`/profil/${user.id}`} />
 								<Link
 									href={`/profil/${user.id}`}
 									className="text-dark2 hover:text-dark2/75 transition-colors duration-300 py-1">

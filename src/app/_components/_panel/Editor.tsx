@@ -17,17 +17,7 @@ export const Editor = ({ value, placeholder, onChange, error }: EditorProps) => 
 	const theme = 'snow'
 
 	const modules = {
-		toolbar: [
-			['bold', 'underline', 'strike'],
-			[{ align: [] }],
-
-			[{ list: 'ordered' }, { list: 'bullet' }],
-			[{ indent: '-1' }, { indent: '+1' }],
-
-			[{ header: [1, 2, 3, 4, 5, 6, false] }],
-			['link'],
-			[{ color: [] }],
-		],
+		toolbar: [['bold', 'underline', 'strike'], [{ list: 'bullet' }], ['link'], [{ header: [false, 3] }]],
 	}
 
 	const formats = ['bold', 'underline', 'strike', 'align', 'list', 'indent', 'header', 'link', 'color']

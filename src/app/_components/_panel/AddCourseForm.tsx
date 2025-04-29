@@ -18,6 +18,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { SpecializationType } from '../_courses/Specialization'
 import EditorText from './EditorText'
+import { template } from '@/app/utils/courseTemplate'
 
 const difficultyLevels = ['Początkujący', 'Średniozaawansowany', 'Zaawansowany', 'Wszystkie poziomy']
 const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
@@ -33,9 +34,12 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 		formState: { errors, isSubmitting },
 	} = useForm<AddCourseType>({
 		resolver: zodResolver(addCourseSchema),
+		defaultValues: {
+			long_description: template || '',
+		},
 	})
 
-	const [content, setContent] = useState('')
+	const [content, setContent] = useState(template || '')
 
 	const router = useRouter()
 	const selectedCategory = useWatch({ control, name: 'categories' })
