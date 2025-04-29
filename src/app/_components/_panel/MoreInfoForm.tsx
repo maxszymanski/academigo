@@ -50,7 +50,7 @@ function MoreInfoForm({ user }: { user: CurrentUserType }) {
 					label="Zawód"
 					name="proffesion"
 					placeholder="Podaj swój zawód"
-					defaultValue={user.proffesion || ''}
+					defaultValue={user.profession || ''}
 					formRegister={register('profession')}
 				/>
 

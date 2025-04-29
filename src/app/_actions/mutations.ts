@@ -58,7 +58,7 @@ export async function createCourse(data: FormData) {
 	revalidatePath('/konto/moje-kursy')
 }
 
-export async function updateCourse(data: FormData, courseID: string | number) {
+export async function updateCourse(data: FormData, courseID: string) {
 	const parsedData = JSON.parse(data.get('data') as string)
 	const picture = data.get('picture') as File | string
 
