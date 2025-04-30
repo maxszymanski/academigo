@@ -10,7 +10,7 @@ import { FullCourseDataType } from '@/app/_types/types'
 function SingleHeader({ course }: { course: FullCourseDataType }) {
 	return (
 		<header className="lg:bg-gradient-primary pt-12 md:pt-0  lg:min-h-[492px]  lg:pt-4 w-full">
-			<div className="w-full  max-w-[600px]  lg:container mx-auto pt-8  flex flex-col items-center overflow-x-hidden sm:overflow-x-visible lg:px-6 2xl:px-20">
+			<div className="w-full  max-w-[600px]  lg:container mx-auto pt-8  flex flex-col items-center overflow-x-hidden sm:overflow-x-visible lg:px-6 ">
 				<div className="flex w-full  pb-2  px-2 items-center text-primary overflow-x-auto sm:justify-center scrollbar-none lg:justify-start lg:text-second">
 					<Button variant="search" restClass="" href={`/kursy?category=${course.categories}`}>
 						{course.category_name}
@@ -45,7 +45,7 @@ function SingleHeader({ course }: { course: FullCourseDataType }) {
 					/>
 				</div>
 			</div>
-			<div className="container mx-auto flex h-full w-full flex-col items-center lg:items-start  px-4 text-center lg:flex-row  lg:px-6 xl:px-8 py-10 gap-12 lg:justify-evenly ">
+			<div className="container mx-auto flex h-full w-full flex-col items-center lg:items-start  px-4 text-center lg:flex-row  lg:px-6 xl:px-8 py-10 gap-12 lg:justify-evenly xl:justify-between ">
 				<div className="flex h-full w-full flex-col justify-center gap-4  text-center lg:text-second text-dark2 lg:w-1/2 lg:items-start  lg:text-left ">
 					<h1 className="w-full text-2xl font-medium lg:font-extrabold leading-9 tracking-wide lg:text-3xl lg:leading-[50px] xl:text-4xl xl:leading-[65px] 2xl:text-[44px] 2xl:leading-[70px]">
 						{course.title}

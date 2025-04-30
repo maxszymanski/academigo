@@ -44,6 +44,7 @@ function PasswordForm() {
 						error={errors?.password || null}
 						message={errors?.password?.message || null}
 						autoComplete="new-password"
+						required
 					/>
 					<PanelInput
 						label="Powtórz hasło"
@@ -54,6 +55,7 @@ function PasswordForm() {
 						error={errors?.confirmPassword || null}
 						message={errors?.confirmPassword?.message || null}
 						autoComplete="new-password"
+						required
 					/>
 					<div className="px-8 w-full flex items-center justify-center pt-4">
 						<Button variant="submit" restClass="relative" disabled={isSubmitting}>

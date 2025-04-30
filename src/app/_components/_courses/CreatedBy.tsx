@@ -6,7 +6,7 @@ import { CurrentUserType } from '@/app/_types/types'
 
 function CreatedBy({ moderator }: { moderator: CurrentUserType }) {
 	return (
-		<div className="pt-12 w-fit text-dark2 pb-6 md:pb-2">
+		<div className="pt-8 w-fit text-dark2 pb-6 md:pb-2">
 			<p className="mb-3 font-semibold text-2xl 2xl:text-3xl pl-2">Moderator</p>
 
 			<div className="flex flex-col gap-5">

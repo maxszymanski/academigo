@@ -1,5 +1,6 @@
+'use client'
 import useClickOutside from '@/app/_hooks/useClickOutside'
-import { RefObject } from 'react'
+import { RefObject, useEffect } from 'react'
 
 function Modal({
 	children,
@@ -8,6 +9,7 @@ function Modal({
 	position,
 	buttonId,
 	fullPageModal = false,
+	reset,
 }: {
 	children: React.ReactNode
 	modalRef: RefObject<HTMLDivElement | null> | null
@@ -15,8 +17,24 @@ function Modal({
 	position?: string | undefined
 	buttonId: string
 	fullPageModal?: boolean
+	reset?: () => void
 }) {
 	useClickOutside(modalRef, closeModal, buttonId)
+
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				e.preventDefault()
+				if (reset) reset()
+				closeModal()
+			}
+		}
+
+		document.addEventListener('keydown', handleKeyDown)
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown)
+		}
+	}, [closeModal, reset])
 
 	return (
 		<>

@@ -25,21 +25,23 @@ function RankCard({
 			{ranking.length > 0 &&
 				ranking.map((user, index) => (
 					<li key={user.id} className="flex items-center ">
-						<p className="mr-2 w-10 font-semibold text-primary">#{index + 1}</p>
-						<div className="flex w-full items-center justify-between">
+						<p className="mr-0.5 w-10 font-semibold text-primary">#{index + 1}</p>
+						<div className="flex w-full items-center justify-between gap-1.5">
 							<p className="font-medium flex items-center gap-1.5">
 								<UserAvatar size="h-6 w-6" avatar={user.avatar} href={`/profil/${user.id}`} />
 								<Link
 									href={`/profil/${user.id}`}
-									className="text-dark2 hover:text-dark2/75 transition-colors duration-300 py-1">
-									{user.username}{' '}
-									{index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''}{' '}
+									className="text-dark2 hover:text-dark2/75 transition-colors duration-300 py-1 flex items-center gap-1.5">
+									<span className="overflow-hidden overflow-ellipsis whitespace-normal line-clamp-1 ">
+										{user.username}
+									</span>{' '}
+									<span>{index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''} </span>
 								</Link>
 							</p>
 							{pointsRank ? (
-								<p className="text-sm text-dark/70">({user.points} punktów)</p>
+								<p className="text-sm text-dark/70 text-nowrap">({user.points} punktów)</p>
 							) : (
-								<p className="text-sm text-dark/70">({user.created_courses} kursów)</p>
+								<p className="text-sm text-dark/70 text-nowrap">({user.created_courses} kursów)</p>
 							)}
 						</div>
 					</li>

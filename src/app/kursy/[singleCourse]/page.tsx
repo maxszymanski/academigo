@@ -12,30 +12,32 @@ import {
 import CourseDescription from '@/app/_components/_courses/CourseDescription'
 import SingleShowMoreCourses from '@/app/_components/_courses/SingleShowMoreCourses'
 import CreatedBy from '@/app/_components/_courses/CreatedBy'
+import Feedback from '@/app/_components/_courses/Feedback'
+import FeedbackModal from '@/app/_components/_courses/FeedbackModal'
 // import { FullCourseDataType } from '@/app/_types/types'
 
 type Params = Promise<{ singleCourse: string }>
 
 async function page({ params }: { params: Params }) {
 	const { singleCourse } = await params
-	const [likedCourses, savedCourses, course, user, ratedCourse] = await Promise.all([
-		getLikedCourses(),
-		getSavedCourses(),
-		getCourseById(singleCourse),
-		getCurrentUser(),
-		getRatedCourse(singleCourse),
-	])
+
+	const user = await getCurrentUser()
+
+	const [course, ratedCourse] = await Promise.all([getCourseById(singleCourse), getRatedCourse(singleCourse)])
+
+	const [likedCourses, savedCourses] = user ? await Promise.all([getLikedCourses(), getSavedCourses()]) : [[], []]
 
 	const [moreCourses, moderator] = await Promise.all([
 		getRecommendedCourses(course.id, course.specialization, course.sub_categories, course.categories),
 		getCourseModerator(course.created_by),
 	])
 
-	const isLikedCourse: boolean = likedCourses.some(course => course.id === singleCourse)
-	const isSavedCourse: boolean = savedCourses.some(course => course.id === singleCourse)
+	const isLikedCourse = likedCourses.some(c => c.id === singleCourse)
+	const isSavedCourse = savedCourses.some(c => c.id === singleCourse)
 
 	return (
 		<>
+			<FeedbackModal courseID={singleCourse} userID={user?.id} />
 			<SingleHeader course={course} />
 			<main className="relative  h-full min-h-screen w-full px-4 bg-slate50 pb-8">
 				<div className="w-full container mx-auto  flex flex-col items-center lg:flex-row-reverse  xl:py-14  py-10 lg:items-start  lg:justify-between">
@@ -52,6 +54,7 @@ async function page({ params }: { params: Params }) {
 					</div>
 				</div>
 				<SingleShowMoreCourses coursesList={moreCourses} />
+				<Feedback />
 			</main>
 		</>
 	)

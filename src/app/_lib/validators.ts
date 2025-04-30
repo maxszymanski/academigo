@@ -173,6 +173,12 @@ export const updateRoleSchema = z.object({
 	role: z.string().nullable(),
 	profession: z.string().nullable(),
 })
+export const feedbackSchema = z.object({
+	message: z
+		.string()
+		.min(10, 'Wiadomość musi mieć co najmniej 10 znaków')
+		.max(500, 'Wiadomość może mieć maksymalnie 500 znaków'),
+})
 
 export type ChangePasswordType = z.infer<typeof changePasswordSchema>
 export type LoginType = z.infer<typeof loginSchema>
@@ -183,3 +189,4 @@ export type pictureType = z.infer<typeof pictureSchema>
 export type avatarType = z.infer<typeof avatarSchema>
 export type UpdateSocialType = z.infer<typeof updateSocialSchema>
 export type UpdateRoleType = z.infer<typeof updateRoleSchema>
+export type FeedbackType = z.infer<typeof feedbackSchema>

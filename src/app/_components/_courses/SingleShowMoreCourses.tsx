@@ -37,7 +37,7 @@ function SingleShowMoreCourses({ coursesList = [] }: { coursesList: FullCourseDa
 						<p>Brak kursów do wyświtlenia</p>
 					)}
 				</div>
-				<div className="absolute left-0 top-0 hidden h-full w-full items-center justify-between px-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:flex ">
+				<div className="absolute left-0 top-0 hidden h-full w-full items-center justify-between px-6 opacity-0 transition-opacity duration-100 group-hover:opacity-100 lg:flex ">
 					<Button onClick={scrollLeft} restClass="left-1" variant="arrow">
 						<FaChevronLeft className="size-12" />
 					</Button>

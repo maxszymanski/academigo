@@ -11,7 +11,6 @@ import {
 	updateRoleSchema,
 } from '../_lib/validators'
 import { createClient } from '../utils/supabase/server'
-import { getCourseById } from '../_lib/data-service'
 import { revalidatePath } from 'next/cache'
 
 export async function createCourse(data: FormData) {
@@ -71,8 +70,6 @@ export async function updateCourse(data: FormData, courseID: string) {
 		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
 	}
 
-	const course = await getCourseById(courseID)
-
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -80,10 +77,6 @@ export async function updateCourse(data: FormData, courseID: string) {
 
 	if (!authData.user) {
 		return { error: 'Nie można znaleźć użytkownika' }
-	}
-
-	if (authData.user.id != course.created_by) {
-		return { error: 'Użytkownik nie posiada uprawnień do edycji tego kursu!' }
 	}
 
 	let pictureLink
@@ -117,6 +110,7 @@ export async function updateCourse(data: FormData, courseID: string) {
 		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
 	}
 
+	revalidatePath(`/konto/kursy/${courseID}`)
 	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
 	revalidatePath(`/konto/moje-kursy/dodane`)
 }
@@ -138,7 +132,7 @@ export async function deleteCourse(courseID: string) {
 			return { error: 'Wystąpił problem przy usuwaniu kursu' }
 		}
 	}
-
+	revalidatePath(`/konto/kursy/${courseID}`)
 	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
 	revalidatePath(`/konto/moje-kursy`)
 }
@@ -421,4 +415,18 @@ export async function rateCourse(courseId: string, rating: number, update: boole
 	revalidatePath(`/kursy/${courseId}`)
 	revalidatePath(`/konto/`)
 	revalidatePath(`/konto/moje-kursy/ocenione`)
+}
+
+export async function sendFeedback(message: string, courseID: string, userID: string | null) {
+	const supabase = await createClient()
+
+	const { error } = await supabase
+		.from('feedback')
+		.insert([{ user_id: userID || null, course_id: courseID, message: message }])
+		.select()
+
+	if (error) {
+		console.log(error.message)
+		return { error: 'Wystąpił problem podczas wysyłania zgłoszenia, proszę spróbować ponownie później.' }
+	}
 }
