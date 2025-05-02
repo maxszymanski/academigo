@@ -14,7 +14,7 @@ function LoginWelcome() {
 				</p>
 			</div>
 
-			<Image src={WelcomeImage} width={700} height={620} alt="zdjęcie" className="h-auto max-w-full" />
+			<Image src={WelcomeImage} width={700} height={450} alt="zdjęcie" className="min-w-[70%] max-w-[700px]" />
 		</div>
 	)
 }

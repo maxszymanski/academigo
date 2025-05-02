@@ -1,17 +1,14 @@
-import Navigation from '../_ui/Navigation'
-import LoginBg from './LoginBg'
-import LoginFormBox from './LoginFormBox'
-import LoginWelcome from './LoginWelcome'
+import LoginBg from '../_components/_login/LoginBg'
+import LoginFormBox from '../_components/_login/LoginFormBox'
+import LoginWelcome from '../_components/_login/LoginWelcome'
 
-function LoginPanelLayout({
+function layout({
 	children,
 }: Readonly<{
 	children: React.ReactNode
 }>) {
 	return (
 		<>
-			<Navigation />
-
 			<main className="relative flex min-h-screen bg-dark">
 				<LoginBg />
 				<div className="container relative z-20 mx-auto flex h-full min-h-screen w-full px-6 py-20 pb-4 lg:min-h-screen lg:max-w-full lg:py-0">
@@ -23,4 +20,4 @@ function LoginPanelLayout({
 	)
 }
 
-export default LoginPanelLayout
+export default layout

@@ -14,7 +14,6 @@ import SingleShowMoreCourses from '@/app/_components/_courses/SingleShowMoreCour
 import CreatedBy from '@/app/_components/_courses/CreatedBy'
 import Feedback from '@/app/_components/_courses/Feedback'
 import FeedbackModal from '@/app/_components/_courses/FeedbackModal'
-// import { FullCourseDataType } from '@/app/_types/types'
 
 type Params = Promise<{ singleCourse: string }>
 
@@ -50,7 +49,7 @@ async function page({ params }: { params: Params }) {
 					/>
 					<div className="lg:max-w-[60%] xl:max-w-[70%] xl:pr-2 2xl:px-4">
 						<CourseDescription description={course.long_description} />
-						<CreatedBy moderator={moderator} />
+						<CreatedBy user={moderator} />
 					</div>
 				</div>
 				<SingleShowMoreCourses coursesList={moreCourses} />

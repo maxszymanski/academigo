@@ -5,7 +5,7 @@ import { logout } from '@/app/_actions/auth'
 import { useTransition } from 'react'
 import LoadingPortal from '../_ui/LoadingPortal'
 
-function LogoutButton() {
+function LogoutButton({ panelNav = true, restClass = 'hidden lg:flex' }: { panelNav?: boolean; restClass?: string }) {
 	const [isPending, startTransition] = useTransition()
 	const handleLogout = async () => {
 		startTransition(async () => {
@@ -20,8 +20,8 @@ function LogoutButton() {
 				onClick={() => {
 					handleLogout()
 				}}
-				panelNav
-				restClass="hidden lg:flex">
+				panelNav={panelNav}
+				restClass={restClass}>
 				<IoLogOut className="mr-4 size-8 flex-shrink-0" /> <span className="">Wyloguj się</span>
 			</NavigationLink>
 		</>

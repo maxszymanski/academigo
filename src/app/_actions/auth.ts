@@ -70,7 +70,7 @@ export async function signup(formData: FormData) {
 	}
 
 	const { data: authData, error } = await supabase.auth.signUp({
-		email: result.data.email,
+		email: result.data.email.toLowerCase(),
 		password: result.data.password,
 	})
 

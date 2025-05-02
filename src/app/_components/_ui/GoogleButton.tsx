@@ -3,7 +3,7 @@ import { MouseEvent, useTransition } from 'react'
 import { loginWithGoogle } from '@/app/_actions/auth'
 import Spinner from './Spinner'
 
-function GoogleButton() {
+function GoogleButton({ isSubmitting }: { isSubmitting: boolean }) {
 	const [isPending, startTransition] = useTransition()
 	const handleLoginWithGoogle = async (e: MouseEvent<HTMLButtonElement>) => {
 		startTransition(async () => {
@@ -16,7 +16,7 @@ function GoogleButton() {
 		<>
 			<button
 				className={`w-full flex items-center justify-center gap-x-3 py-3 border rounded-lg bg-white duration-300 active:bg-gray-100 hover:bg-white/90  relative`}
-				disabled={isPending}
+				disabled={isPending || isSubmitting}
 				onClick={e => handleLoginWithGoogle(e)}>
 				<svg className="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<g clipPath="url(#clip0_17_40)">

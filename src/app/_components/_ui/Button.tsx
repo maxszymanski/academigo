@@ -37,7 +37,7 @@ const variants = {
 	purple: 'hover:bg-primary/80 bg-primary text-sm text-white md:text-xs lg:text-sm xl:px-6 xl:py-3.5 py-2 px-4 text-center justify-center  ',
 	lightPurple: 'hover:bg-primary/80 bg-primary text-white px-4 justify-center ',
 	white: 'bg-white text-primary font-semibold tracking-wide text-base hover:bg-slate50 px-4 py-3.5 justify-center ',
-	search: 'bg-transparent text-primary font-medium tracking-wide text-sm sm:text-base hover:text-primary/80 p-2 justify-center lg:text-second lg:hover:text-white/85 hover:bg-second/20',
+	search: 'bg-transparent text-primary font-medium tracking-wide text-sm sm:text-base hover:text-primary/80 p-2 justify-center lg:text-second lg:hover:text-white/85 lg:hover:bg-second/20 hover:bg-stale50',
 	transparent: 'text-sm bg-transparent text-white/50 hover:text-white ',
 	transparentDark: 'bg-transparent text-dark2 hover:text-dark2/80 ',
 	arrow: 'text-primary  py-3 px-3 absolute z-40   mb-2 hover:text-primary/80 justify-center bg-slate-100 ',

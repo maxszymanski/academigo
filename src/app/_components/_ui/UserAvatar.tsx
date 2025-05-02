@@ -2,11 +2,23 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DefaultUser from '@/assets/default-user.webp'
 
-function UserAvatar({ avatar, size = '', href }: { avatar?: string | null; size?: string; href: string }) {
+function UserAvatar({
+	avatar,
+	size = '',
+	href,
+	target = '_self',
+}: {
+	avatar?: string | null
+	size?: string
+	href: string
+	target?: string
+}) {
 	return (
 		<Link
 			href={href}
-			className="hover:border-primary focus:border-primary border-2 border-primary2 rounded-full tranistion-color duration-300 block">
+			className="hover:border-primary focus:border-primary border border-transparent rounded-full tranistion-color duration-300 block"
+			target={target}
+			rel="noopener noreferrer">
 			<Image
 				priority
 				src={avatar ? avatar : DefaultUser}

@@ -10,6 +10,7 @@ function Modal({
 	buttonId,
 	fullPageModal = false,
 	reset,
+	userNav = false,
 }: {
 	children: React.ReactNode
 	modalRef: RefObject<HTMLDivElement | null> | null
@@ -18,6 +19,7 @@ function Modal({
 	buttonId: string
 	fullPageModal?: boolean
 	reset?: () => void
+	userNav?: boolean
 }) {
 	useClickOutside(modalRef, closeModal, buttonId)
 
@@ -49,9 +51,9 @@ function Modal({
 				</div>
 			) : (
 				<div
-					className={`min-w-sm absolute z-50 flex h-fit w-full justify-center md:min-w-80 lg:min-w-fit ${position ? position : ''}`}
+					className={` absolute z-50 flex h-fit  justify-center ${position ? position : ''} ${userNav ? 'w-fit' : 'min-w-sm  md:min-w-80 lg:min-w-fit w-full'} `}
 					ref={modalRef}>
-					<div className="w-full max-w-md animate-visible rounded-xl border border-primary bg-white text-center shadow-md shadow-primary2 md:min-w-80 lg:min-w-fit">
+					<div className="w-full max-w-md animate-visible rounded-xl border border-primary bg-white text-center shadow-md shadow-primary2 ">
 						{children}
 					</div>
 				</div>

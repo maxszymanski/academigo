@@ -12,19 +12,23 @@ function CourseCardPanel({
 	isList = false,
 	course,
 	href,
+	target = '_self',
 }: {
 	i?: number
 	isMainPage?: boolean
 	isList?: boolean
 	course: FullCourseDataType
 	href: string
+	target?: string
 }) {
 	return (
 		<Link
 			href={href}
-			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary outline-offset-2 outline-primary flex-shrink-0 ${
+			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary outline-offset-2 outline-primary sm:flex-shrink-0 ${
 				isMainPage ? (i < 8 ? 'flex ' : 'flex  2xl:hidden') : 'flex'
-			} ${isList ? 'w-full ' : 'h-[370px] max-w-[330px] flex-col'} `}>
+			} ${isList ? 'w-full ' : 'h-[370px] max-w-[330px] flex-col'} `}
+			rel="noopener noreferrer"
+			target={target}>
 			<div className="t-0 absolute right-0 rounded-bl-2xl bg-primary px-5 py-3 font-semibold text-white z-20 w-[110px] text-center">
 				{course.free ? 'Darmowy' : `${course.price} zł`}
 			</div>
@@ -56,7 +60,7 @@ function CourseCardPanel({
 					</p>
 				</div>
 
-				<div className="flex items-center justify-between">
+				<div className="flex items-center justify-between text-xs sm:text-sm">
 					<div className="flex items-center gap-1">
 						<FaStar className="mb-0.5 text-yellow-500" />{' '}
 						<p>

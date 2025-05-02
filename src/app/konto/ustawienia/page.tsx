@@ -8,7 +8,6 @@ async function Settings() {
 
 	const hasPassword: boolean = user.app_metadata?.providers?.includes('email')
 	const isGoogleAccount: boolean = user.app_metadata?.providers?.includes('google')
-	console.log(user)
 
 	return (
 		<section className="w-full px-4 lg:px-6 pb-8">

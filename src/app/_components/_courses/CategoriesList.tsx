@@ -1,4 +1,5 @@
-import { useRef, useTransition } from 'react'
+'use client'
+import { useEffect, useRef, useState, useTransition } from 'react'
 import Modal from '../_ui/Modal'
 import useAppStore from '@/app/stores/store'
 import { Category } from '@/app/_types/types'
@@ -15,6 +16,14 @@ function CategoriesList({ categories }: { categories: Category[] }) {
 	const currentCategory = searchParams.get('category')
 	const router = useRouter()
 
+	const [shouldClose, setShouldClose] = useState(false)
+	useEffect(() => {
+		if (!isPending && shouldClose) {
+			closeModal()
+			setShouldClose(false)
+		}
+	}, [isPending, closeModal, shouldClose])
+
 	const handleCategoryClick = (slug: string) => {
 		startTransition(() => {
 			const params = new URLSearchParams(searchParams.toString())
@@ -26,6 +35,7 @@ function CategoriesList({ categories }: { categories: Category[] }) {
 				router.push(`/kursy?category=${slug}`, { scroll: false })
 			}
 		})
+		setShouldClose(true)
 	}
 
 	return (
@@ -36,7 +46,8 @@ function CategoriesList({ categories }: { categories: Category[] }) {
 				modalRef={modalRef}
 				closeModal={closeModal}
 				buttonId="categories-button">
-				<div className="flex h-full w-full flex-col items-center py-6 text-sm text-dark2">
+				<div className="flex h-full w-full flex-col  py-6 text-sm text-dark2">
+					<h4 className="mb-6 px-3 text-2xl font-bold text-stone400">Kategorie</h4>
 					<div>
 						{categories.map((category: Category) => (
 							<Button

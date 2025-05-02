@@ -72,11 +72,11 @@ function LoginForm() {
 					{isSubmitting && <Spinner restClass="ml-6 absolute right-3 sm:right-8" />}
 				</Button>
 				<span className="text-xs font-normal text-white/50 self-center py-5">Lub</span>
-				<GoogleButton />
+				<GoogleButton isSubmitting={isSubmitting} />
 			</form>
 			<div className="flex w-full items-center justify-between pb-3">
 				<p className="text-xs font-normal text-white/70 sm:text-sm">Nie masz jeszcze konta?</p>
-				<Button variant="dark" href="/panel/rejestracja" restClass="rounded-lg">
+				<Button variant="dark" href="/panel/rejestracja" restClass="rounded-lg" disabled={isSubmitting}>
 					Wpisz się
 				</Button>
 			</div>

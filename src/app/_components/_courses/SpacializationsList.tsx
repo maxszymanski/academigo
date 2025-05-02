@@ -52,15 +52,7 @@ function SpecializationsList({ specializations }: { specializations: Specializat
 					</Button>
 				))}
 			</div>
-			{/* {specializations.length > 7 && (
-                <Button
-                    variant="category"
-                    restClass="px-3 text-sm xl:text-base !w-fit !text-primary mt-3"
-                    onClick={setFullHeight}
-                >
-                    {fullHeight ? 'Zobacz mniej' : 'Zobacz więcej'}
-                </Button>
-            )} */}
+		
 		</>
 	)
 }
