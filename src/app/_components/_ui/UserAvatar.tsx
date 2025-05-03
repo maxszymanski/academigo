@@ -16,7 +16,7 @@ function UserAvatar({
 	return (
 		<Link
 			href={href}
-			className="hover:border-primary focus:border-primary border border-transparent rounded-full tranistion-color duration-300 block"
+			className="hover:border-primary focus:border-primary border border-transparent rounded-full tranistion-color duration-300 block flex-shrink-0"
 			target={target}
 			rel="noopener noreferrer">
 			<Image

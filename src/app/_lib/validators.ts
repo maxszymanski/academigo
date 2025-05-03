@@ -157,7 +157,8 @@ export const updatePersonalDataSchema = z.object({
 		.string()
 		.nonempty('Nazwa użytkownika nie może być pusta')
 		.min(3, 'Nazwa użytkownika musi mieć co najmniej 3 znaki')
-		.max(20, 'Nazwa użytkownika może mieć maksymalnie 20 znaków'),
+		.max(13, 'Nazwa użytkownika może mieć maksymalnie 13 znaków'),
+	short_description: z.string().max(70, 'Opis może mieć maksymalnie 70 znaków').optional(),
 	gender: z.string().nullable(),
 	country: z.string().nonempty('Prosze wybrać kraj'),
 	city: z.string().nullable(),
@@ -172,6 +173,9 @@ export const updateSocialSchema = z.object({
 export const updateRoleSchema = z.object({
 	role: z.string().nullable(),
 	profession: z.string().nullable(),
+})
+export const updateUserDescriptionSchema = z.object({
+	long_description: z.string().optional(),
 })
 export const feedbackSchema = z.object({
 	message: z
@@ -189,4 +193,5 @@ export type pictureType = z.infer<typeof pictureSchema>
 export type avatarType = z.infer<typeof avatarSchema>
 export type UpdateSocialType = z.infer<typeof updateSocialSchema>
 export type UpdateRoleType = z.infer<typeof updateRoleSchema>
+export type UpdateUserDescription = z.infer<typeof updateUserDescriptionSchema>
 export type FeedbackType = z.infer<typeof feedbackSchema>

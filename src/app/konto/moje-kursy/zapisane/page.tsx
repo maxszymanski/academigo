@@ -10,7 +10,7 @@ async function page() {
 			<div className="flex w-full flex-wrap justify-center gap-x-5 gap-y-12 pt-12 md:gap-x-8 lg:justify-evenly ">
 				{courses && courses.length > 0 ? (
 					courses?.map(course => (
-						<CourseCardPanel key={course.id} course={course} href={`/kursy/${course.id}`} target='_blank' />
+						<CourseCardPanel key={course.id} course={course} href={`/kursy/${course.id}`} />
 					))
 				) : (
 					<NoCourseFound info="Brak zapisanych kursów" />

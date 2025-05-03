@@ -28,10 +28,11 @@ export default async function RootLayout({
 
 	const isUser = !!user?.id
 	const userAvatar = user?.avatar
+	const userId = user?.id
 
 	return (
 		<html lang="pl" className="overflow-x-hidden scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
-			<body className={`${poppins.className} relative h-full min-h-screen bg-white`}>
+			<body className={`${poppins.className} relative h-full min-h-dvh lg:min-h-screen bg-white`}>
 				<>
 					<Toaster
 						position={'top-right'}
@@ -67,7 +68,7 @@ export default async function RootLayout({
 							},
 						}}
 					/>
-					<Navigation isUser={isUser} userAvatar={userAvatar} />
+					<Navigation isUser={isUser} userAvatar={userAvatar} userId={userId} />
 					{children}
 				</>
 			</body>

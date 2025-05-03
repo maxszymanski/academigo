@@ -15,7 +15,6 @@ function CoursesResult({ courses }: { courses: FullCourseDataType[] }) {
 						key={course.id}
 						href={`/kursy/${course.id}`}
 						isList={cardView === 'list'}
-						target="_blank"
 					/>
 				))
 			) : (

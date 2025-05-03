@@ -13,6 +13,7 @@ function CourseCardPanel({
 	course,
 	href,
 	target = '_self',
+	row = false,
 }: {
 	i?: number
 	isMainPage?: boolean
@@ -20,11 +21,12 @@ function CourseCardPanel({
 	course: FullCourseDataType
 	href: string
 	target?: string
+	row?: boolean
 }) {
 	return (
 		<Link
 			href={href}
-			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary outline-offset-2 outline-primary sm:flex-shrink-0 ${
+			className={`relative flex justify-between overflow-hidden rounded-2xl border bg-white text-sm shadow-md shadow-stone-200 transition-all duration-300 hover:bg-slate-50 hover:shadow-primary outline-offset-2 outline-primary ${row ? ' flex-shrink-0' : 'sm:flex-shrink-0'}  ${
 				isMainPage ? (i < 8 ? 'flex ' : 'flex  2xl:hidden') : 'flex'
 			} ${isList ? 'w-full ' : 'h-[370px] max-w-[330px] flex-col'} `}
 			rel="noopener noreferrer"

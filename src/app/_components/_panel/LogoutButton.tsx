@@ -22,7 +22,10 @@ function LogoutButton({ panelNav = true, restClass = 'hidden lg:flex' }: { panel
 				}}
 				panelNav={panelNav}
 				restClass={restClass}>
-				<IoLogOut className="mr-4 size-8 flex-shrink-0" /> <span className="">Wyloguj się</span>
+				<IoLogOut
+					className={`mr-4  ${panelNav ? 'size-6 lg:size-8 hover:!bg-white/10' : 'size-5 2xl:size-7  '} flex-shrink-0`}
+				/>{' '}
+				<span className="text-base xl:text-lg 2xl:text-xl">Wyloguj się</span>
 			</NavigationLink>
 		</>
 	)

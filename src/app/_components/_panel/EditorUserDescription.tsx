@@ -1,20 +1,26 @@
 import { Control, Controller, FieldError } from 'react-hook-form'
 import { Editor } from './Editor'
-import { AddCourseType } from '@/app/_lib/validators'
+import { UpdateUserDescription } from '@/app/_lib/validators'
 
 interface EditorProps {
 	error?: FieldError | null
 	message?: string | null
-	control: Control<AddCourseType>
+	control: Control<UpdateUserDescription>
 	setContent: React.Dispatch<React.SetStateAction<string>>
 	placeholder?: string
 }
 
-const EditorText = ({ error, message, control, setContent, placeholder = 'Wprowadź opis kursu' }: EditorProps) => {
+const EditorUserDescription = ({
+	error,
+	message,
+	control,
+	setContent,
+	placeholder = 'Wprowadź swój opis użytkownika',
+}: EditorProps) => {
 	return (
 		<div className="w-full flex flex-col">
 			<label htmlFor="long_description" className="block text-dark2 mb-3">
-				Opis kursu <span className="text-red-400">*</span>
+				Opis
 			</label>
 			<div className="h-full">
 				<Controller
@@ -30,4 +36,4 @@ const EditorText = ({ error, message, control, setContent, placeholder = 'Wprowa
 	)
 }
 
-export default EditorText
+export default EditorUserDescription

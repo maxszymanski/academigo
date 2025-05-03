@@ -9,9 +9,9 @@ function layout({
 }>) {
 	return (
 		<>
-			<main className="relative flex min-h-screen bg-dark">
+			<main className="relative flex min-h-dvh lg:min-h-screen bg-dark">
 				<LoginBg />
-				<div className="container relative z-20 mx-auto flex h-full min-h-screen w-full px-6 py-20 pb-4 lg:min-h-screen lg:max-w-full lg:py-0">
+				<div className="container relative z-20 mx-auto flex h-full min-h-dvh w-full px-6 py-20 pb-4 lg:min-h-screen lg:max-w-full lg:py-0">
 					<LoginFormBox>{children}</LoginFormBox>
 					<LoginWelcome />
 				</div>

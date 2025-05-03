@@ -13,7 +13,7 @@ import { UpdateRole } from '@/app/_actions/mutations'
 import toast from 'react-hot-toast'
 import LoadingPortal from '../_ui/LoadingPortal'
 
-const accountType = ['Uczeń', 'Nauczyciel']
+const accountType = ['Student', 'Instruktor']
 
 function MoreInfoForm({ user }: { user: CurrentUserType }) {
 	const {

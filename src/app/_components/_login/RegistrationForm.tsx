@@ -76,23 +76,7 @@ function RegistrationForm() {
 						message={errors?.confirmPassword?.message || null}
 						disabled={isSubmitting}
 					/>
-					{/* <div className="w-full">
-						<div className="flex items-center justify-evenly px-2.5 w-full mt-2">
-							<label className="flex items-center gap-2">
-								<input type="radio" value="kobieta" {...register('gender')} disabled={isSubmitting} />
-								<span className="text-white/50">Kobieta</span>
-							</label>
-							<label className="flex items-center gap-2">
-								<input type="radio" value="mężczyzna" {...register('gender')} disabled={isSubmitting} />
-								<span className="text-white/50">Mężczyzna</span>
-							</label>
-						</div>
-						{errors.gender && (
-							<span className="inline-block text-xs font-light text-red-500 mt-2 self-start px-2.5">
-								{errors.gender.message}
-							</span>
-						)}
-					</div> */}
+
 					{error && <span className="text-xs font-light text-red-500 mt-2 pl-2">{error}</span>}
 				</div>
 				<div className="w-full px-2">

@@ -38,6 +38,8 @@ export interface CurrentUserType {
 	role: string | null
 	profession: string | null
 	points: number
+	long_description: string | null
+	short_description: string | null
 }
 
 export type FullCourseDataType = AddCourseType & {

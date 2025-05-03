@@ -9,11 +9,11 @@ import { FaPlus } from 'react-icons/fa6'
 
 function PanelNavigation() {
 	return (
-		<nav className="flex items-center overflow-y-auto bg-primary/90 px-1 lg:m-2 lg:flex-col lg:rounded-3xl lg:px-6 lg:py-12 xl:my-4 xl:ml-4 2xl:px-10 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
+		<nav className="flex items-center overflow-y-auto bg-primary/90 px-1 lg:m-2 lg:flex-col lg:rounded-3xl lg:px-4 lg:py-12 xl:my-4 xl:ml-4 2xl:px-8 scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
 			<div className="hidden object-contain lg:block">
 				<PanelLogo />
 			</div>
-			<ul className="flex w-full items-center justify-around lg:flex-1 lg:flex-col lg:items-stretch lg:justify-start lg:gap-6 lg:py-8">
+			<ul className="flex w-full items-center justify-around lg:flex-1 lg:flex-col lg:items-stretch lg:justify-start lg:gap-5 lg:py-8">
 				<NavigationLink href="/konto" panelNav>
 					<MdDashboard className="size-7 flex-shrink-0 lg:mr-4 lg:size-8" />{' '}
 					<span className="hidden lg:block">Panel</span>

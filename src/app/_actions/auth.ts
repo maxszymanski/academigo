@@ -18,7 +18,10 @@ export async function login(formData: FormData) {
 
 	const supabase = await createClient()
 
-	const { error } = await supabase.auth.signInWithPassword(result.data)
+	const { error } = await supabase.auth.signInWithPassword({
+		email: result.data.email.toLowerCase(),
+		password: result.data.password,
+	})
 
 	if (error) {
 		return { error: 'Niepoprawne dane logowania' }
@@ -52,7 +55,6 @@ export async function signup(formData: FormData) {
 		password: formData.get('password') as string,
 		confirmPassword: formData.get('confirmPassword') as string,
 		username: formData.get('username') as string,
-		gender: formData.get('gender') as string,
 	})
 
 	if (!result.success) {
@@ -85,6 +87,8 @@ export async function signup(formData: FormData) {
 			id: userId,
 			email: result.data.email,
 			username: result.data.username,
+			role: 'Student',
+			country: 'Polska',
 		})
 		if (createError) {
 			return { error: 'Wystąpił problem podczas rejestracji, proszę spróbować ponownie.' }

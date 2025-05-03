@@ -12,10 +12,12 @@ function MobileNav({
 	blackNav = false,
 	pathname,
 	children,
+	userId,
 }: {
 	blackNav?: boolean
 	pathname: string | null | undefined
 	children?: React.ReactNode
+	userId?: string
 }) {
 	const { isNavOpen, toggleNavigation, closeNavigation, openModal } = useAppStore()
 
@@ -56,7 +58,7 @@ function MobileNav({
 					)}
 				</Button>
 			</div>
-			{openModal === 'account-nav' && <AccountNavModal />}
+			{openModal === 'account-nav' && <AccountNavModal userId={userId} />}
 		</div>
 	)
 }

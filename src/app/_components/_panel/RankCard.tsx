@@ -19,7 +19,7 @@ function RankCard({
 }) {
 	return (
 		<ul
-			className="flex h-80 w-[340px] flex-shrink-0 flex-col gap-2.5 rounded-3xl border-[3px] border-transparent bg-white px-5 py-8 text-dark2 shadow-md shadow-stone-200 outline-none transition-colors duration-300 focus:border-primary xl:border-2"
+			className="flex h-80 w-[340px] flex-shrink-0 flex-col gap-2.5 rounded-3xl border-[3px] border-transparent bg-white px-4 py-8 text-dark2 shadow-md shadow-stone-200 outline-none transition-colors duration-300 focus:border-primary xl:border-2"
 			tabIndex={1}>
 			<h3 className="mb-5 text-center font-medium text-primary">{title}</h3>
 			{ranking.length > 0 &&
@@ -32,16 +32,17 @@ function RankCard({
 								<Link
 									href={`/profil/${user.id}`}
 									className="text-dark2 hover:text-dark2/75 transition-colors duration-300 py-1 flex items-center gap-1.5">
-									<span className="overflow-hidden overflow-ellipsis whitespace-normal line-clamp-1 ">
+									<span
+										className={`overflow-hidden overflow-ellipsis whitespace-normal line-clamp-1 ${index < 2 ? 'max-w-[110px]' : 'max-w-[140px]'}`}>
 										{user.username}
 									</span>{' '}
 									<span>{index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : ''} </span>
 								</Link>
 							</p>
 							{pointsRank ? (
-								<p className="text-sm text-dark/70 text-nowrap">({user.points} punktów)</p>
+								<p className="text-xs text-dark/70 text-nowrap">({user.points} punktów)</p>
 							) : (
-								<p className="text-sm text-dark/70 text-nowrap">({user.created_courses} kursów)</p>
+								<p className="text-xs text-dark/70 text-nowrap">({user.created_courses} kursów)</p>
 							)}
 						</div>
 					</li>

@@ -20,7 +20,7 @@ function UserNavButton({ avatar }: { avatar?: string | null }) {
 
 	return (
 		<button
-			className="hover:border-primary focus:border-primary border-2 border-primary2  tranistion-color duration-300 block h-[42px] w-[42px] xl:h-12 xl:w-12 rounded-full relative overflow-hidden 2xl:h-14 2xl:w-14"
+			className="hover:border-primary focus:border-primary border border-transparent  tranistion-color duration-300 block h-[42px] w-[42px] xl:h-12 xl:w-12 rounded-full relative overflow-hidden 2xl:h-14 2xl:w-14"
 			title="Wyświetl panel użytkownika"
 			aria-label="Wyświetl panel użytkownika"
 			onClick={handleOpenModal}

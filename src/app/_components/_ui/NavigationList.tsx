@@ -5,7 +5,15 @@ import NavigationLink from './NavigationLink'
 import Button from './Button'
 import AccountNavModal from './AccountNavModal'
 
-function NavigationList({ blackNav = false, children }: { blackNav?: boolean; children?: React.ReactNode }) {
+function NavigationList({
+	blackNav = false,
+	children,
+	userId,
+}: {
+	blackNav?: boolean
+	children?: React.ReactNode
+	userId?: string
+}) {
 	const isNavOpen = useAppStore(state => state.isNavOpen)
 	const openModal = useAppStore(state => state.openModal)
 
@@ -34,7 +42,7 @@ function NavigationList({ blackNav = false, children }: { blackNav?: boolean; ch
 
 				{children}
 			</div>
-			{openModal === 'account-nav' && <AccountNavModal />}
+			{openModal === 'account-nav' && <AccountNavModal userId={userId} />}
 		</div>
 	)
 }

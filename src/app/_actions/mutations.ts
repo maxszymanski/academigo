@@ -9,6 +9,8 @@ import {
 	UpdateRoleType,
 	updateSocialSchema,
 	updateRoleSchema,
+	UpdateUserDescription,
+	updateUserDescriptionSchema,
 } from '../_lib/validators'
 import { createClient } from '../utils/supabase/server'
 import { revalidatePath } from 'next/cache'
@@ -54,7 +56,8 @@ export async function createCourse(data: FormData) {
 	if (error) {
 		return { error: 'Wystąpił problem podczas dodawania kursu, proszę spróbować ponownie później.' }
 	}
-	revalidatePath('/konto/moje-kursy')
+	revalidatePath('/konto/moje-kursy/dodane')
+	revalidatePath(`/profil/${authData.user.id}`)
 }
 
 export async function updateCourse(data: FormData, courseID: string) {
@@ -166,7 +169,9 @@ export async function UpdatePersonalUserData(updateData: UpdatePersonalDataType)
 
 	revalidatePath('/konto/')
 	revalidatePath('/konto/o-mnie')
+	revalidatePath(`/profil/${authData.user.id}`)
 }
+
 export async function UpdateRole(updateData: UpdateRoleType) {
 	const result = updateRoleSchema.safeParse({
 		...updateData,
@@ -194,9 +199,10 @@ export async function UpdateRole(updateData: UpdateRoleType) {
 		}
 	}
 
-	revalidatePath('/konto/')
 	revalidatePath('/konto/o-mnie')
+	revalidatePath(`/profil/${authData.user.id}`)
 }
+
 export async function UpdateSocials(updateData: UpdateSocialType) {
 	const result = updateSocialSchema.safeParse({
 		...updateData,
@@ -222,8 +228,37 @@ export async function UpdateSocials(updateData: UpdateSocialType) {
 		return { error: 'Wystąpił problem podczas edycji danych' }
 	}
 
-	revalidatePath('/konto/')
 	revalidatePath('/konto/o-mnie')
+	revalidatePath(`/profil/${authData.user.id}`)
+}
+
+export async function UpdateDescription(updateData: UpdateUserDescription) {
+	const result = updateUserDescriptionSchema.safeParse({
+		...updateData,
+	})
+
+	if (!result.success) {
+		return { error: 'Wystąpił problem podczas edytowania , proszę spróbować ponownie później.' }
+	}
+
+	const supabase = await createClient()
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+
+	if (authError) return { error: 'Użytkownik nie ma uprawnień do edytowania danych' }
+
+	const { error } = await supabase
+		.from('users')
+		.update({
+			...result.data,
+		})
+		.eq('id', authData.user.id)
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas edycji danych' }
+	}
+
+	revalidatePath('/konto/o-mnie')
+	revalidatePath(`/profil/${authData.user.id}`)
 }
 
 export async function updateAvatar(data: FormData) {
@@ -270,6 +305,7 @@ export async function updateAvatar(data: FormData) {
 
 	revalidatePath(`/konto/`)
 	revalidatePath(`/konto/o-mnie`)
+	revalidatePath(`/profil/${authData.user.id}`)
 }
 
 export async function deleteAvatar() {
@@ -288,6 +324,7 @@ export async function deleteAvatar() {
 
 	revalidatePath(`/konto/`)
 	revalidatePath(`/konto/o-mnie`)
+	revalidatePath(`/profil/${authData.user.id}`)
 }
 export async function likeCourse(courseId: string) {
 	const supabase = await createClient()

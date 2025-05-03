@@ -1,8 +1,8 @@
 import UserAvatar from '../_ui/UserAvatar'
-import { PiRanking } from 'react-icons/pi'
-import { BiBookAdd, BiHeart, BiStar } from 'react-icons/bi'
+
 import Button from '../_ui/Button'
 import { CurrentUserType } from '@/app/_types/types'
+import UserStats from '../_ui/UserStats'
 
 function CreatedBy({ user }: { user: CurrentUserType }) {
 	return (
@@ -29,20 +29,7 @@ function CreatedBy({ user }: { user: CurrentUserType }) {
 						<UserAvatar href={`/profil/${user.id}`} size="h-28 w-28 md:h-32 md:w-32" avatar={user.avatar} />
 					</div>
 
-					<div className="flex flex-col gap-3 ">
-						<p className="flex items-center gap-3 text-sm">
-							<PiRanking className="size-5" /> <span>{user.points} punktów</span>
-						</p>
-						<p className="flex items-center gap-3 text-sm">
-							<BiBookAdd className="size-5" /> <span>{user.created_courses} dodanych kursów</span>
-						</p>
-						<p className="flex items-center gap-3 text-sm">
-							<BiStar className="size-5" /> <span>{user.rated_courses} recenzji</span>
-						</p>
-						<p className="flex items-center gap-3 text-sm">
-							<BiHeart className="size-5" /> <span>{user.liked_courses} polubień</span>
-						</p>
-					</div>
+					<UserStats user={user} />
 				</div>
 			</div>
 		</div>

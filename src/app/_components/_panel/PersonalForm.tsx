@@ -48,6 +48,15 @@ function PersonalForm({ genders, user }: { genders: string[]; user: CurrentUserT
 					message={errors?.username?.message || null}
 				/>
 				<PanelInput
+					label="Krótki opis"
+					name="short_description"
+					placeholder="Krótki opis"
+					defaultValue={user?.short_description || ''}
+					formRegister={register('short_description')}
+					error={errors?.short_description || null}
+					message={errors?.short_description?.message || null}
+				/>
+				<PanelInput
 					label="Wiek"
 					name="age"
 					placeholder="Wprowadź swój wiek"
@@ -74,9 +83,8 @@ function PersonalForm({ genders, user }: { genders: string[]; user: CurrentUserT
 					defaultValue={user?.country || 'Polska'}
 					required
 					formRegister={register('country')}
-
-					// error={errors?.platform || null}
-					// message={errors?.platform?.message || null}
+					error={errors?.country || null}
+					message={errors?.country?.message || null}
 				/>
 				<PanelInput
 					label="Miasto"

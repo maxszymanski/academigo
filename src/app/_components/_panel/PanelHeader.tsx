@@ -17,10 +17,10 @@ async function PanelHeader() {
 			<div className="relative flex items-center gap-3">
 				<UserNavButton avatar={user.avatar} />
 				<div className="text-sm">
-					<p className="font-semibold">{user.username}</p>
+					<p className="font-medium text-primary text-base">{user.username}</p>
 					<p className="text-dark/50">{displayYear}</p>
 				</div>
-				<UserModalInPanel />
+				<UserModalInPanel userId={user?.id} />
 			</div>
 
 			<Button href="/kursy" restClass="rounded-xl">

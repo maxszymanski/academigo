@@ -31,7 +31,7 @@ function SingleShowMoreCourses({ coursesList = [] }: { coursesList: FullCourseDa
 					style={{ scrollbarWidth: 'none' }}>
 					{coursesList.length > 0 ? (
 						coursesList.map((course, i) => (
-							<CourseCardPanel course={course} key={course.id} i={i} href={`/kursy/${course.id}`} />
+							<CourseCardPanel row course={course} key={course.id} i={i} href={`/kursy/${course.id}`} />
 						))
 					) : (
 						<p>Brak kursów do wyświtlenia</p>
