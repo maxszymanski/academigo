@@ -89,7 +89,23 @@ export const getCoursesCreatedByUser = cache(async () => {
 		throw new Error('Błąd pobierania kursów stworzonych przez użytkownika')
 	}
 
-	return data
+	return data || []
+})
+
+export const getUserCoursesByID = cache(async (userId: string) => {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase
+		.from('full_course_data')
+		.select('*')
+		.eq('created_by', userId)
+		.order('created_at', { ascending: false })
+
+	if (error) {
+		throw new Error('Błąd pobierania kursów stworzonych przez użytkownika')
+	}
+
+	return data || []
 })
 
 export const getCourseById = cache(async (courseID: string) => {
@@ -294,16 +310,13 @@ export const getSavedCourses = cache(async () => {
 	return formattedData.map(item => item.full_course_data) || []
 })
 
-export async function getUserRankByPoints() {
+export async function getUserRankByPoints(userId?: string) {
 	const supabase = await createClient()
-
-	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
 
 	const { data: currentUser, error } = await supabase
 		.from('full_user_data')
 		.select('points')
-		.eq('id', authData.user.id)
+		.eq('id', userId)
 		.single()
 	if (error) {
 		throw new Error('Nie znaleziono użytkownika')
@@ -321,16 +334,13 @@ export async function getUserRankByPoints() {
 
 	return rank
 }
-export async function getUserRankByCourses() {
+export async function getUserRankByCourses(userId: string) {
 	const supabase = await createClient()
-
-	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
 
 	const { data: currentUser, error } = await supabase
 		.from('full_user_data')
 		.select('created_courses')
-		.eq('id', authData.user.id)
+		.eq('id', userId)
 		.single()
 	if (error) {
 		throw new Error('Nie znaleziono użytkownika')

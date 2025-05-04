@@ -15,83 +15,90 @@ function UserInformations({ user }: { user: CurrentUserType }) {
 	}
 
 	return (
-		<div className="flex flex-col gap-2.5 text-dark2/75">
-			{(user.city || user.country) && (
-				<div className="flex items-center gap-10 text-sm pb-2 text-dark2/75">
-					{user.city && (
-						<p className="flex items-center gap-2  ">
-							<FaCity className="size-4" /> <span>{user?.city} </span>
-						</p>
-					)}
-					{user.country && (
-						<p className="flex items-center gap-1 ">
-							<FaLocationDot className="size-4" /> <span>{user?.country} </span>
-						</p>
-					)}
-				</div>
-			)}
-			{user.role && (
-				<p className="flex items-center gap-2 text-sm">
-					{user.role === 'Student' ? (
-						<FaUserGraduate className="size-4" />
-					) : user.role === 'Instruktor' ? (
-						<FaUserTie className="size-4" />
-					) : null}{' '}
-					<span>{user.role} </span>
+		<div className="flex flex-col  md:pt-2">
+			{user.short_description && (
+				<p className="text-dark2/95  text-base md:text-lg font-medium pr-2 max-w-[400px]  xl:text-xl">
+					{user.short_description}
 				</p>
 			)}
-			{user.profession && (
-				<p className="flex items-center gap-2 text-sm">
-					<MdWork className="size-4" /> <span>{user.profession} </span>
-				</p>
-			)}
-			<Link
-				className="flex items-center gap-2 text-sm  "
-				href={`mailto:${user.email}` || '/'}
-				target="_blanc"
-				rel="noreferrer noopener">
-				<MdMail className="size-4" /> <span className="font-medium text-dark2">{user.email} </span>
-			</Link>
-			{user.page && (
+			<div className="flex flex-col gap-2.5 pt-5 text-dark2/75">
+				{(user.city || user.country) && (
+					<div className="flex items-center gap-10 text-sm pb-2 text-dark2/75 md:text-base">
+						{user.city && (
+							<p className="flex items-center gap-2  ">
+								<FaCity className="size-4" /> <span>{user?.city} </span>
+							</p>
+						)}
+						{user.country && (
+							<p className="flex items-center gap-1 ">
+								<FaLocationDot className="size-4" /> <span>{user?.country} </span>
+							</p>
+						)}
+					</div>
+				)}
+				{user.role && (
+					<p className="flex items-center gap-2 ">
+						{user.role === 'Student' ? (
+							<FaUserGraduate className="size-4" />
+						) : user.role === 'Instruktor' ? (
+							<FaUserTie className="size-4" />
+						) : null}{' '}
+						<span>{user.role} </span>
+					</p>
+				)}
+				{user.profession && (
+					<p className="flex items-center gap-2 ">
+						<MdWork className="size-4" /> <span>{user.profession} </span>
+					</p>
+				)}
 				<Link
-					className="flex items-center gap-2 text-sm  "
-					href={user.page || '/'}
+					className="flex items-center gap-2   "
+					href={`mailto:${user.email}` || '/'}
 					target="_blanc"
 					rel="noreferrer noopener">
-					<FaGlobe className="size-4" />{' '}
-					<span className="font-medium text-dark2">{cleanUrl(user.page)} </span>
+					<MdMail className="size-4" /> <span className="font-medium text-dark2">{user.email} </span>
 				</Link>
-			)}
-			{user.linkedin && (
-				<Link
-					className="flex items-center gap-2 text-sm  "
-					href={user.linkedin || '/'}
-					target="_blanc"
-					rel="noreferrer noopener">
-					<FaLinkedin className="size-4" />{' '}
-					<span className="font-medium text-dark2">{cleanUrl(user.linkedin)} </span>
-				</Link>
-			)}
-			{user.github && (
-				<Link
-					className="flex items-center gap-2 text-sm  "
-					href={user.github || '/'}
-					target="_blanc"
-					rel="noreferrer noopener">
-					<FaGithub className="size-4" />{' '}
-					<span className="font-medium text-dark2">{cleanUrl(user.github)} </span>
-				</Link>
-			)}
-			{user.social && (
-				<Link
-					className="flex items-center gap-2 text-sm  "
-					href={user.social || '/'}
-					target="_blanc"
-					rel="noreferrer noopener">
-					<TbSocial className="size-4" />{' '}
-					<span className="font-medium text-dark2">{cleanUrl(user.social)} </span>
-				</Link>
-			)}
+				{user.page && (
+					<Link
+						className="flex items-center gap-2   "
+						href={user.page || '/'}
+						target="_blanc"
+						rel="noreferrer noopener">
+						<FaGlobe className="size-4" />{' '}
+						<span className="font-medium text-dark2">{cleanUrl(user.page)} </span>
+					</Link>
+				)}
+				{user.linkedin && (
+					<Link
+						className="flex items-center gap-2   "
+						href={user.linkedin || '/'}
+						target="_blanc"
+						rel="noreferrer noopener">
+						<FaLinkedin className="size-4" />{' '}
+						<span className="font-medium text-dark2">{cleanUrl(user.linkedin)} </span>
+					</Link>
+				)}
+				{user.github && (
+					<Link
+						className="flex items-center gap-2   "
+						href={user.github || '/'}
+						target="_blanc"
+						rel="noreferrer noopener">
+						<FaGithub className="size-4" />{' '}
+						<span className="font-medium text-dark2">{cleanUrl(user.github)} </span>
+					</Link>
+				)}
+				{user.social && (
+					<Link
+						className="flex items-center gap-2   "
+						href={user.social || '/'}
+						target="_blanc"
+						rel="noreferrer noopener">
+						<TbSocial className="size-4" />{' '}
+						<span className="font-medium text-dark2">{cleanUrl(user.social)} </span>
+					</Link>
+				)}
+			</div>
 		</div>
 	)
 }

@@ -10,9 +10,17 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
 import { feedbackSchema, FeedbackType } from '@/app/_lib/validators'
-import { sendFeedback } from '@/app/_actions/mutations'
+import { reportUser, sendFeedback } from '@/app/_actions/mutations'
 
-function FeedbackModal({ courseID, userID }: { courseID: string; userID: string | null }) {
+function FeedbackModal({
+	userReported,
+	courseID,
+	userID,
+}: {
+	userReported?: string
+	courseID?: string
+	userID?: string | null
+}) {
 	const {
 		register,
 		handleSubmit,
@@ -32,8 +40,20 @@ function FeedbackModal({ courseID, userID }: { courseID: string; userID: string 
 		}
 	}, [openModal])
 
-	const onSubmit: SubmitHandler<FeedbackType> = async data => {
+	const onSubmitCourse: SubmitHandler<FeedbackType> = async data => {
+		if (!courseID) return
 		const result = await sendFeedback(data.message, courseID, userID || null)
+		if (result?.error) {
+			toast.error(result.error)
+		} else {
+			toast.success('Dziękujemy za wysłanie zgłoszenia. Postaramy się je rozwiązać jak najszybciej.')
+		}
+		reset()
+		closeModal()
+	}
+	const onSubmitUser: SubmitHandler<FeedbackType> = async data => {
+		if (!userReported) return
+		const result = await reportUser(data.message, userReported)
 		if (result?.error) {
 			toast.error(result.error)
 		} else {
@@ -56,7 +76,9 @@ function FeedbackModal({ courseID, userID }: { courseID: string; userID: string 
 			{isSubmitting && <LoadingPortal information="Wysyłanie zgłoszenia" />}
 			<Modal modalRef={modalRef} closeModal={closeModal} fullPageModal buttonId="feedback-button" reset={reset}>
 				<div className="px-4 py-8 xl:min-w-[600px]">
-					<form className="flex flex-col gap-4  w-full " onSubmit={handleSubmit(onSubmit)}>
+					<form
+						className="flex flex-col gap-4  w-full "
+						onSubmit={handleSubmit(userReported ? onSubmitUser : onSubmitCourse)}>
 						<PanelInput
 							textArea
 							label="Opisz problem lub sugestię"
@@ -67,7 +89,7 @@ function FeedbackModal({ courseID, userID }: { courseID: string; userID: string 
 							error={errors?.message || null}
 							message={errors?.message?.message || null}
 						/>
-						<div className="flex items-center flex-wrap justify-center gap-8 pt-6">
+						<div className="flex items-center flex-wrap justify-center gap-6 md:gap-8 pt-6">
 							<Button
 								variant="submit"
 								id="send-feedback"

@@ -22,7 +22,7 @@ function CoursesBox({ category, coursesList }: { category: string; coursesList: 
 	}
 
 	return (
-		<div className="py-4 md:py-6 lg:py-8">
+		<div className="py-4 ">
 			<p className="relative z-10 mx-5 mb-3 text-lg font-medium text-stone400 lg:mx-7 xl:mb-5 xl:text-xl 2xl:text-2xl">
 				<span className="animate-pulse border-l-2 border-stone400 pr-1"></span> {category}
 			</p>

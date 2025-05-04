@@ -40,8 +40,9 @@ body {
 }
 
 .course-description p {
-	@apply !text-dark2 py-1;
+	@apply !text-dark2 pb-1 leading-[170%] xl:pb-2;
 }
+
 .course-description p span {
 	@apply !text-dark2;
 }
@@ -70,8 +71,6 @@ body {
 .course-description ol,
 .course-description ul {
 	@apply text-dark2  py-2 sm:px-6 pl-2;
-}
-@media (min-width: 768px) {
 }
 
 @keyframes rotation {

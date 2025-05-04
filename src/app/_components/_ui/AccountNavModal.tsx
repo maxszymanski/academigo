@@ -24,49 +24,54 @@ function AccountNavModal({ isUserPanel = false, userId }: { isUserPanel?: boolea
 			closeModal={closeModal}
 			buttonId="account-button"
 			userNav>
-			<div className="h-full flex-col py-2 lg:py-6  px-4 flex w-full items-center   ">
-				<ul className="flex w-full  justify-around flex-col md:gap-1.5  pb-10 2xl:gap-2">
-					{userId && (
-						<NavigationLink href={`/profil/${userId}`} restClass="hover:!bg-slate-100 min-w-[200px] !px-8 ">
-							<div className="flex items-center" onClick={closeModal}>
-								<PiStudentFill className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6" />{' '}
-								<span>Mój profil</span>
-							</div>
-						</NavigationLink>
-					)}
-					<NavigationLink href="/konto" restClass="hover:!bg-slate-100 min-w-[200px] !px-8 ">
+			{/* <div className="h-full flex-col py-2 lg:py-6  px-4 flex w-full items-center   "> */}
+			<ul className="flex w-full  justify-around flex-col md:gap-1.5  pb-10 2xl:gap-2 px-2 py-4">
+				{userId && (
+					<NavigationLink
+						href={`/profil/${userId}`}
+						restClass="hover:!bg-slate-100 min-w-[200px] !px-8 !py-2 ">
 						<div className="flex items-center" onClick={closeModal}>
-							<MdDashboard className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6" />{' '}
-							<span>Panel</span>
+							<PiStudentFill className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6 pointer-events-none" />{' '}
+							<span>Mój profil</span>
 						</div>
 					</NavigationLink>
-					<NavigationLink href="/konto/moje-kursy/dodane" restClass="hover:!bg-slate-100 min-w-[200px] !px-8">
-						<div className="flex items-center" onClick={closeModal}>
-							<RiGraduationCapFill className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6" />{' '}
-							<span>Moje kursy</span>
-						</div>
-					</NavigationLink>
-					<NavigationLink href="/konto/dodaj-kurs" restClass="hover:!bg-slate-100 min-w-[200px] !px-8">
-						<div className="flex items-center" onClick={closeModal}>
-							<FaPlus className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6" />{' '}
-							<span>Dodaj kurs</span>
-						</div>
-					</NavigationLink>
+				)}
+				<NavigationLink href="/konto" restClass="hover:!bg-slate-100 min-w-[200px] !px-8 !py-2 ">
+					<div className="flex items-center" onClick={closeModal}>
+						<MdDashboard className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6 pointer-events-none" />{' '}
+						<span>Panel</span>
+					</div>
+				</NavigationLink>
+				<NavigationLink
+					href="/konto/moje-kursy/dodane"
+					restClass="hover:!bg-slate-100 min-w-[200px] !px-8 !py-2">
+					<div className="flex items-center" onClick={closeModal}>
+						<RiGraduationCapFill className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6 pointer-events-none" />{' '}
+						<span>Moje kursy</span>
+					</div>
+				</NavigationLink>
+				<NavigationLink href="/konto/dodaj-kurs" restClass="hover:!bg-slate-100 min-w-[200px] !px-8 !py-2">
+					<div className="flex items-center" onClick={closeModal}>
+						<FaPlus className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6 pointer-events-none" />{' '}
+						<span>Dodaj kurs</span>
+					</div>
+				</NavigationLink>
 
-					<NavigationLink href="/konto/o-mnie" restClass="hover:!bg-slate-100 min-w-[200px] !px-8">
-						<div className="flex items-center" onClick={closeModal}>
-							<FaUser className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6" /> <span>O mnie</span>
-						</div>
-					</NavigationLink>
-					<NavigationLink href="/konto/ustawienia" restClass="hover:!bg-slate-100 min-w-[200px] !px-8">
-						<IoMdSettings className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6" />
-						<div className="flex items-center" onClick={closeModal}>
-							<span>Ustawienia</span>
-						</div>
-					</NavigationLink>
-				</ul>
-				<LogoutButton panelNav={false} restClass=" min-w-[200px] !px-8 hover:!bg-slate-100" />
-			</div>
+				<NavigationLink href="/konto/o-mnie" restClass="hover:!bg-slate-100 min-w-[200px] !px-8 !py-2">
+					<div className="flex items-center" onClick={closeModal}>
+						<FaUser className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6 pointer-events-none" />{' '}
+						<span>O mnie</span>
+					</div>
+				</NavigationLink>
+				<NavigationLink href="/konto/ustawienia" restClass="hover:!bg-slate-100 min-w-[200px] !px-8 !py-2">
+					<IoMdSettings className="size-4 flex-shrink-0 mr-4 md:size-5 2xl:size-6 pointer-events-none" />
+					<div className="flex items-center" onClick={closeModal}>
+						<span>Ustawienia</span>
+					</div>
+				</NavigationLink>
+				<LogoutButton panelNav={false} restClass=" min-w-[200px] !px-8 hover:!bg-slate-100 mt-5" />
+			</ul>
+			{/* </div> */}
 		</Modal>
 	)
 }

@@ -9,7 +9,7 @@ export default function useClickOutside(
 		function handleClickOutside(e: MouseEvent) {
 			const target = e.target as HTMLElement
 
-			if (target.id === buttonID) return
+			if (target.id === buttonID || !ref?.current) return
 
 			if (ref?.current && !ref.current.contains(target)) {
 				setTimeout(() => mutation(), 100)
@@ -17,9 +17,9 @@ export default function useClickOutside(
 			}
 		}
 
-		document.addEventListener('mousedown', handleClickOutside)
+		document.addEventListener('click', handleClickOutside)
 		return () => {
-			document.removeEventListener('mousedown', handleClickOutside)
+			document.removeEventListener('click', handleClickOutside)
 		}
 	}, [ref, mutation, buttonID])
 }

@@ -454,7 +454,7 @@ export async function rateCourse(courseId: string, rating: number, update: boole
 	revalidatePath(`/konto/moje-kursy/ocenione`)
 }
 
-export async function sendFeedback(message: string, courseID: string, userID: string | null) {
+export async function sendFeedback(message: string, courseID: string | null, userID: string | null) {
 	const supabase = await createClient()
 
 	const { error } = await supabase
@@ -463,7 +463,31 @@ export async function sendFeedback(message: string, courseID: string, userID: st
 		.select()
 
 	if (error) {
-		console.log(error.message)
+		return { error: 'Wystąpił problem podczas wysyłania zgłoszenia, proszę spróbować ponownie później.' }
+	}
+}
+export async function reportUser(message: string, reportedUser: string | null) {
+	const supabase = await createClient()
+
+	let userID = null
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+	if (authError) {
+		userID = null
+	}
+	if (authData.user) {
+		userID = authData.user.id
+	}
+	if (authData.user && authData.user.id === reportedUser) {
+		return { error: 'Miło, że jesteś wobec siebie tak surowy, ale nie możesz zgłosić samego siebie! 😅' }
+	}
+
+	const { error } = await supabase
+		.from('users_feedback')
+		.insert([{ user_id: userID, reported_user: reportedUser, message }])
+		.select()
+
+	if (error) {
 		return { error: 'Wystąpił problem podczas wysyłania zgłoszenia, proszę spróbować ponownie później.' }
 	}
 }

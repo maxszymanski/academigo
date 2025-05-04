@@ -53,7 +53,10 @@ async function page({ params }: { params: Params }) {
 					</div>
 				</div>
 				<SingleShowMoreCourses coursesList={moreCourses} />
-				<Feedback />
+				<Feedback
+					btnText="Zgłoś błąd"
+					title="Widzisz błąd, nieaktualne informacje lub nadużycie? Zgłoś to nam."
+				/>
 			</main>
 		</>
 	)

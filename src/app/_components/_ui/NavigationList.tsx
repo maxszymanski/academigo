@@ -25,15 +25,23 @@ function NavigationList({
 				blackNav ? 'bg-dark' : 'bg-white'
 			}`}>
 			<ul className="flex flex-col gap-4 pt-4 md:flex-row md:items-center md:gap-3 md:pt-0 lg:gap-6 xl:gap-10">
-				<NavigationLink href="/" restClass="md:hidden">
+				<NavigationLink href="/" restClass="md:hidden text-xl">
 					Strona główna
 				</NavigationLink>
-				<NavigationLink href="/kursy">Kursy</NavigationLink>
+				<NavigationLink href="/kursy" restClass="text-xl">
+					Kursy
+				</NavigationLink>
 
-				<NavigationLink href="/blog">Blog</NavigationLink>
+				<NavigationLink href="/blog" restClass="text-xl">
+					Blog
+				</NavigationLink>
 
-				<NavigationLink href="/o-nas">O nas</NavigationLink>
-				<NavigationLink href="/kontakt">Kontakt</NavigationLink>
+				<NavigationLink href="/o-nas" restClass="text-xl">
+					O nas
+				</NavigationLink>
+				<NavigationLink href="/kontakt" restClass="text-xl">
+					Kontakt
+				</NavigationLink>
 			</ul>
 			<div className="flex flex-col gap-5 md:flex-row lg:gap-4 xl:gap-6 items-center">
 				<Button href="/wspolpraca" restClass=" xl:min-w-[160px] ">
