@@ -36,10 +36,10 @@ function DeleteAvatarModal({ setImage }: { setImage: React.Dispatch<React.SetSta
 			<Modal modalRef={modalRef} closeModal={closeModal} fullPageModal buttonId="deleteAvatar">
 				<div className="p-8">
 					<p className="text-dark2 md:text-lg pb-10">Czy jesteś pewny, że chcesz usunąć zdjęcie?</p>
-					<div className="flex items-center flex-wrap justify-center gap-8">
+					<div className="flex items-center flex-wrap justify-center gap-5 sm:gap-8">
 						<Button
 							variant="danger"
-							id="delete-course"
+							id="delete-avatar"
 							restClass="2xl:!text-base w-[177px]"
 							disabled={isPending}
 							onClick={handleDeleteAvatar}>
