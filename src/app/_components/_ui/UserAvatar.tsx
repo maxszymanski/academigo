@@ -10,12 +10,12 @@ function UserAvatar({
 }: {
 	avatar?: string | null
 	size?: string
-	href: string
+	href?: string | null
 	target?: string
 }) {
 	return (
 		<Link
-			href={href}
+			href={href || '/_next/static/media/default-user.ba8b4d6e.webp'}
 			className="hover:border-primary focus:border-primary border border-transparent rounded-full tranistion-color duration-300 block flex-shrink-0"
 			target={target}
 			rel="noopener noreferrer">

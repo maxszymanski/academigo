@@ -35,7 +35,7 @@ function SingleShowMoreCourses({
 			<div className="group relative z-10">
 				<div
 					ref={containerRef}
-					className="flex w-full items-center gap-8 overflow-x-auto scroll-smooth  py-6  relative z-20"
+					className="flex w-full items-center gap-8 overflow-x-auto scroll-smooth  py-6  relative z-20 justify-evenly"
 					style={{ scrollbarWidth: 'none' }}>
 					{coursesList.length > 0 ? (
 						coursesList.map((course, i) => (

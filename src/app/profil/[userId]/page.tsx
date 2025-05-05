@@ -45,11 +45,13 @@ async function page({ params }: { params: Params }) {
 					{user.long_description && <UserDescription description={user.long_description} />}
 					<div className="py-6 mt-6 xl:mt-8  bg-slate50  md:pb-0 xl:pt-12 xl:pb-4">
 						<div className="lg:container 2xl:max-w-7xl mx-auto px-4 md:px-8">
-							<h2 className="text-primary text-xl font-medium md:text-2xl xl:text-3xl">Dodane kursy</h2>
+							<h2 className="text-primary text-xl font-medium md:text-2xl xl:text-3xl md:text-center">
+								Dodane kursy
+							</h2>
 							{userCourses.length > 0 ? (
 								<SingleShowMoreCourses coursesList={userCourses} isTitle={false} />
 							) : (
-								<p className="pb-4 pt-8 text-center text-sm sm:text-base">
+								<p className="pb-4 pt-8 text-center text-sm sm:text-base md:py-14 md:text-lg ">
 									Użytkownik nie dodał jeszcze żadnego kursu
 								</p>
 							)}

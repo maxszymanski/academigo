@@ -8,16 +8,25 @@ import { MdMail, MdWork } from 'react-icons/md'
 import { FaGlobe } from 'react-icons/fa'
 import { TbSocial } from 'react-icons/tb'
 
-function UserInformations({ user }: { user: CurrentUserType }) {
+function UserInformations({ user, isGender }: { user: CurrentUserType; isGender?: boolean }) {
 	// const userCreated = format(new Date(user.created_at), 'd MMMM yyyy', { locale: pl })
 	function cleanUrl(url: string): string {
-		return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
+		return url
+			.toLocaleLowerCase()
+			.replace(/^https?:\/\/(www\.)?/, '')
+			.replace(/\/$/, '')
 	}
 
 	return (
-		<div className="flex flex-col  md:pt-2">
+		<div className="flex flex-col  ">
+			<div className="hidden flex-col md:flex mb-6">
+				<h1 className="text-primary font-medium md:text-2xl xl:text-4xl">{user.username}</h1>
+				<p className="text-dark2/75 md:text-base  xl:mt-0.5">
+					{isGender ? user.gender : ''} {user?.age && ', '} {user?.age && `${user.age} lat`}
+				</p>
+			</div>
 			{user.short_description && (
-				<p className="text-dark2/95  text-base md:text-lg font-medium pr-2 max-w-[400px]  xl:text-xl">
+				<p className="text-dark2/95  text-base md:text-lg font-medium pr-2 max-w-[400px]  xl:text-xl xl:max-w-md">
 					{user.short_description}
 				</p>
 			)}
