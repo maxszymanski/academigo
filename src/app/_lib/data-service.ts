@@ -280,10 +280,9 @@ export async function getRatedCourse(courseId: string) {
 		.single()
 
 	if (error) {
-		console.log(error.message)
 		return null
 	}
-	return data
+	return data || []
 }
 
 export const getSavedCourses = cache(async () => {

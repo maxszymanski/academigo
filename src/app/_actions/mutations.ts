@@ -37,7 +37,7 @@ export async function createCourse(data: FormData) {
 	if (!authData.user) {
 		return { error: 'Nie można znaleźć użytkownika' }
 	}
-	const fileName = `picture-${authData.user.id}-${Math.random()}`
+	const fileName = `picture-${authData.user.id}`
 
 	const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
 		cacheControl: '3600',
@@ -72,7 +72,7 @@ export async function updateCourse(data: FormData, courseID: string) {
 	if (!result.success) {
 		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
 	}
-
+	const timestamp = Date.now()
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -87,16 +87,16 @@ export async function updateCourse(data: FormData, courseID: string) {
 	if (typeof result.data.picture === 'string') {
 		pictureLink = result.data.picture
 	} else {
-		const fileName = `picture-${authData.user.id}-${Math.random()}`
+		const fileName = `picture-${authData.user.id}`
 		const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
 			cacheControl: '3600',
-			upsert: false,
+			upsert: true,
 		})
 
 		if (storageError) {
 			throw new Error(storageError.message)
 		} else {
-			pictureLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/pictures/${fileName}`
+			pictureLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/pictures/${fileName}?t=${timestamp}`
 		}
 	}
 

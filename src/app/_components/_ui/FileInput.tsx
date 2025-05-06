@@ -3,6 +3,10 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { Control, Controller, FieldError, UseFormClearErrors, UseFormSetError } from 'react-hook-form'
 import { FaCamera } from 'react-icons/fa'
+import CourseCropModal from './CourseCropModal'
+import useAppStore from '@/app/stores/store'
+import { Area } from 'react-easy-crop'
+import { getCroppedImg } from '@/app/utils/cropImage'
 
 interface FileInputProps {
 	name: string
@@ -35,8 +39,18 @@ function PanelInput({
 	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	const [preview, setPreview] = useState<string | null>(editImg || null)
+	const [showCropper, setShowCropper] = useState(false)
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const [crop, setCrop] = useState({ x: 0, y: 0 })
+	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+	const setOpenModal = useAppStore(state => state.setOpenModal)
+	const closeModal = useAppStore(state => state.closeModal)
+
+	const handleChange = (croppedArea: Area, croppedAreaPixels: Area) => {
+		setCroppedAreaPixels(croppedAreaPixels)
+	}
+
+	const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault()
 		if (!event.target.files) return
 		const file = event.target.files[0]
@@ -51,16 +65,18 @@ function PanelInput({
 				type: 'manual',
 				message: 'Nieprawidłowy format pliku',
 			})
-			setPreview(null)
-			setImage(file)
+
 			return
 		}
 
 		if (file) {
 			setImage(file)
+			setShowCropper(true)
+			setOpenModal('course-crop-modal')
 		} else {
 			setImage(null)
 		}
+		event.target.value = ''
 	}
 
 	useEffect(() => {
@@ -80,6 +96,24 @@ function PanelInput({
 		}
 	}, [image, clearErrors, editImg])
 
+	const handleCloseCourseModal = () => {
+		setPreview(editImg || null)
+		closeModal()
+		setImage(editImg || null)
+		setShowCropper(false)
+	}
+
+	const showCroppedImage = async () => {
+		try {
+			const croppedImage = await getCroppedImg(preview, croppedAreaPixels)
+			setImage(croppedImage)
+			closeModal()
+			setShowCropper(false)
+		} catch (e) {
+			console.error(e)
+		}
+	}
+
 	return (
 		<div className={` flex flex-col w-full  md:max-w-md max-w-[330px] self-center`}>
 			<div>
@@ -87,6 +121,16 @@ function PanelInput({
 					Obraz kursu <span className="text-red-400">*</span>
 				</label>
 			</div>
+			{preview && showCropper && (
+				<CourseCropModal
+					handleChange={handleChange}
+					preview={preview}
+					handleCloseAvatarModal={handleCloseCourseModal}
+					showCroppedImage={showCroppedImage}
+					crop={crop}
+					setCrop={setCrop}
+				/>
+			)}
 			<div className="relative w-full md:w-fit">
 				<Controller
 					name="picture"
@@ -102,7 +146,7 @@ function PanelInput({
 							ref={fileInputRef}
 							disabled={disabled}
 							defaultValue={defaultValue}
-							onChange={handleChange}
+							onChange={handleChangeFile}
 						/>
 					)}
 				/>

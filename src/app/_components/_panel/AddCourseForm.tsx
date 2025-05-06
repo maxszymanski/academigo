@@ -148,7 +148,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 			toast.error(result.error)
 		} else {
 			toast.success('Kurs został dodany')
-			router.push('/konto/moje-kursy')
+			router.push('/konto/moje-kursy/dodane')
 		}
 	}
 
