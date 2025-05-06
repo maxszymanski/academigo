@@ -269,7 +269,7 @@ export async function updateAvatar(data: FormData) {
 	if (!result.success) {
 		return { error: 'Wystąpił problem podczas edytowania zdjęcia, proszę spróbować ponownie później.' }
 	}
-
+	const timestamp = Date.now()
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -284,16 +284,16 @@ export async function updateAvatar(data: FormData) {
 	if (typeof result.data === 'string') {
 		avatarLink = result.data
 	} else {
-		const fileName = `avatar-${authData.user.id}-${Math.random()}`
+		const fileName = `avatar-${authData.user.id}`
 		const { error: storageError } = await supabase.storage.from('avatars').upload(fileName, result.data, {
 			cacheControl: '3600',
-			upsert: false,
+			upsert: true,
 		})
 
 		if (storageError) {
 			throw new Error(storageError.message)
 		} else {
-			avatarLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/avatars/${fileName}`
+			avatarLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/avatars/${fileName}?t=${timestamp}`
 		}
 	}
 

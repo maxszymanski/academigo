@@ -40,6 +40,7 @@ function AvatarInput({
 	const [preview, setPreview] = useState<string | null>(editImg || null)
 	const [showCropper, setShowCropper] = useState(false)
 
+	const [crop, setCrop] = useState({ x: 0, y: 0 })
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
 	const setOpenModal = useAppStore(state => state.setOpenModal)
 	const closeModal = useAppStore(state => state.closeModal)
@@ -56,13 +57,11 @@ function AvatarInput({
 	const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault()
 		if (!event.target.files) {
-			console.log('stop1')
 			return
 		}
 		const file = event.target.files[0]
 
 		if (!file) {
-			console.log('stop2')
 			return
 		}
 		const isValidType = ACCEPTED_IMAGE_TYPES.includes(file.type)
@@ -72,8 +71,7 @@ function AvatarInput({
 				type: 'manual',
 				message: 'Nieprawidłowy format pliku',
 			})
-			// setPreview(null)
-			// setImage(file)
+
 			return
 		}
 
@@ -81,11 +79,11 @@ function AvatarInput({
 			setImage(file)
 			setShowCropper(true)
 			setOpenModal('crop-modal')
-			console.log('dawaj modal')
 		} else {
 			setImage(null)
-			console.log('brak modala')
 		}
+
+		event.target.value = ''
 	}
 
 	useEffect(() => {
@@ -131,6 +129,8 @@ function AvatarInput({
 					preview={preview}
 					handleCloseAvatarModal={handleCloseAvatarModal}
 					showCroppedImage={showCroppedImage}
+					crop={crop}
+					setCrop={setCrop}
 				/>
 			)}
 			<div className="relative w-full flex flex-col  items-center justify-center">

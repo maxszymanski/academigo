@@ -1,5 +1,5 @@
 import useAppStore from '@/app/stores/store'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import Modal from './Modal'
 import Button from './Button'
 import Cropper, { Area } from 'react-easy-crop'
@@ -8,20 +8,20 @@ function CropModal({
 	preview,
 	handleChange,
 	handleCloseAvatarModal,
-
+	crop,
+	setCrop,
 	showCroppedImage,
 }: {
 	preview: string
 	handleChange: (a: Area, b: Area) => void
 	handleCloseAvatarModal: () => void
-
+	crop: { x: number; y: number }
+	setCrop: (crop: { x: number; y: number }) => void
 	showCroppedImage: () => Promise<void>
 }) {
 	const modalRef = useRef<HTMLDivElement | null>(null)
 
 	const openModal = useAppStore(state => state.openModal)
-
-	const [crop, setCrop] = useState({ x: 0, y: 0 })
 
 	if (openModal != 'crop-modal') return null
 
@@ -51,14 +51,8 @@ function CropModal({
 					</div>
 				</>
 				<div className="flex items-center flex-wrap justify-center gap-5 sm:gap-8 pt-8 pb-4">
-					<Button
-						variant="submit"
-						id="crop"
-						restClass="2xl:!text-base w-[177px]"
-						// disabled={isPending}
-						onClick={showCroppedImage}>
+					<Button variant="submit" id="crop" restClass="2xl:!text-base w-[177px]" onClick={showCroppedImage}>
 						Przytnij
-						{/* {isPending && <Spinner restClass="ml-6 absolute right-3 md:right-4" />} */}
 					</Button>
 					<Button variant="danger" onClick={handleCloseAvatarModal} restClass="2xl:!text-base min-w-[177px] ">
 						Anuluj
