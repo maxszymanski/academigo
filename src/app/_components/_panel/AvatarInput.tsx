@@ -49,7 +49,7 @@ function AvatarInput({
 	//   setCroppedAreaPixels(croppedAreaPixels)
 	// }
 
-	const handleChange = (croppedAreaPixels: Area) => {
+	const handleChange = (croppedArea: Area, croppedAreaPixels: Area) => {
 		setCroppedAreaPixels(croppedAreaPixels)
 	}
 

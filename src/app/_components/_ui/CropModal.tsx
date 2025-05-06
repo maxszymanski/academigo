@@ -12,7 +12,7 @@ function CropModal({
 	showCroppedImage,
 }: {
 	preview: string
-	handleChange: (o: Area) => void
+	handleChange: (a: Area, b: Area) => void
 	handleCloseAvatarModal: () => void
 
 	showCroppedImage: () => Promise<void>
@@ -27,9 +27,9 @@ function CropModal({
 
 	return (
 		<Modal modalRef={modalRef} closeModal={handleCloseAvatarModal} fullPageModal buttonId="deleteAvatar">
-			<div className="p-4 flex flex-col justify-center">
+			<div className="p-4 lg:py-8 lg:px-16 flex flex-col justify-center">
 				<>
-					<div className="relative  hidden  sm:h-96 w-96  rounded-xl  overflow-hidden sm:block cursor-pointer mt-1 border border-slate-200 bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300  hover:border-slate-400 self-center ">
+					<div className="relative  hidden  sm:h-96 w-96 lg:w-[600px]  rounded-xl  overflow-hidden sm:block cursor-pointer mt-1 border border-slate-200 bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300  hover:border-slate-400 self-center ">
 						<Cropper
 							image={preview}
 							crop={crop}
@@ -37,7 +37,6 @@ function CropModal({
 							onCropChange={setCrop}
 							onCropComplete={handleChange}
 							cropShape="round"
-							objectFit="contain"
 						/>
 					</div>
 					<div className="relative w-full max-w-[240px] h-[240px] sm:hidden overflow-hidden rounded-full block cursor-pointer mt-1 border border-slate-200 bg-slate50 outline-none focus:border-slate-300 focus:ring-1 focus:ring-slate-300 transition-colors duration-300  hover:border-slate-400 self-center ">
@@ -48,7 +47,6 @@ function CropModal({
 							onCropChange={setCrop}
 							onCropComplete={handleChange}
 							cropShape="round"
-							objectFit="contain"
 						/>
 					</div>
 				</>
