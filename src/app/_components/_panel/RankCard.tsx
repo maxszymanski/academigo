@@ -1,4 +1,4 @@
-import { CurrentUserType } from '@/app/_types/types'
+import { CurrentUserType, RankType } from '@/app/_types/types'
 import Link from 'next/link'
 import Button from '../_ui/Button'
 import UserImage from '../_ui/UserImage'
@@ -11,7 +11,7 @@ function RankCard({
 	userRankByPoints,
 	pointsRank = false,
 }: {
-	ranking?: CurrentUserType[]
+	ranking?: RankType[]
 	title: string
 	userRank?: number | undefined | null
 	currentUser?: CurrentUserType

@@ -108,27 +108,39 @@ export async function logout() {
 	redirect('/')
 }
 
-export async function getTopUsersByCreatedCourses() {
+export async function getTopUsersByCreatedCourses(rangeStart?: number, rangeEnd?: number) {
 	const supabase = await createClient()
 
-	const { data: allUsers, error } = await supabase
+	let query = supabase
 		.from('full_user_data')
-		.select('*')
+		.select('id, username, created_courses, avatar, short_description')
 		.order('created_courses', { ascending: false })
-		.range(0, 4)
+
+	if (rangeStart !== undefined && rangeEnd !== undefined) {
+		query = query.range(rangeStart, rangeEnd)
+	}
+
+	const { data: allUsers, error } = await query
 	if (error) {
 		throw new Error(error.message)
 	}
 	return allUsers
 }
-export async function getTopUsersByPoints() {
+
+export async function getTopUsersByPoints(rangeStart?: number, rangeEnd?: number) {
 	const supabase = await createClient()
 
-	const { data: allUsers, error } = await supabase
+	let query = supabase
 		.from('full_user_data')
-		.select('*')
+		.select('id, username, points, avatar, short_description')
 		.order('points', { ascending: false })
-		.range(0, 4)
+
+	if (rangeStart !== undefined && rangeEnd !== undefined) {
+		query = query.range(rangeStart, rangeEnd)
+	}
+
+	const { data: allUsers, error } = await query
+
 	if (error) {
 		throw new Error(error.message)
 	}

@@ -41,6 +41,14 @@ export interface CurrentUserType {
 	long_description: string | null
 	short_description: string | null
 }
+export interface RankType {
+	id: string
+	username: string
+	avatar: string
+	created_courses?: number
+	points?: number
+	short_description: string | null
+}
 
 export type FullCourseDataType = AddCourseType & {
 	created_at: string

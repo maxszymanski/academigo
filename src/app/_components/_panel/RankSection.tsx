@@ -5,9 +5,12 @@ import { getUserRankByCourses, getUserRankByPoints } from '@/app/_lib/data-servi
 import { getTopUsersByCreatedCourses, getTopUsersByPoints } from '@/app/_actions/auth'
 
 async function RankSection({ user }: { user: CurrentUserType }) {
+	const rangeStart = 0
+	const rangeEnd = 0
+
 	const [usersByCreatedCourses, usersByPoints, userRank, userRankByPoints] = await Promise.all([
-		getTopUsersByCreatedCourses(),
-		getTopUsersByPoints(),
+		getTopUsersByCreatedCourses(rangeStart, rangeEnd),
+		getTopUsersByPoints(rangeStart, rangeEnd),
 		getUserRankByCourses(user.id),
 		getUserRankByPoints(user.id),
 	])
