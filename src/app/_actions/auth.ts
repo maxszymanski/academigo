@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '../utils/supabase/server'
 import { changePasswordSchema, ChangePasswordType, loginSchema, signUpSchema } from '../_lib/validators'
+import toast from 'react-hot-toast'
 
 export async function login(formData: FormData) {
 	const result = loginSchema.safeParse({
@@ -106,6 +107,30 @@ export async function logout() {
 
 	revalidatePath('/', 'layout')
 	redirect('/')
+}
+
+export async function getRankUser(limit: number, filter: string) {
+	const supabase = await createClient()
+
+	const { data: allUsers, error } = await supabase
+		.from('full_user_data')
+		.select(`id, username, created_courses, points, avatar, short_description`)
+		.order(filter, { ascending: false })
+		.range(0, limit)
+
+	if (error) {
+		toast.error('Błąd pobierania danych')
+	}
+
+	const { count, error: countError } = await supabase
+		.from('full_user_data')
+		.select('id', { count: 'exact', head: true })
+
+	if (countError) {
+		toast.error('Błąd pobierania danych')
+	}
+
+	return { allUsers, count }
 }
 
 export async function getTopUsersByCreatedCourses(rangeStart?: number, rangeEnd?: number) {

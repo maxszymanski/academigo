@@ -1,4 +1,4 @@
-import RankHeader from '../_components/_profile/RankHeader'
+import Footer from '@/app/_components/_footer/Footer'
 
 function layout({
 	children,
@@ -7,8 +7,8 @@ function layout({
 }>) {
 	return (
 		<>
-			<RankHeader />
 			{children}
+			<Footer />
 		</>
 	)
 }

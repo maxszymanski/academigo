@@ -71,7 +71,7 @@ function RankCard({
 					</li>
 					<li className="px-4 mt-4">
 						<Button
-							href="/ranking"
+							href="/ranking?filter=kursy"
 							variant="white"
 							restClass="px-6  xl:px-10 xl:py-5   flex border border-primary !py-2.5 mt-4 hover:!bg-slate50">
 							Zobacz ranking

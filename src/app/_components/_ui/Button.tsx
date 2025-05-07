@@ -64,6 +64,7 @@ function Button({
 	disabled = false,
 	isActiveClass = '',
 	target = '_self',
+
 	...rest
 }: ButtonProps) {
 	const variantClass = variants[variant] || variants.purple
@@ -74,7 +75,7 @@ function Button({
 				href={href}
 				rel="noopener noreferrer"
 				target={target}
-				className={` ${mainClass} ${variantClass} ${restClass} `}>
+				className={` ${mainClass} ${variantClass} ${restClass} ${isActive ? isActiveClass : ''}`}>
 				{children}
 			</Link>
 		)
