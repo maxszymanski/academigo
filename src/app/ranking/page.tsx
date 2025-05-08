@@ -7,7 +7,7 @@ import RankList from '../_components/_profile/RankList'
 import LoadMoreUsers from '../_components/_profile/LoadMoreUsers'
 
 async function page({ searchParams }: { searchParams: Promise<{ limit?: string; filter: string }> }) {
-	const { limit = '50', filter = 'kursy' } = await searchParams
+	const { limit = '20', filter = 'kursy' } = await searchParams
 	const limitNumber = Number(limit) - 1
 	const filterName = filter === 'kursy' ? 'created_courses' : 'points'
 

@@ -19,7 +19,7 @@ function LoadMoreUsers({
 	const [isPending, startTransition] = useTransition()
 	const router = useRouter()
 
-	const LIMIT_NUMBER = 50
+	const LIMIT_NUMBER = 20
 
 	const allUsersShowed = resultNumber === usersLength
 	const loadAllUsers = usersLength - resultNumber < 2
