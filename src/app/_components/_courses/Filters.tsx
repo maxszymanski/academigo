@@ -1,7 +1,6 @@
 'use client'
 import { ReactNode } from 'react'
 import Coursetype from './Coursetype'
-import SelectedFilters from './SelectedFilters'
 
 interface FilterProps {
 	children: ReactNode
@@ -25,8 +24,6 @@ function Filters({ children, mobile = false, secondChildren }: FilterProps) {
 				<h4 className="mb-6 px-3 text-2xl font-bold">Typ kursu</h4>
 				<Coursetype />
 			</div>
-
-			<SelectedFilters />
 		</aside>
 	)
 }

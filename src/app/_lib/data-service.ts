@@ -1,6 +1,7 @@
 import { cache } from 'react'
 import { FullCourseDataType } from '../_types/types'
 import { createClient } from '../utils/supabase/server'
+import toast from 'react-hot-toast'
 
 export const getCategories = cache(async () => {
 	const supabase = await createClient()
@@ -179,15 +180,17 @@ export const getSelectedByUsCourses = cache(async () => {
 })
 
 export async function getCoursesByFilter(
-	type: string = '',
+	page: number = 1,
+	type?: string | null,
 	category?: string | null,
 	subCategory?: string | null,
 	specialization?: string | null,
-	search?: string | null
+	search?: string | null,
+	sort?: string | null
 ) {
 	const supabase = await createClient()
 
-	let query = supabase.from('full_course_data').select('*').order('created_at', { ascending: false })
+	let query = supabase.from('full_course_data').select('*')
 
 	if (type === 'darmowy') {
 		query = query.eq('free', true)
@@ -208,14 +211,61 @@ export async function getCoursesByFilter(
 	if (search) {
 		query = query.ilike('title', `%${search}%`)
 	}
+	if (sort) {
+		query.order(sort, { ascending: false })
+	}
+	let countQuery = supabase.from('full_course_data').select('id', { count: 'exact', head: true })
 
-	const { data, error } = await query
-
-	if (error) {
-		throw new Error('Błąd pobierania kursów')
+	if (type === 'darmowy') {
+		countQuery = countQuery.eq('free', true)
+	} else if (type === 'platny') {
+		countQuery = countQuery.eq('free', false)
 	}
 
-	return data
+	if (category && !subCategory && !specialization) {
+		countQuery = countQuery.eq('categories', category)
+	}
+	if (subCategory && !specialization) {
+		countQuery = countQuery.eq('sub_categories', subCategory)
+	}
+	if (specialization) {
+		countQuery = countQuery.eq('specialization', specialization)
+	}
+
+	if (search) {
+		countQuery = countQuery.ilike('title', `%${search}%`)
+	}
+	if (sort) {
+		countQuery.order(sort, { ascending: false })
+	}
+
+	const perPage: number = 15
+
+	const start = (page - 1) * perPage
+	const end = start + perPage - 1
+	query = query.range(start, end)
+
+	const { data: courses, error } = await query
+
+	if (error) {
+		toast.error('Błąd pobierania kursów')
+	}
+
+	const { count, error: countError } = await countQuery
+
+	if (countError) {
+		toast.error('Błąd pobierania ilości kursów')
+	}
+
+	if (sort === 'average_rating' && courses) {
+		courses.sort((a, b) => {
+			if (a.average_rating === null) return 1
+			if (b.average_rating === null) return -1
+			return b.average_rating - a.average_rating
+		})
+	}
+
+	return { courses, count }
 }
 
 export const getLikedCourses = cache(async () => {

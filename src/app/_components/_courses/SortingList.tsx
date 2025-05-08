@@ -7,10 +7,11 @@ import { MdOutlineRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons
 import useAppStore from '@/app/stores/store'
 
 const sortVariants = [
+	{ name: 'Najnowsze', slug: 'najnowsze' },
 	{ name: 'Najpopularniesze', slug: 'najpopularniejsze' },
 	{ name: 'Najwyżej oceniane', slug: 'najwyzej-oceniane' },
-	{ name: 'Najnowsze', slug: 'najnowsze' },
-	{ name: 'Najstarsze', slug: 'najstarsze' },
+	{ name: 'Najwięcej ocen', slug: 'najwiecej-ocen' },
+	{ name: 'Najwięcej polubień', slug: 'najwiecej-polubien' },
 ]
 
 function SortingList() {

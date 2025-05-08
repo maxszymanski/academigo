@@ -37,6 +37,29 @@ function SelectedFilters() {
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
 	}
+	const handleResetCategory = () => {
+		startTransition(() => {
+			const params = new URLSearchParams(searchParams.toString())
+
+			params.delete('search')
+			params.delete('category')
+			params.delete('subcategory')
+			params.delete('specialization')
+
+			router.push(`/kursy?${params.toString()}`, { scroll: false })
+		})
+	}
+	const handleResetSubCategory = () => {
+		startTransition(() => {
+			const params = new URLSearchParams(searchParams.toString())
+
+			params.delete('search')
+			params.delete('subcategory')
+			params.delete('specialization')
+
+			router.push(`/kursy?${params.toString()}`, { scroll: false })
+		})
+	}
 	const handleResetSearch = () => {
 		startTransition(() => {
 			const params = new URLSearchParams(searchParams.toString())
@@ -50,7 +73,7 @@ function SelectedFilters() {
 	return (
 		<>
 			{isPending && <LoadingPortal />}
-			<div className="flex w-full justify-center flex-col items-center pt-5 pb-8">
+			<div className="flex w-full justify-center flex-col items-center pt-5 pb-8 lg:pt-8 2xl:pt-12 2xl:pb-10">
 				<div className="flex flex-col items-center">
 					{search ? (
 						<p className="text-dark2/85 text-sm text-center pb-3 flex flex-wrap items-center justify-center gap-3">
@@ -67,38 +90,38 @@ function SelectedFilters() {
 						<div className="flex gap-4 items-center flex-wrap justify-center  pt-4">
 							{category && (
 								<Button
-									onClick={() => handleReset('category')}
-									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
+									onClick={handleResetCategory}
+									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
 									variant="desktopCategory"
 									title="Usuń parametr">
-									{slugToTitle(category)} <IoClose className="ml-1 mt.0.5 " />
+									{slugToTitle(category)} <IoClose className="ml-1 mt-0.5 " />
 								</Button>
 							)}
 							{subCategory && (
 								<Button
-									onClick={() => handleReset('subcategory')}
-									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
+									onClick={handleResetSubCategory}
+									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
 									variant="desktopCategory"
 									title="Usuń parametr">
-									{slugToTitle(subCategory)} <IoClose className="ml-1 mt.0.5 " />
+									{slugToTitle(subCategory)} <IoClose className="ml-1 mt-0.5 " />
 								</Button>
 							)}
 							{specialization && (
 								<Button
 									onClick={() => handleReset('specialization')}
-									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
+									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
 									variant="desktopCategory"
 									title="Usuń parametr">
-									{slugToTitle(specialization)} <IoClose className="ml-1 mt.0.5 " />
+									{slugToTitle(specialization)} <IoClose className="ml-1 mt-0.5 " />
 								</Button>
 							)}
 							{type && (
 								<Button
 									onClick={() => handleReset('type')}
-									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
+									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
 									variant="desktopCategory"
 									title="Usuń parametr">
-									{slugToTitle(type)} <IoClose className="ml-1 mt.0.5 " />
+									{type == 'platny' ? 'Płatny' : 'Darmowy'} <IoClose className="ml-1 mt-0.5 " />
 								</Button>
 							)}
 						</div>
@@ -111,11 +134,6 @@ function SelectedFilters() {
 							Resetuj
 						</Button>
 					)}
-					{/* {isActiveFilter && (
-						<Button onClick={handleReset} restClass="text-sm !py-2 !px-6 !font-normal " variant="submit">
-							Wyczyść filtry
-						</Button>
-					)} */}
 				</div>
 			</div>
 		</>
