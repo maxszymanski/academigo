@@ -27,15 +27,12 @@ function SelectedFilters() {
 			.join(' ')
 	}
 
-	const handleReset = () => {
+	const handleReset = (filter: string) => {
 		startTransition(() => {
 			const params = new URLSearchParams(searchParams.toString())
 
 			params.delete('search')
-			params.delete('category')
-			params.delete('subcategory')
-			params.delete('specialization')
-			params.delete('type')
+			params.delete(filter)
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
@@ -70,7 +67,7 @@ function SelectedFilters() {
 						<div className="flex gap-4 items-center flex-wrap justify-center  pt-4">
 							{category && (
 								<Button
-									onClick={handleReset}
+									onClick={() => handleReset('category')}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
 									variant="desktopCategory"
 									title="Usuń parametr">
@@ -79,7 +76,7 @@ function SelectedFilters() {
 							)}
 							{subCategory && (
 								<Button
-									onClick={handleReset}
+									onClick={() => handleReset('subcategory')}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
 									variant="desktopCategory"
 									title="Usuń parametr">
@@ -88,7 +85,7 @@ function SelectedFilters() {
 							)}
 							{specialization && (
 								<Button
-									onClick={handleReset}
+									onClick={() => handleReset('specialization')}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
 									variant="desktopCategory"
 									title="Usuń parametr">
@@ -97,7 +94,7 @@ function SelectedFilters() {
 							)}
 							{type && (
 								<Button
-									onClick={handleReset}
+									onClick={() => handleReset('type')}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400"
 									variant="desktopCategory"
 									title="Usuń parametr">
