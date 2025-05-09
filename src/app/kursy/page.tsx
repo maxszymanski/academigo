@@ -30,6 +30,7 @@ async function CoursePage({ searchParams }: { searchParams: Params }) {
 		search,
 		sort = 'najpopularniejsze',
 	} = await searchParams
+
 	const categories = await getCategories()
 
 	const sortBy =
@@ -58,7 +59,7 @@ async function CoursePage({ searchParams }: { searchParams: Params }) {
 	const perPage: number = 15
 	const startItem = (Number(page) - 1) * perPage + 1
 	const endItem = Math.min(Number(page) * perPage, count || 0)
-	const info = `${startItem}–${endItem} z ${count}`
+	const info = count && count > 0 ? `${startItem}–${endItem} z ${count}` : '0'
 
 	const isEnd = endItem === count
 	const isMoreThanOnePage = (count || 0) > perPage

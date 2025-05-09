@@ -6,7 +6,7 @@ import { FullCourseDataType } from '@/app/_types/types'
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import Button from '../_ui/Button'
-import { useTransition } from 'react'
+import { useRef, useTransition } from 'react'
 import LoadingPortal from '../_ui/LoadingPortal'
 
 function CoursesResult({
@@ -25,6 +25,8 @@ function CoursesResult({
 	const searchParams = useSearchParams()
 	const router = useRouter()
 
+	const ref = useRef<HTMLDivElement>(null)
+
 	const pageNumberAdd = (Number(page) + 1).toString()
 	const pageNumberSub = (Number(page) - 1).toString()
 
@@ -37,7 +39,7 @@ function CoursesResult({
 		params.delete('specialization')
 		params.delete('type')
 
-		router.push(`/kursy?${params.toString()}`, { scroll: true })
+		router.push(`/kursy?${params.toString()}`, { scroll: false })
 	}
 
 	const handlePreviusPage = () => {
@@ -48,8 +50,12 @@ function CoursesResult({
 
 			params.set('page', pageNumberSub)
 
-			router.push(`/kursy?${params.toString()}`, { scroll: true })
+			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
+		if (ref.current) {
+			const top = ref.current.getBoundingClientRect().top + window.scrollY - 90
+			window.scrollTo({ top, behavior: 'smooth' })
+		}
 	}
 	const handleNextPage = () => {
 		startTransition(() => {
@@ -60,12 +66,17 @@ function CoursesResult({
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
+		if (ref.current) {
+			const top = ref.current.getBoundingClientRect().top + window.scrollY - 90
+			window.scrollTo({ top, behavior: 'smooth' })
+		}
 	}
 
 	return (
-		<div className="w-full h-full">
+		<div className="w-full h-full" ref={ref}>
 			{isPending && <LoadingPortal />}
-			<div className="relative flex w-full flex-wrap justify-center gap-x-5 gap-y-6 pt-10 md:pt-16 lg:justify-evenly xl:gap-x-2  2xl:gap-y-10 h-full ">
+			<div
+				className={`relative flex w-full flex-wrap justify-center gap-x-5 gap-y-6 pt-10 md:pt-16 lg:justify-evenly xl:gap-x-2   h-full ${cardView === 'list' ? '2xl:gap-y-6' : '2xl:gap-y-10'}`}>
 				{courses && courses.length > 0 ? (
 					courses.map(course => (
 						<CourseCardPanel
@@ -94,17 +105,17 @@ function CoursesResult({
 					<div className="flex gap-3 items-center">
 						<Button
 							variant="purple"
-							restClass="md:!px-10 !text-xs disabled:hidden md:!text-sm"
+							restClass=" !text-xs disabled:hidden md:!text-sm"
 							onClick={handlePreviusPage}
 							disabled={page === '1'}>
 							Poprzednia
 						</Button>
-						<p className="bg-primary h-8 w-8 md:h-12 md:w-12 flex items-center justify-center  rounded-full text-white text-xs sm:text-base">
+						<p className="bg-primary h-8 w-8 xl:h-12 xl:w-12 flex items-center justify-center  rounded-full text-white text-xs xl:text-base">
 							{page}
 						</p>
 						<Button
 							variant="purple"
-							restClass="md::!px-10 !text-xs disabled:hidden md:!text-sm"
+							restClass=" !text-xs disabled:hidden md:!text-sm"
 							onClick={handleNextPage}
 							disabled={isEnd}>
 							Następna{' '}

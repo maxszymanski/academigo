@@ -55,17 +55,20 @@ function CategoriesList({ categories }: { categories: Category[] }) {
 								key={category.name}
 								isActive={currentCategory === category.slug}
 								isActiveClass="text-primary bg-slate50"
-								restClass="px-10 gap-4"
+								restClass="px-10 text-sm gap-2 md:gap-4"
 								onClick={() => {
 									handleCategoryClick(category.slug)
 								}}>
 								<>
 									{currentCategory === category.slug ? (
-										<MdRadioButtonChecked />
+										<MdRadioButtonChecked className="flex-shrink-0 " />
 									) : (
-										<MdOutlineRadioButtonUnchecked />
+										<MdOutlineRadioButtonUnchecked className="flex-shrink-0 " />
 									)}{' '}
-									{category.name}
+									{category.name}{' '}
+									<span className=" text-dark2/85 text-xs md:text-sm block ml-auto min-w-[25px] md:min-w-[30px]">
+										( {category.courseCount || 0} )
+									</span>
 								</>
 							</Button>
 						))}

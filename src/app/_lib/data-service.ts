@@ -5,18 +5,24 @@ import toast from 'react-hot-toast'
 
 export const getCategories = cache(async () => {
 	const supabase = await createClient()
-	const { data, error } = await supabase.from('categories').select('*')
+	const { data, error } = await supabase.from('categories').select('*, courses(count)')
 
 	if (error) {
 		throw new Error('Błąd pobierania kategorii')
 	}
 
-	return data
+	const result = data.map(category => ({
+		id: category.id,
+		name: category.name,
+		slug: category.slug,
+		courseCount: category.courses[0]?.count || 0,
+	}))
+	return result
 })
 
 export async function getSubCategories(categorySlug?: string | null) {
 	const supabase = await createClient()
-	let query = supabase.from('sub_categories').select('*').order('name')
+	let query = supabase.from('sub_categories').select('*, courses(count)').order('name')
 
 	if (categorySlug) {
 		query = query.eq('slug_category', categorySlug)
@@ -28,12 +34,19 @@ export async function getSubCategories(categorySlug?: string | null) {
 		throw new Error('Błąd pobierania podkategorii')
 	}
 
-	return data
+	const result = data.map(category => ({
+		id: category.id,
+		name: category.name,
+		slug_category: category.slug_category,
+		subcategory_slug: category.subcategory_slug,
+		courseCount: category.courses[0]?.count || 0,
+	}))
+	return result
 }
 
 export async function getSpecializations(categorySlug: string | null, subCategorySlug: string | null) {
 	const supabase = await createClient()
-	let query = supabase.from('specializations').select('*').order('name')
+	let query = supabase.from('specializations').select('*, courses(count)').order('name')
 
 	if (categorySlug && !subCategorySlug) {
 		query = query.eq('slug_category', categorySlug)
@@ -48,7 +61,15 @@ export async function getSpecializations(categorySlug: string | null, subCategor
 		throw new Error('Błąd pobierania specjalizacji')
 	}
 
-	return data
+	const result = data.map(category => ({
+		id: category.id,
+		name: category.name,
+		slug_category: category.slug_category,
+		slug_sub_category: category.slug_sub_category,
+		spec_slug: category.spec_slug,
+		courseCount: category.courses[0]?.count || 0,
+	}))
+	return result
 }
 
 export const getPlatforms = cache(async () => {

@@ -40,7 +40,8 @@ function CategoriesDesktop({ categories }: CategoriesType) {
 						onClick={() => {
 							handleCategoryClick(category.slug)
 						}}>
-						{category.name}
+						{category.name}{' '}
+						<span className="pl-3 text-dark2/85 text-sm">( {category.courseCount || 0} )</span>
 					</Button>
 				))}
 			</div>

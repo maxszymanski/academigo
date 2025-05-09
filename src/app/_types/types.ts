@@ -4,6 +4,7 @@ export interface Category {
 	id: number
 	name: string
 	slug: string
+	courseCount: number
 }
 
 export interface CategoriesType {
@@ -15,6 +16,7 @@ export interface SubCat {
 	name: string
 	slug_category: string
 	subcategory_slug: string
+	courseCount: number
 }
 
 export interface CurrentUserType {

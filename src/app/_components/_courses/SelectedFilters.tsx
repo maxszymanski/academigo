@@ -92,7 +92,7 @@ function SelectedFilters() {
 								<Button
 									onClick={handleResetCategory}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
-									variant="desktopCategory"
+									variant="submit"
 									title="Usuń parametr">
 									{slugToTitle(category)} <IoClose className="ml-1 mt-0.5 " />
 								</Button>
@@ -101,7 +101,7 @@ function SelectedFilters() {
 								<Button
 									onClick={handleResetSubCategory}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
-									variant="desktopCategory"
+									variant="submit"
 									title="Usuń parametr">
 									{slugToTitle(subCategory)} <IoClose className="ml-1 mt-0.5 " />
 								</Button>
@@ -110,7 +110,7 @@ function SelectedFilters() {
 								<Button
 									onClick={() => handleReset('specialization')}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
-									variant="desktopCategory"
+									variant="submit"
 									title="Usuń parametr">
 									{slugToTitle(specialization)} <IoClose className="ml-1 mt-0.5 " />
 								</Button>
@@ -119,7 +119,7 @@ function SelectedFilters() {
 								<Button
 									onClick={() => handleReset('type')}
 									restClass="text-xs !py-1.5 !px-3 !font-normal hover:!border-red-400 hover:!text-red-400 xl:!text-sm"
-									variant="desktopCategory"
+									variant="submit"
 									title="Usuń parametr">
 									{type == 'platny' ? 'Płatny' : 'Darmowy'} <IoClose className="ml-1 mt-0.5 " />
 								</Button>

@@ -36,23 +36,25 @@ function SpecializationsList({ specializations }: { specializations: Specializat
 				{specializations.map(spec => (
 					<Button
 						variant="category"
-						restClass="px-3 text-sm xl:text-base gap-4"
+						restClass="px-3 text-sm xl:text-base gap-0"
 						key={spec.name}
 						isActive={currentSpecialization === spec.spec_slug}
 						isActiveClass="text-primary  bg-slate50"
 						onClick={() => handleCategoryClick(spec.spec_slug, spec.slug_sub_category, spec.slug_category)}>
 						<>
 							{currentSpecialization === spec.spec_slug ? (
-								<MdRadioButtonChecked />
+								<MdRadioButtonChecked className="flex-shrink-0 mr-2 md:mr-4" />
 							) : (
-								<MdOutlineRadioButtonUnchecked />
+								<MdOutlineRadioButtonUnchecked className="flex-shrink-0 mr-2 md:mr-4" />
 							)}{' '}
-							{spec.name}
+							{spec.name}{' '}
+							<span className=" text-dark2/85 text-xs md:text-sm block ml-auto min-w-[25px] md:min-w-[30px]">
+								( {spec.courseCount || 0} )
+							</span>
 						</>
 					</Button>
 				))}
 			</div>
-		
 		</>
 	)
 }

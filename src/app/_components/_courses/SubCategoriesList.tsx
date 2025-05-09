@@ -37,31 +37,25 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
 				{subCategories.map(subCat => (
 					<Button
 						variant="category"
-						restClass="px-3 text-sm xl:text-base gap-4"
+						restClass="px-3 text-sm xl:text-base gap-0"
 						key={subCat.name}
 						isActive={currentSubCategory === subCat.subcategory_slug}
 						isActiveClass="text-primary  bg-slate50 "
 						onClick={() => handleCategoryClick(subCat.subcategory_slug, subCat.slug_category)}>
 						<>
 							{currentSubCategory === subCat.subcategory_slug ? (
-								<MdRadioButtonChecked />
+								<MdRadioButtonChecked className="flex-shrink-0 mr-2 md:mr-4" />
 							) : (
-								<MdOutlineRadioButtonUnchecked />
+								<MdOutlineRadioButtonUnchecked className="flex-shrink-0 mr-2 md:mr-4" />
 							)}{' '}
 							{subCat.name}
+							<span className=" text-dark2/85 text-xs md:text-sm block ml-auto min-w-[25px] md:min-w-[30px]">
+								( {subCat.courseCount || 0} )
+							</span>
 						</>
 					</Button>
 				))}
 			</div>
-			{/* {subCategories.length > 7 && (
-                <Button
-                    variant="category"
-                    restClass="px-3 text-sm xl:text-base !w-fit !text-primary mt-3"
-                    onClick={setFullHeight}
-                >
-                    {fullHeight ? 'Zobacz mniej' : 'Zobacz więcej'}
-                </Button>
-            )} */}
 		</>
 	)
 }
