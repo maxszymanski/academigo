@@ -24,7 +24,7 @@ function NavigationList({
 			} absolute right-0 top-0 z-40 flex h-screen w-full flex-col items-center justify-evenly gap-12 overflow-y-auto py-12 transition-transform duration-500 md:relative md:h-full md:flex-row md:justify-end md:overflow-y-visible  md:p-0 xl:gap-20 2xl:gap-24 ${
 				blackNav ? 'bg-dark' : 'bg-white'
 			}`}>
-			<ul className="flex flex-col gap-4 pt-4 md:flex-row md:items-center md:gap-3 md:pt-0 lg:gap-6 xl:gap-10">
+			<ul className="flex flex-col gap-4 pt-4 md:flex-row md:items-center md:gap-3 md:pt-0 lg:gap-2 xl:gap-4">
 				<NavigationLink href="/" restClass="md:hidden text-xl">
 					Strona główna
 				</NavigationLink>

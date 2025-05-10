@@ -46,9 +46,11 @@ body {
 .course-description p span {
 	@apply !text-dark2;
 }
-
-.course-description h2 {
-	@apply text-dark2/90 text-3xl font-medium;
+.course-description h3 {
+	@apply pt-1;
+}
+.course-description h3 strong {
+	@apply !text-2xl lg:!text-3xl font-semibold text-[#2a2b3f];
 }
 
 .course-description ol li[data-list='bullet'] {
@@ -64,13 +66,30 @@ body {
 .course-description ol li {
 	@apply !text-dark2 mt-3;
 }
-.course-description h3 strong {
-	@apply !text-2xl lg:!text-3xl font-semibold text-[#2a2b3f] pt-1;
-}
 
 .course-description ol,
 .course-description ul {
 	@apply text-dark2  py-2 sm:px-6 pl-2;
+}
+
+.blog p {
+	@apply !text-dark2/90 pb-3 leading-[170%] xl:pb-5 xl:!leading-[180%];
+}
+
+.blog p span {
+	@apply !text-dark2/90;
+}
+.blog h2 {
+	@apply pb-7 xl:pb-10 xl:pt-3;
+}
+.blog h2 strong {
+	@apply !text-2xl xl:!text-3xl font-medium !text-primary;
+}
+.blog h3 {
+	@apply py-5 xl:py-10;
+}
+.blog h3 strong {
+	@apply !text-2xl xl:!text-3xl font-medium !text-dark2;
 }
 
 @keyframes rotation {

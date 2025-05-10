@@ -44,9 +44,9 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
 						onClick={() => handleCategoryClick(subCat.subcategory_slug, subCat.slug_category)}>
 						<>
 							{currentSubCategory === subCat.subcategory_slug ? (
-								<MdRadioButtonChecked className="flex-shrink-0 mr-2 md:mr-4" />
+								<MdRadioButtonChecked className="flex-shrink-0 mr-2 md:mr-3" />
 							) : (
-								<MdOutlineRadioButtonUnchecked className="flex-shrink-0 mr-2 md:mr-4" />
+								<MdOutlineRadioButtonUnchecked className="flex-shrink-0 mr-2 md:mr-3" />
 							)}{' '}
 							{subCat.name}
 							<span className=" text-dark2/85 text-xs md:text-sm block ml-auto min-w-[25px] md:min-w-[30px]">

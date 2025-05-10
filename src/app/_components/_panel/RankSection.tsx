@@ -6,7 +6,7 @@ import { getTopUsersByCreatedCourses, getTopUsersByPoints } from '@/app/_actions
 
 async function RankSection({ user }: { user: CurrentUserType }) {
 	const rangeStart = 0
-	const rangeEnd = 0
+	const rangeEnd = 4
 
 	const [usersByCreatedCourses, usersByPoints, userRank, userRankByPoints] = await Promise.all([
 		getTopUsersByCreatedCourses(rangeStart, rangeEnd),

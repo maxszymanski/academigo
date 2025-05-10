@@ -25,8 +25,7 @@ export async function createCourse(data: FormData) {
 	})
 
 	if (!result.success) {
-		console.log(result.error.format())
-		return { error: 'Wystąpił problem podczas dodawania kursu, proszę spróbować ponownie później.' }
+		return { error: 'Niepoprawne dane w formularzu' }
 	}
 
 	const supabase = await createClient()
@@ -54,7 +53,7 @@ export async function createCourse(data: FormData) {
 	})
 
 	if (error) {
-		return { error: 'Wystąpił problem podczas dodawania kursu, proszę spróbować ponownie później.' }
+		return { error: 'Niepoprawne dane w formularzu.' }
 	}
 	revalidatePath('/konto/moje-kursy/dodane')
 	revalidatePath(`/profil/${authData.user.id}`)
@@ -70,7 +69,7 @@ export async function updateCourse(data: FormData, courseID: string) {
 	})
 
 	if (!result.success) {
-		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
+		return { error: 'Dane w formularzu nie są poprawne' }
 	}
 	const timestamp = Date.now()
 	const supabase = await createClient()
@@ -110,6 +109,7 @@ export async function updateCourse(data: FormData, courseID: string) {
 		.eq('created_by', authData.user.id)
 
 	if (error) {
+		console.error(error.message)
 		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
 	}
 

@@ -20,7 +20,8 @@ function CourseHeader() {
 						src={OpenBook}
 						alt="student"
 						priority
-						className="hidden h-auto max-w-80 md:block lg:h-full lg:max-w-full"
+						quality={80}
+						className="hidden h-auto max-w-80 md:block xl:max-w-96 2xl:max-w-md  w-auto"
 					/>
 				</div>
 			</div>

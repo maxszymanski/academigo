@@ -65,3 +65,13 @@ export type FullCourseDataType = AddCourseType & {
 	saved_count: number
 	views_count: number
 }
+
+export interface PostProps {
+	title: string
+	created_at: string
+	short_description: string
+	slug: string
+	id?: string
+	content?: string
+	image?: string
+}

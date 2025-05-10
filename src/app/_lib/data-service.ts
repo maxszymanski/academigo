@@ -500,3 +500,31 @@ export async function getRecommendedCourses(
 
 	return courses
 }
+
+export async function getPostsSlugs() {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase
+		.from('blog')
+		.select('id, created_at,title, short_description, slug, image')
+
+		.order('created_at', { ascending: false })
+
+	if (error) {
+		toast.error('Błąd pobierania postów ')
+	}
+
+	return data
+}
+
+export async function getPostBySlug(slug: string) {
+	const supabase = await createClient()
+
+	const { data, error } = await supabase.from('blog').select('*').eq('slug', slug).single()
+
+	if (error) {
+		toast.error('Błąd pobierania postu')
+	}
+
+	return data
+}

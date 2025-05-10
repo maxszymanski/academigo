@@ -36,7 +36,7 @@ function NavigationLink({
 					className={`flex items-center text-nowrap p-3 font-medium transition-colors duration-300 md:text-base xl:text-lg 2xl:text-xl outline-primary   ${
 						panelNav
 							? `w-full text-lg font-semibold rounded-none  hover:bg-white/10 md:rounded-2xl hover:text-white md:justify-start px-5 py-3 ${isActive ? 'text-white bg-white/20' : pathname === href ? 'text-white bg-white/20' : 'text-white/70'} `
-							: `text-base  xl:text-lg   rounded-2xl  hover:text-primary/80 md:px-2 md:py-1.5  ${pathname === href ? 'text-slate-600 ' : 'text-primary'}`
+							: `text-base  xl:text-lg   rounded-2xl   hover:bg-slate50  md:px-2 lg:px-4 md:py-1.5  ${pathname === href ? 'text-slate-600 ' : 'text-primary'}`
 					}     ${restClass}`}
 					href={href}>
 					{children}

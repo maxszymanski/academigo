@@ -1,10 +1,9 @@
 'use client'
 import SettingsBox from './SettingsBox'
-import { format } from 'date-fns'
-import { pl } from 'date-fns/locale'
 import useAppStore from '@/app/stores/store'
 import Button from '../_ui/Button'
 import { User } from '@supabase/supabase-js'
+import { formattedDate } from '@/app/utils/helpers'
 
 function AccountInformation({ user, isGoogleAccount }: { user: User; isGoogleAccount: boolean }) {
 	const openModal = useAppStore(state => state.openModal)
@@ -19,7 +18,7 @@ function AccountInformation({ user, isGoogleAccount }: { user: User; isGoogleAcc
 		}
 	}
 
-	const formattedDate = format(new Date(user.created_at), 'd MMMM yyyy', { locale: pl })
+	const formatted = formattedDate(user.created_at)
 	return (
 		<SettingsBox title="Informacje o koncie">
 			<div className="flex flex-col gap-5 h-full">
@@ -28,7 +27,7 @@ function AccountInformation({ user, isGoogleAccount }: { user: User; isGoogleAcc
 					<p className=" text-dark2 ">{user.user_metadata.name}</p>
 				</div>
 				<div className=" text-sm md:text-base text-dark2/80 flex flex-col sm:flex-row flex-wrap gap-x-3 gap-y-1 ">
-					<p>Data utworzenia:</p> <p className="  text-dark2">{formattedDate}</p>
+					<p>Data utworzenia:</p> <p className="  text-dark2">{formatted}</p>
 				</div>
 				<div className="text-dark2/80 text-sm md:text-base flex flex-col sm:flex-row flex-wrap gap-x-3 gap-y-1">
 					<p>Email:</p>

@@ -55,7 +55,7 @@ function CategoriesList({ categories }: { categories: Category[] }) {
 								key={category.name}
 								isActive={currentCategory === category.slug}
 								isActiveClass="text-primary bg-slate50"
-								restClass="px-10 text-sm gap-2 md:gap-4"
+								restClass="px-10 text-sm gap-2 md:gap-3"
 								onClick={() => {
 									handleCategoryClick(category.slug)
 								}}>

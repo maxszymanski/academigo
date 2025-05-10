@@ -43,9 +43,9 @@ function SpecializationsList({ specializations }: { specializations: Specializat
 						onClick={() => handleCategoryClick(spec.spec_slug, spec.slug_sub_category, spec.slug_category)}>
 						<>
 							{currentSpecialization === spec.spec_slug ? (
-								<MdRadioButtonChecked className="flex-shrink-0 mr-2 md:mr-4" />
+								<MdRadioButtonChecked className="flex-shrink-0 mr-2 md:mr-3" />
 							) : (
-								<MdOutlineRadioButtonUnchecked className="flex-shrink-0 mr-2 md:mr-4" />
+								<MdOutlineRadioButtonUnchecked className="flex-shrink-0 mr-2 md:mr-3" />
 							)}{' '}
 							{spec.name}{' '}
 							<span className=" text-dark2/85 text-xs md:text-sm block ml-auto min-w-[25px] md:min-w-[30px]">

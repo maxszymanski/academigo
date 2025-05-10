@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import DefaultUser from '@/assets/default-user.webp'
+import { blurImage } from '@/app/utils/blurImage'
 
 function UserImage({ avatar, size = '' }: { avatar?: string | null; size?: string }) {
 	return (
@@ -11,6 +12,8 @@ function UserImage({ avatar, size = '' }: { avatar?: string | null; size?: strin
 				height={44}
 				className={`  rounded-full  object-cover ${size != '' ? size : 'h-[42px] w-[42px] xl:h-11 xl:w-11'}   `}
 				alt="zdjęcie użytkownika"
+				placeholder="blur"
+				blurDataURL={blurImage}
 			/>
 		</div>
 	)

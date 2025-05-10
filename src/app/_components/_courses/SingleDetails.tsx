@@ -11,9 +11,8 @@ import { TbAntennaBars5 } from 'react-icons/tb'
 import Ratings from './Ratings'
 import { FaStar } from 'react-icons/fa'
 
-import { pl } from 'date-fns/locale'
-import { format } from 'date-fns'
 import { FullCourseDataType } from '@/app/_types/types'
+import { formattedDate } from '@/app/utils/helpers'
 
 function SingleDetails({
 	course,
@@ -28,7 +27,7 @@ function SingleDetails({
 	isSavedCourse: boolean
 	rate?: number
 }) {
-	const addCourseDay = format(new Date(course.created_at), 'd MMMM yyyy', { locale: pl })
+	const addCourseDay = formattedDate(course.created_at)
 
 	return (
 		<div className="lg:sticky lg:right-5 lg:top-8 lg:-mt-32  flex-shrink-0 flex-grow-0 rounded-lg lg:bg-white w-full max-w-[360px]  text-dark2 lg:shadow-md shadow-stone-200   flex flex-col  overflow-hidden z-20  pb-12 lg:pb-0">
