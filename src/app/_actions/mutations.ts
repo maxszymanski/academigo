@@ -511,7 +511,7 @@ export async function addPostComment(post: string, comment: string) {
 	revalidatePath(`/blog/${post}`)
 }
 
-export async function updatePostComment(post: string, comment: string) {
+export async function updatePostComment(post: string, comment: string, commentId: string) {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -525,13 +525,16 @@ export async function updatePostComment(post: string, comment: string) {
 		.update({ comment: comment, updated_at: new Date() })
 		.eq('post_slug', post)
 		.eq('user_id', authData.user.id)
+		.eq('id', commentId)
 
 	if (error) {
 		return { error: 'Wystąpił problem podczas edytowania komentarza, proszę spróbować ponownie później.' }
 	}
+
+	revalidatePath(`blog/${post}`)
 }
 
-export async function deletePostComment(post: string) {
+export async function deletePostComment(post: string, commentId: string) {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -545,8 +548,11 @@ export async function deletePostComment(post: string) {
 		.delete()
 		.eq('post_slug', post)
 		.eq('user_id', authData.user.id)
+		.eq('id', commentId)
 
 	if (error) {
 		return { error: 'Wystąpił problem podczas wysyłania usuwania komenatrza, proszę spróbować ponownie później.' }
 	}
+
+	revalidatePath(`blog/${post}`)
 }

@@ -44,7 +44,7 @@ function Modal({
 			{fullPageModal ? (
 				createPortal(
 					<div
-						className={`absolute w-full h-full left-0 top-0 z-50 flex items-center justify-center bg-slate50 bg-opacity-80 flex-col gap-4 px-2`}>
+						className={`absolute w-full h-full left-0 top-[0] z-50 flex items-center overflow-hidden justify-center bg-slate50 bg-opacity-80 flex-col gap-4 px-2`}>
 						<div
 							className="w-fit  animate-visible rounded-xl border border-primary bg-white text-center shadow-md shadow-primary2 "
 							ref={modalRef}>
