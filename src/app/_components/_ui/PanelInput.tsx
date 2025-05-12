@@ -8,7 +8,7 @@ type PanelInputProps = {
 	name: string
 	error?: FieldError | null
 	message?: string | null
-	label: string
+	label?: string
 	formRegister?: object
 	required?: boolean
 	min?: number
@@ -45,13 +45,15 @@ function PanelInput({
 	return (
 		<div
 			className={` flex flex-col   ${textArea ? 'max-w-full ' : 'md:max-w-md'} ${type === 'file' ? ' w-[330px]' : 'w-full'}`}>
-			<div className={`${children ? 'flex items-center justify-between text-nowrap w-full gap-8' : ''}`}>
-				<label htmlFor={name} className={`block text-dark2 ${textArea ? 'mb-2' : 'mb-1'}`}>
-					{label} {required && <span className="text-red-400">*</span>}{' '}
-				</label>
+			{label && (
+				<div className={`${children ? 'flex items-center justify-between text-nowrap w-full gap-8' : ''}`}>
+					<label htmlFor={name} className={`block text-dark2 ${textArea ? 'mb-2' : 'mb-1'}`}>
+						{label} {required && <span className="text-red-400">*</span>}{' '}
+					</label>
 
-				{children}
-			</div>
+					{children}
+				</div>
+			)}
 			<div className="relative">
 				{textArea ? (
 					<textarea

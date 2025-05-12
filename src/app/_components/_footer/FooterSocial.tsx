@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../_ui/Logo'
 import FbIcon from '@/assets/icon-fb.png'
-import TwitterIcon from '@/assets/icon-twitter.png'
+import TwitterIcon from '@/assets/xIcon.png'
 import YtIcon from '@/assets/icon-yt.png'
 
 function FooterSocial() {
@@ -15,13 +15,25 @@ function FooterSocial() {
 				Academigo to platforma edukacyjna, która pomaga w łatwym dostępie do najlepszych kursów online.
 			</p>
 			<div className="flex gap-1 pt-2">
-				<Link href="www.facebook.pl" className="inline-flex p-2">
+				<Link
+					href="www.facebook.pl"
+					className="inline-flex p-2  transition-colors duration-300 hover:bg-white/10 rounded-md"
+					target="_blank"
+					rel="noopener noreferrer">
 					<Image src={FbIcon} alt="ikona Facebook" width={36} height={36} />
 				</Link>
-				<Link href="www.facebook.pl" className="inline-flex p-2">
-					<Image src={TwitterIcon} alt="ikona twitter" width={36} height={36} />
+				<Link
+					href="www.facebook.pl"
+					className="inline-flex p-2   transition-colors duration-300 hover:bg-white/10 rounded-md"
+					target="_blank"
+					rel="noopener noreferrer">
+					<Image src={TwitterIcon} alt="ikona twitter" width={35} height={35} />
 				</Link>
-				<Link href="www.facebook.pl" className="inline-flex p-2">
+				<Link
+					href="www.facebook.pl"
+					className="inline-flex p-2 transition-colors duration-300 hover:bg-white/10 rounded-md"
+					target="_blank"
+					rel="noopener noreferrer">
 					<Image src={YtIcon} alt="ikona Youtube" width={36} height={36} />
 				</Link>
 			</div>

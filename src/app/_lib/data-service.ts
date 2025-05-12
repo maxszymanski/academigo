@@ -528,3 +528,63 @@ export async function getPostBySlug(slug: string) {
 
 	return data
 }
+
+export async function getNextPost(id: string) {
+	const supabase = await createClient()
+
+	const { data: nextPost } = await supabase
+		.from('blog')
+		.select('slug, title')
+		.gt('id', id)
+		.order('id', { ascending: true })
+		.limit(1)
+		.single()
+
+	if (nextPost) {
+		return nextPost
+	}
+
+	const { data: firstPost, error: firstPostError } = await supabase
+		.from('blog')
+		.select('slug, title')
+		.order('id', { ascending: true })
+		.limit(1)
+		.single()
+
+	if (firstPostError) {
+		console.error('Błąd pobierania ostatniego posta')
+		return null
+	}
+
+	return firstPost || null
+}
+
+export async function getPreviousPost(id: string) {
+	const supabase = await createClient()
+
+	const { data: prevPost } = await supabase
+		.from('blog')
+		.select('slug, title')
+		.lt('id', id)
+		.order('id', { ascending: false })
+		.limit(1)
+		.single()
+
+	if (prevPost) {
+		return prevPost
+	}
+
+	const { data: lastPost, error: lastPostError } = await supabase
+		.from('blog')
+		.select('slug, title')
+		.order('id', { ascending: false })
+		.limit(1)
+		.single()
+
+	if (lastPostError) {
+		console.error('Błąd pobierania ostatniego posta')
+		return null
+	}
+
+	return lastPost || null
+}
