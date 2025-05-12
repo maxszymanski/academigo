@@ -438,7 +438,7 @@ export async function getRecommendedCourses(
 	const supabase = await createClient()
 	let courses: FullCourseDataType[] = []
 	const limit = 6
-	// 1. Pobierz po specialization
+
 	if (specialization) {
 		const { data } = await supabase
 			.from('full_course_data')
@@ -451,7 +451,6 @@ export async function getRecommendedCourses(
 		if (data && data.length > 0) courses = data
 	}
 
-	// 2. Jeśli za mało, pobierz po sub_category
 	if (courses.length < limit && sub_category) {
 		const { data } = await supabase
 			.from('full_course_data')
@@ -459,13 +458,12 @@ export async function getRecommendedCourses(
 			.eq('sub_categories', sub_category)
 			.neq('id', courseID)
 			.not('id', 'in', `(${courses.map(c => c.id).join(',')})`)
-			.order('average_rating', { ascending: true }) // unikalność
+			.order('average_rating', { ascending: true })
 			.limit(limit - courses.length)
 
 		if (data) courses = [...courses, ...data]
 	}
 
-	// 3. Jeśli nadal za mało, pobierz po category
 	if (courses.length < limit && category) {
 		const { data } = await supabase
 			.from('full_course_data')
@@ -479,7 +477,6 @@ export async function getRecommendedCourses(
 		if (data) courses = [...courses, ...data]
 	}
 
-	// 4. Na końcu, jeśli nadal za mało, pobierz losowe kursy
 	if (courses.length < limit) {
 		const { data } = await supabase
 			.from('full_course_data')
@@ -587,4 +584,28 @@ export async function getPreviousPost(id: string) {
 	}
 
 	return lastPost || null
+}
+
+export async function getPostComments(post: string) {
+	const supabase = await createClient()
+
+	const {
+		data: comments,
+		count,
+		error,
+	} = await supabase
+		.from('post_comments')
+		.select('*, full_user_data(id, username, avatar)', { count: 'exact' })
+		.eq('post_slug', post)
+		.limit(15)
+		.order('created_at', { ascending: false })
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas pobierania komentarzy, proszę spróbować ponownie później.' }
+	}
+
+	return {
+		comments,
+		totalCount: count,
+	}
 }

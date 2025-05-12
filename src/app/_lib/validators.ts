@@ -15,6 +15,9 @@ export const loginSchema = z.object({
 	email: z.string().nonempty('Email jest wymagany').email('Nieprawidłowy email'),
 	password: z.string().nonempty('Hasło jest wymagane').min(8, 'Hasło musi mieć co najmniej 8 znaków'),
 })
+export const commentSchema = z.object({
+	comment: z.string().nonempty('Komentarz nie może być pusty'),
+})
 
 export const signUpSchema = z
 	.object({
@@ -195,3 +198,4 @@ export type UpdateSocialType = z.infer<typeof updateSocialSchema>
 export type UpdateRoleType = z.infer<typeof updateRoleSchema>
 export type UpdateUserDescription = z.infer<typeof updateUserDescriptionSchema>
 export type FeedbackType = z.infer<typeof feedbackSchema>
+export type CommentType = z.infer<typeof commentSchema>

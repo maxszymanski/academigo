@@ -75,3 +75,17 @@ export interface PostProps {
 	content?: string
 	image?: string
 }
+
+export interface CommentsType {
+	id: string
+	created_at: string
+	updated_at: string
+	user_id: string
+	post_slug: string
+	comment: string
+	full_user_data: {
+		id: string
+		avatar: string
+		username: string
+	}
+}

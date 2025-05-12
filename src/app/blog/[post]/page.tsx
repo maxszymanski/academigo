@@ -1,10 +1,11 @@
+import { getCurrentUser } from '@/app/_actions/auth'
 import CommentForm from '@/app/_components/_blog/CommentForm'
 import PostComments from '@/app/_components/_blog/PostComments'
 import PostContent from '@/app/_components/_blog/PostContent'
 import PostHeader from '@/app/_components/_blog/PostHeader'
 import PostLink from '@/app/_components/_blog/PostLink'
 import Share from '@/app/_components/_blog/Share'
-import { getNextPost, getPostBySlug, getPreviousPost } from '@/app/_lib/data-service'
+import { getNextPost, getPostBySlug, getPostComments, getPreviousPost } from '@/app/_lib/data-service'
 import { blurImage } from '@/app/utils/blurImage'
 import { formattedDate } from '@/app/utils/helpers'
 import Image from 'next/image'
@@ -21,8 +22,13 @@ async function page({ params }: { params: Params }) {
 	const { post } = await params
 
 	const postDetails = await getPostBySlug(post)
-	const nextPost = await getNextPost(postDetails.id)
-	const previousPost = await getPreviousPost(postDetails.id)
+
+	const [user, nextPost, previousPost, commentsData] = await Promise.all([
+		getCurrentUser(),
+		getNextPost(postDetails.id),
+		getPreviousPost(postDetails.id),
+		getPostComments(postDetails.slug),
+	])
 
 	const createdAt = formattedDate(postDetails.created_at)
 
@@ -52,8 +58,12 @@ async function page({ params }: { params: Params }) {
 						</div>
 					</section>
 					<section className="md:pt-8 pb-16 xl:pt-12">
-						<PostComments />
-						<CommentForm />
+						<PostComments
+							comments={commentsData.comments || []}
+							totalCount={commentsData.totalCount || 0}
+							userId={user.id}
+						/>
+						<CommentForm userId={user?.id} postSlug={postDetails.slug} />
 					</section>
 				</div>
 			</main>

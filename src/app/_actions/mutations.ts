@@ -398,9 +398,8 @@ export async function unSaveCourse(courseId: string) {
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
 
-	if (!authData.user) {
+	if (!authData.user || authError) {
 		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
 	const { error } = await supabase
@@ -422,9 +421,8 @@ export async function rateCourse(courseId: string, rating: number, update: boole
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
-	if (authError) return null
 
-	if (!authData.user) {
+	if (!authData.user || authError) {
 		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
 	}
 
@@ -489,5 +487,66 @@ export async function reportUser(message: string, reportedUser: string | null) {
 
 	if (error) {
 		return { error: 'Wystąpił problem podczas wysyłania zgłoszenia, proszę spróbować ponownie później.' }
+	}
+}
+
+export async function addPostComment(post: string, comment: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+
+	if (!authData.user || authError) {
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
+	}
+
+	const { error } = await supabase
+		.from('post_comments')
+		.insert([{ user_id: authData.user.id || null, post_slug: post, comment: comment }])
+		.select()
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas wysyłania komentarza, proszę spróbować ponownie później.' }
+	}
+
+	revalidatePath(`/blog/${post}`)
+}
+
+export async function updatePostComment(post: string, comment: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+
+	if (!authData.user || authError) {
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
+	}
+
+	const { error } = await supabase
+		.from('post_comments')
+		.update({ comment: comment, updated_at: new Date() })
+		.eq('post_slug', post)
+		.eq('user_id', authData.user.id)
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas edytowania komentarza, proszę spróbować ponownie później.' }
+	}
+}
+
+export async function deletePostComment(post: string) {
+	const supabase = await createClient()
+
+	const { data: authData, error: authError } = await supabase.auth.getUser()
+
+	if (!authData.user || authError) {
+		return { error: 'Dostępne tylko dla zalogowanych użytkowników' }
+	}
+
+	const { error } = await supabase
+		.from('post_comments')
+		.delete()
+		.eq('post_slug', post)
+		.eq('user_id', authData.user.id)
+
+	if (error) {
+		return { error: 'Wystąpił problem podczas wysyłania usuwania komenatrza, proszę spróbować ponownie później.' }
 	}
 }
