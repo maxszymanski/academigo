@@ -153,13 +153,6 @@ function EditCourseForm({
 			})
 			return
 		}
-		// if (content.length > 5000) {
-		// 	setError('long_description', {
-		// 		type: 'manual',
-		// 		message: 'Opis musi być dłuższy niż 50 znaków',
-		// 	})
-		// 	return
-		// }
 
 		data.long_description = content
 

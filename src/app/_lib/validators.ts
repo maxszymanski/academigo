@@ -187,6 +187,12 @@ export const feedbackSchema = z.object({
 		.max(500, 'Wiadomość może mieć maksymalnie 500 znaków'),
 })
 
+export const contactSchema = z.object({
+	user_name: z.string().min(3, 'Imię musi mieć co najmniej 3 znaki'),
+	user_email: z.string().email('Nieprawidłowy adres email'),
+	user_message: z.string().min(10, 'Wiadomość jest za krótka'),
+})
+
 export type ChangePasswordType = z.infer<typeof changePasswordSchema>
 export type LoginType = z.infer<typeof loginSchema>
 export type AddCourseType = z.infer<typeof addCourseSchema>
@@ -199,3 +205,4 @@ export type UpdateRoleType = z.infer<typeof updateRoleSchema>
 export type UpdateUserDescription = z.infer<typeof updateUserDescriptionSchema>
 export type FeedbackType = z.infer<typeof feedbackSchema>
 export type CommentType = z.infer<typeof commentSchema>
+export type ContactType = z.infer<typeof contactSchema>
