@@ -61,10 +61,10 @@ async function page({ params }: { params: Params }) {
 						<PostComments
 							comments={commentsData.comments || []}
 							totalCount={commentsData.totalCount || 0}
-							userId={user.id}
+							userId={user?.id || null}
 						/>
 
-						<CommentForm userId={user?.id} postSlug={postDetails.slug} />
+						<CommentForm userId={user?.id || null} postSlug={postDetails.slug} />
 					</section>
 				</div>
 			</main>

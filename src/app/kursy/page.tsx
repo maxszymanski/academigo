@@ -82,7 +82,7 @@ async function CoursePage({ searchParams }: { searchParams: Params }) {
 						subCategory={subcategory}
 						showCourses={<ShowedCourses info={info} />}>
 						<CoursesResult
-							courses={courses}
+							courses={courses || []}
 							page={page}
 							isEnd={isEnd}
 							isMoreThanOnePage={isMoreThanOnePage}

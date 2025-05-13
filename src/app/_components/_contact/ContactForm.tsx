@@ -36,38 +36,43 @@ function ContactForm() {
 
 	return (
 		<form
-			className={`text-primary  mx-auto flex h-fit w-full max-w-md flex-col rounded-2xl bg-linear-to-r px-4 py-8 shadow-xl border shadow-slate50 border-slate-200 transition-colors duration-300 sm:px-6 ${isPending ? 'cursor-wait' : 'cursor-auto'}`}
+			className={`text-primary  mx-auto flex h-fit w-full max-w-md xl:max-w-lg xl:px-8 flex-col rounded-2xl bg-linear-to-r px-4 py-8 shadow-xl border bg-white shadow-slate50 border-slate-200 transition-colors duration-300 sm:px-6 ${isPending ? 'cursor-wait' : 'cursor-auto'}`}
 			onSubmit={handleSubmit(onSubmit)}>
 			<h3 className="mb-8 text-center text-[28px] font-medium xl:text-3xl">Napisz do nas</h3>
-			<PanelInput
-				name="user_email"
-				label="Adres Email"
-				type="email"
-				formRegister={register('user_email')}
-				error={errors?.user_email || null}
-				message={errors?.user_email?.message || null}
-				disabled={isPending}
-			/>
-			<PanelInput
-				name="user_name"
-				label="Imię"
-				type="text"
-				formRegister={register('user_name')}
-				error={errors?.user_name || null}
-				message={errors?.user_name?.message || null}
-				disabled={isPending}
-			/>
+			<div className="w-full space-y-5">
+				<PanelInput
+					name="user_email"
+					label="Adres Email"
+					type="email"
+					formRegister={register('user_email')}
+					error={errors?.user_email || null}
+					message={errors?.user_email?.message || null}
+					disabled={isPending}
+					required
+				/>
+				<PanelInput
+					name="user_name"
+					label="Imię"
+					type="text"
+					formRegister={register('user_name')}
+					error={errors?.user_name || null}
+					message={errors?.user_name?.message || null}
+					disabled={isPending}
+					required
+				/>
 
-			<PanelInput
-				textArea
-				name="user_message"
-				label="Wiadomość"
-				type="text"
-				formRegister={register('user_message')}
-				error={errors?.user_message || null}
-				message={errors?.user_message?.message || null}
-				disabled={isPending}
-			/>
+				<PanelInput
+					textArea
+					name="user_message"
+					label="Wiadomość"
+					type="text"
+					formRegister={register('user_message')}
+					error={errors?.user_message || null}
+					message={errors?.user_message?.message || null}
+					disabled={isPending}
+					required
+				/>
+			</div>
 			<Button variant="submit" restClass="my-4 " disabled={isPending}>
 				{isPending ? 'Wysyłanie...' : 'Wyślij'}
 			</Button>

@@ -25,7 +25,7 @@ function PostComments({
 			{comments.length > 0 && totalCount > 0 ? (
 				<div className="border border-slate-200 rounded-xl w-full flex flex-col  divide-y divide-slate-200 ">
 					{comments.map(com => (
-						<CommentCard key={com.id} comment={com} userId={userId} />
+						<CommentCard key={com.id} comment={com} userId={userId || null} />
 					))}
 				</div>
 			) : (

@@ -30,7 +30,7 @@ function CommentCard({ comment, userId }: { comment: CommentsType; userId: strin
 							<span className="ml-2 text-xs">( edytowano {commentLastEdit} )</span>
 						)}
 					</p>
-					{itsUserComment && (
+					{itsUserComment && userId && (
 						<EditDeleteComent
 							postSlug={comment.post_slug}
 							commentId={comment.id}
