@@ -92,6 +92,21 @@ body {
 	@apply !text-2xl xl:!text-3xl font-medium !text-dark2;
 }
 
+.blog ol li[data-list='bullet'] {
+	@apply text-dark2/90 list-disc list-inside;
+}
+
+.blog ol li span {
+	@apply !text-dark2/90;
+}
+.blog ol li {
+	@apply !text-dark2/90 my-1.5;
+}
+
+.blog ol {
+	@apply text-dark2/90  py-2 sm:px-4 pl-2;
+}
+
 @keyframes rotation {
 	0% {
 		transform: rotate(0deg);

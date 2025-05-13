@@ -38,12 +38,12 @@ async function page({ params }: { params: Params }) {
 			<main className="flex-1 flex items-center justify-center ">
 				<div className="container lg:max-w-5xl mx-auto px-4  ">
 					<section className=" pt-6 pb-16">
-						<div className="h-[500px] max-h-80 sm:max-h-full w-full max-w-5xl relative rounded-xl overflow-hidden">
+						<div className="h-[550px] max-h-80 sm:max-h-[500px] md:max-h-full w-full max-w-5xl relative rounded-xl overflow-hidden">
 							<Image
 								src={postDetails.image || blurImage}
 								fill
 								alt="Zdjęcie postu"
-								className={` object-fill `}
+								className={` object-fill`}
 								priority
 								quality={70}
 								placeholder="blur"
@@ -52,17 +52,18 @@ async function page({ params }: { params: Params }) {
 						</div>
 						<PostContent content={postDetails.content} />
 						<Share title={postDetails.title} slug={postDetails.slug} />
-						<div className="flex w-full items-stretch justify-between pt-12  gap-5 md:pt-14 xl:pt-20 ">
+						<div className="flex w-full items-stretch justify-between pt-12  gap-5 md:pt-14 xl:pt-24">
 							<PostLink postLink={`/blog/${previousPost?.slug}`} title={previousPost?.title} />
 							<PostLink postLink={`/blog/${nextPost?.slug}`} title={nextPost?.title} next />
 						</div>
 					</section>
-					<section className="md:pt-8 pb-16 xl:pt-12">
+					<section className="md:pt-8 pb-16 xl:pt-16">
 						<PostComments
 							comments={commentsData.comments || []}
 							totalCount={commentsData.totalCount || 0}
 							userId={user.id}
 						/>
+
 						<CommentForm userId={user?.id} postSlug={postDetails.slug} />
 					</section>
 				</div>

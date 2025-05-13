@@ -67,6 +67,7 @@ async function CoursePage({ searchParams }: { searchParams: Params }) {
 	return (
 		<>
 			<CourseHeader />
+
 			<main className="relative mx-auto h-full flex-1 w-full px-4 py-10 lg:container xl:py-20">
 				<Search />
 				<CategoriesDesktop categories={categories} />

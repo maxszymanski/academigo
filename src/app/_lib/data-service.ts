@@ -1,7 +1,6 @@
 import { cache } from 'react'
 import { FullCourseDataType } from '../_types/types'
 import { createClient } from '../utils/supabase/server'
-import toast from 'react-hot-toast'
 
 export const getCategories = cache(async () => {
 	const supabase = await createClient()
@@ -269,13 +268,13 @@ export async function getCoursesByFilter(
 	const { data: courses, error } = await query
 
 	if (error) {
-		toast.error('Błąd pobierania kursów')
+		return { error: 'Błąd pobierania kursów' }
 	}
 
 	const { count, error: countError } = await countQuery
 
 	if (countError) {
-		toast.error('Błąd pobierania ilości kursów')
+		return { error: 'Błąd pobierania ilości kursów' }
 	}
 
 	if (sort === 'average_rating' && courses) {
@@ -508,9 +507,8 @@ export async function getPostsSlugs() {
 		.order('created_at', { ascending: false })
 
 	if (error) {
-		toast.error('Błąd pobierania postów ')
+		return []
 	}
-
 	return data
 }
 
@@ -520,7 +518,7 @@ export async function getPostBySlug(slug: string) {
 	const { data, error } = await supabase.from('blog').select('*').eq('slug', slug).single()
 
 	if (error) {
-		toast.error('Błąd pobierania postu')
+		return { error: 'Błąd pobierania postu' }
 	}
 
 	return data

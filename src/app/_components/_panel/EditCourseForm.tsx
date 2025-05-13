@@ -146,10 +146,10 @@ function EditCourseForm({
 			})
 			return
 		}
-		if (content.length > 10000) {
+		if (content.length > 20000) {
 			setError('long_description', {
 				type: 'manual',
-				message: 'Opis nie może być dłuższy niż 10000 znaków',
+				message: 'Opis nie może być dłuższy niż 20000 znaków',
 			})
 			return
 		}

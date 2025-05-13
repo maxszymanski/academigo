@@ -21,7 +21,7 @@ function DeleteCommentModal({ postSlug, commentId }: { postSlug: string; comment
 		}
 	}, [openModal])
 
-	if (openModal != 'delete-comment') return null
+	if (openModal != `delete-${commentId}`) return null
 
 	const handleDeleteComment = () => {
 		startTransition(async () => {
@@ -39,20 +39,27 @@ function DeleteCommentModal({ postSlug, commentId }: { postSlug: string; comment
 	return (
 		<>
 			{isPending && <LoadingPortal information="Usuwanie komentarza" />}
-			<Modal modalRef={modalRef} closeModal={closeModal} buttonId="delete-comment" position="top-[130%] left-0 ">
+			<Modal
+				modalRef={modalRef}
+				closeModal={closeModal}
+				buttonId={`delete-${commentId}`}
+				position="top-[130%] left-0 ">
 				<div className="p-8">
 					<p className="text-dark2 md:text-lg pb-10">Czy jesteś pewny, że chcesz usunąć komentarz?</p>
 					<div className="flex items-center flex-wrap justify-center gap-5 sm:gap-8 md:flex-nowrap">
 						<Button
 							variant="danger"
 							id="delete-comment"
-							restClass="2xl:!text-base w-[177px] !text-sm"
+							restClass="2xl:!text-base w-[177px] !text-sm !py-2.5"
 							disabled={isPending}
 							onClick={handleDeleteComment}>
 							Usuń
 							{isPending && <Spinner restClass="ml-6 absolute right-3 md:right-4" />}
 						</Button>
-						<Button variant="submit" onClick={closeModal} restClass="2xl:!text-base min-w-[177px] !text-sm">
+						<Button
+							variant="submit"
+							onClick={closeModal}
+							restClass="2xl:!text-base min-w-[177px] !text-sm !py-2.5">
 							Anuluj
 						</Button>
 					</div>

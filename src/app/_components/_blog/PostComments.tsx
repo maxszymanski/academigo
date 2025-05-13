@@ -19,7 +19,7 @@ function PostComments({
 
 	return (
 		<div>
-			<h2 className="text-4xl pb-10 text-dark2/85 font-bold ">
+			<h2 className="text-4xl pb-10 text-dark2/85 font-bold xl:pb-14">
 				{totalCount > 0 ? `${totalCount} ${format}` : 'Komentarze'}
 			</h2>
 			{comments.length > 0 && totalCount > 0 ? (
@@ -29,7 +29,7 @@ function PostComments({
 					))}
 				</div>
 			) : (
-				<p className="text-dark2/80 mb-2">Ten post nie ma jeszcze komentarzy.</p>
+				<p className="text-dark2/80 mb-20">Ten post nie ma jeszcze komentarzy.</p>
 			)}
 		</div>
 	)

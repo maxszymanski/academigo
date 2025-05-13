@@ -69,6 +69,7 @@ export type FullCourseDataType = AddCourseType & {
 export interface PostProps {
 	title: string
 	created_at: string
+	updated_at?: string
 	short_description: string
 	slug: string
 	id?: string

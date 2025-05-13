@@ -7,7 +7,7 @@ function CommentCard({ comment, userId }: { comment: CommentsType; userId: strin
 	const commentAdded = formattedDateWithHour(comment.created_at)
 	const commentLastEdit = formattedDateWithHour(comment.updated_at)
 
-	const itsUserComment = userId === comment.user_id
+	const itsUserComment = userId && userId === comment.user_id
 
 	return (
 		<div className="flex flex-col sm:flex-row gap-3 sm:gap-7 py-7 sm:py-10 md:px-10 md:gap-12 px-4 xl:py-11">

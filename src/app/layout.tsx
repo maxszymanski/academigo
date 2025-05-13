@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
-import Navigation from './_components/_ui/Navigation'
-import { getCurrentUser } from './_actions/auth'
 import { Toaster } from 'react-hot-toast'
 import '@smastrom/react-rating/style.css'
+import NavigationBox from './_components/_ui/NavigationBox'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -24,12 +23,6 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	const user = await getCurrentUser()
-
-	const isUser = !!user?.id
-	const userAvatar = user?.avatar
-	const userId = user?.id
-
 	return (
 		<html lang="pl" className="overflow-x-hidden scrollbar-thin scrollbar-track-primary scrollbar-thumb-primary2">
 			<body className={`${poppins.className} relative h-full min-h-dvh lg:min-h-screen bg-white`}>
@@ -68,7 +61,9 @@ export default async function RootLayout({
 							},
 						}}
 					/>
-					<Navigation isUser={isUser} userAvatar={userAvatar} userId={userId} />
+
+					<NavigationBox />
+
 					{children}
 				</>
 			</body>

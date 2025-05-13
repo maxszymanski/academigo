@@ -39,6 +39,8 @@ function EditCommentModal({
 		}
 	}, [openModal])
 
+	if (openModal != `edit-${commentId}`) return null
+
 	const onSubmit: SubmitHandler<CommentType> = async data => {
 		const result = await updatePostComment(postSlug, data.comment, commentId)
 		if (result?.error) {
@@ -48,8 +50,6 @@ function EditCommentModal({
 			closeModal()
 		}
 	}
-
-	if (openModal != 'edit-comment') return null
 
 	return (
 		<>
@@ -78,7 +78,7 @@ function EditCommentModal({
 							<Button
 								variant="submit"
 								id="delete-comment"
-								restClass=" w-[177px] !text-sm"
+								restClass=" w-[177px] !text-sm !py-2.5"
 								disabled={isSubmitting}
 								type="submit">
 								Edytuj
@@ -91,7 +91,7 @@ function EditCommentModal({
 									closeModal()
 								}}
 								type="button"
-								restClass=" min-w-[177px] !text-sm">
+								restClass=" min-w-[177px] !text-sm !py-2.5">
 								Anuluj
 							</Button>
 						</div>
