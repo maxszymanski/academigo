@@ -173,7 +173,7 @@ export const getPopularCourses = cache(async () => {
 	const { data, error } = await supabase
 		.from('full_course_data')
 		.select('*')
-		.order('average_rating', { ascending: true })
+		.order('views_count', { ascending: false })
 		.limit(12)
 
 	if (error) {

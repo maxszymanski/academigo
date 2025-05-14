@@ -76,7 +76,7 @@ function AvatarForm({ user }: { user: CurrentUserType }) {
 			return
 		}
 
-		if (image && isValidType && isValidSize) {
+		if (image && isValidType) {
 			clearErrors('avatar')
 			data.avatar = image
 		}
