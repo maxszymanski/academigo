@@ -5,6 +5,12 @@ import RankFilter from '../_components/_profile/RankFilter'
 
 import RankList from '../_components/_profile/RankList'
 import LoadMoreUsers from '../_components/_profile/LoadMoreUsers'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Ranking',
+	description: 'ranking użytkowników portalu',
+}
 
 async function page({ searchParams }: { searchParams: Promise<{ limit?: string; filter: string }> }) {
 	const { limit = '20', filter = 'kursy' } = await searchParams
