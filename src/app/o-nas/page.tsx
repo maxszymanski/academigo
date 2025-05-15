@@ -10,7 +10,7 @@ function page() {
 		<>
 			<AboutHeader />
 			<main className="flex-1 flex items-center justify-center ">
-				<div className="w-full  pt-6 md:pt-0 lg:pt-10  text-dark2">
+				<div className="w-full  pt-6 md:pt-0 lg:pt-10  text-stone400 overflow-hidden">
 					<AboutSection />
 					<NumberSection />
 					<WhyUsSection />
