@@ -42,7 +42,7 @@ function Input({
 				type={type}
 				placeholder={placeholder}
 				className={`${restClass} w-full border-b border-white/40 bg-transparent py-2.5 text-sm text-white/80 outline-none transition-colors duration-300 placeholder:text-white/50 hover:border-white focus:border-white ${
-					error ? 'text-red-500' : ''
+					error ? 'text-red-500 placeholder:text-red-400' : ''
 				}`}
 				name={name}
 				{...formRegister}

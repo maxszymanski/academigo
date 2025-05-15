@@ -7,7 +7,7 @@ function UserHeader({ user }: { user: CurrentUserType }) {
 	const isGender = user.gender === 'Kobieta' || user.gender === 'Mężczyzna'
 
 	return (
-		<header className="bg-slate50 pt-20  pb-8 md:pt-8  xl:py-12 2xl:py-14">
+		<header className="bg-slate50 lg:bg-white pt-20  pb-8 md:pt-8  xl:py-12 2xl:py-14">
 			<div className="flex flex-col  md:flex-row md:gap-16   lg:container xl:max-w-6xl mx-auto  xl:gap-40 px-4 xl:px-8 md:items-center xl:justify-center ">
 				<div className="md:flex md:flex-col md:items-center md:max-w-80 pb-1 w-full flex-shrink-0 mb:pb-0">
 					<div className="flex  gap-4 md:gap-5  items-center  md:flex-col  ">
@@ -17,6 +17,7 @@ function UserHeader({ user }: { user: CurrentUserType }) {
 							avatar={user?.avatar}
 							target="_blanc"
 						/>
+
 						<div className="flex flex-col md:hidden">
 							<h1 className="text-primary font-medium text-xl md:text-2xl xl:text-4xl">
 								{user.username}

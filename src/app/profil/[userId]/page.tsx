@@ -57,7 +57,7 @@ async function page({ params }: { params: Params }) {
 							)}
 						</div>
 					</div>
-					<div className="py-2 mt-6 xl:mt-8 bg-slate50 px-4 xl:py-4">
+					<div className="py-2 mt-6 xl:mt-8 bg-slate50 lg:bg-white px-4 xl:p">
 						<Feedback
 							btnText="Zgłoś użytkownika"
 							title="Ten użytkownik łamie zasady lub publikuje nieodpowiednie treści? Zgłoś to."

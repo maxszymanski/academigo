@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { signup } from '../../_actions/auth'
 import Spinner from '../_ui/Spinner'
 import { SignUpType, signUpSchema } from '@/app/_lib/validators'
+import toast from 'react-hot-toast'
 
 function RegistrationForm() {
 	const {
@@ -29,6 +30,9 @@ function RegistrationForm() {
 
 		if (result?.error) {
 			setError(result.error)
+			reset()
+		} else {
+			toast.success('Potwierdzenie rejestracji wysłane! Sprawdź e-mail (także folder SPAM)')
 			reset()
 		}
 	}

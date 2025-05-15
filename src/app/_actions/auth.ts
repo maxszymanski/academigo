@@ -95,9 +95,6 @@ export async function signup(formData: FormData) {
 			return { error: 'Wystąpił problem podczas rejestracji, proszę spróbować ponownie.' }
 		}
 	}
-
-	revalidatePath('/panel/rejestracja')
-	redirect('/')
 }
 export async function logout() {
 	const supabase = await createClient()
