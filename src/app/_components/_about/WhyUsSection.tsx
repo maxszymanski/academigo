@@ -11,16 +11,16 @@ function WhyUsSection() {
 				</h2>
 
 				<div className="pt-8 md:pt-12 lg:pt-16 xl:pt-20 flex flex-col  gap-10 lg:gap-16 xl:gap-20 ">
-					<div className="w-full max-w-96 mx-auto md:max-w-full ">
-						<ul className="  text-center font-semibold flex flex-col px-4 text-primary gap-10 lg:flex-row items-center  lg:justify-between lg:text-xl xl:text-2xl lg:py-10 py-6">
-							<li className="flex flex-col gap-3  md:gap-4 xl:gap-5">
+					<div className="w-full max-w-md mx-auto md:max-w-full ">
+						<ul className="  text-center font-semibold flex flex-col px-4 text-primary gap-10 2xl:gap-4 lg:flex-row items-center lg:items-stretch  lg:justify-between lg:text-xl xl:text-2xl lg:py-10 py-6">
+							<li className="flex flex-col gap-3  md:gap-4 xl:gap-5 border border-stone50 shadow-md shadow-slate50 rounded-xl px-4 sm:px-10 lg:px-4 py-6 2xl:px-8 bg-transparent hover:bg-slate50 transition-colors duration-300">
 								<h3 className="text-lg xl:text-2xl 2xl:text-3xl">Wszystko w jednym miejscu</h3>
 								<p className="text-stone400 text-sm max-w-96 leading-[170%] xl:text-base xl:font-medium xl:leading-[170%]">
 									Nie przeskakuj między 10 platformami <br /> Sprawdź, który kurs warto wybrać <br />
 									Bezpośrednio na Academigo.
 								</p>
 							</li>
-							<li className="flex flex-col gap-3 md:gap-4 xl:gap-5">
+							<li className="flex flex-col gap-3 md:gap-4 xl:gap-5 border border-stone50 shadow-md shadow-slate50 rounded-xl px-4 sm:px-10 lg:px-4 py-6 2xl:px-8 bg-transparent hover:bg-slate50 transition-colors duration-300">
 								<h3 className="text-lg xl:text-2xl 2xl:text-3xl">Buduj społeczność</h3>
 								<p className="text-stone400 text-sm max-w-96 leading-[170%] xl:text-base xl:font-medium xl:leading-[170%]">
 									Zobacz, co naprawdę sądzą inni <br />
@@ -29,7 +29,7 @@ function WhyUsSection() {
 									Prosto i uczciwie.
 								</p>
 							</li>
-							<li className="flex flex-col gap-3 md:gap-4 xl:gap-5">
+							<li className="flex flex-col gap-3 md:gap-4 xl:gap-5 border border-stone50 shadow-md shadow-slate50 rounded-xl px-4 sm:px-10 lg:px-4 py-6 2xl:px-8 bg-transparent hover:bg-slate50 transition-colors duration-300">
 								<h3 className="text-lg xl:text-2xl 2xl:text-3xl">Kursy dopasowane do Ciebie</h3>
 								<p className="text-stone400 text-sm max-w-96 leading-[170%] xl:text-base xl:font-medium xl:leading-[170%]">
 									Oceniaj, komentuj, filtruj i porównuj <br /> Znajdź kurs idealny do Twojego poziomu{' '}
@@ -67,7 +67,7 @@ function WhyUsSection() {
 								height={500}
 								width={500}
 								alt="studenci"
-								className="self-center "
+								className="self-center"
 								priority
 								quality={70}
 							/>
