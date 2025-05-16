@@ -114,7 +114,7 @@ function CourseCardPanel({
 					<div
 						className={`z-10 h-[200px] w-[330px] relative ${isList ? 'rounded-2xl' : 'rounded-t-2xl border-b border-slate-200'}`}>
 						<Image
-							src={course.picture || '/course.jpg'}
+							src={course.picture || DefaultImage}
 							fill
 							alt="course image"
 							className={` object-cover ${isList ? 'rounded-2xl' : 'rounded-t-2xl'}`}
