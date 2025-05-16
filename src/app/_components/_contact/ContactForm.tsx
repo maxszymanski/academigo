@@ -13,6 +13,7 @@ function ContactForm() {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<ContactType>({ resolver: zodResolver(contactSchema) })
 	const [isPending, startTransition] = useTransition()
@@ -28,6 +29,7 @@ function ContactForm() {
 
 			if (response.status === 'success') {
 				toast.success('Twoja wiadomość została wysłana')
+				reset()
 			} else {
 				toast.error('Twoja wiadomość nie została wysłana')
 			}
