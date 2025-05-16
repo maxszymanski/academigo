@@ -21,7 +21,7 @@ function AboutHeader() {
 						alt="Uśmiechnięci studenci"
 						priority
 						quality={80}
-						className="hidden h-auto max-w-80 md:block  lg:max-w-md xl:max-w-lg  w-auto"
+						className="w-full h-auto max-w-80 md:block  lg:max-w-md xl:max-w-lg  md:w-auto"
 					/>
 				</div>
 			</div>
