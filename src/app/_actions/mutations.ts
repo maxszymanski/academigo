@@ -53,6 +53,9 @@ export async function createCourse(data: FormData) {
 	if (error) {
 		return { error: 'Niepoprawne dane w formularzu.' }
 	}
+
+	revalidatePath('/')
+	revalidatePath('/konto/kursy')
 	revalidatePath('/konto/moje-kursy/dodane')
 	revalidatePath(`/profil/${authData.user.id}`)
 }
@@ -110,7 +113,8 @@ export async function updateCourse(data: FormData, courseID: string) {
 		console.error(error.message)
 		return { error: 'Wystąpił problem podczas edytowania kursu, proszę spróbować ponownie później.' }
 	}
-
+	revalidatePath('/')
+	revalidatePath('/konto/kursy')
 	revalidatePath(`/konto/kursy/${courseID}`)
 	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
 	revalidatePath(`/konto/moje-kursy/dodane`)
@@ -133,6 +137,8 @@ export async function deleteCourse(courseID: string) {
 			return { error: 'Wystąpił problem przy usuwaniu kursu' }
 		}
 	}
+	revalidatePath('/')
+	revalidatePath('/konto/kursy')
 	revalidatePath(`/konto/kursy/${courseID}`)
 	revalidatePath(`/konto/edytuj-kurs/${courseID}`)
 	revalidatePath(`/konto/moje-kursy`)
@@ -392,6 +398,7 @@ export async function saveCourse(courseId: string) {
 	revalidatePath(`/konto/`)
 	revalidatePath(`/konto/moje-kursy/zapisane`)
 }
+
 export async function unSaveCourse(courseId: string) {
 	const supabase = await createClient()
 
@@ -462,6 +469,7 @@ export async function sendFeedback(message: string, courseID: string | null, use
 		return { error: 'Wystąpił problem podczas wysyłania zgłoszenia, proszę spróbować ponownie później.' }
 	}
 }
+
 export async function reportUser(message: string, reportedUser: string | null) {
 	const supabase = await createClient()
 
