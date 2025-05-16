@@ -10,7 +10,7 @@ import { PiUserSound, PiCalendarPlus } from 'react-icons/pi'
 import { TbAntennaBars5 } from 'react-icons/tb'
 import Ratings from './Ratings'
 import { FaStar } from 'react-icons/fa'
-
+import DefaultImage from '@/assets/default_course.webp'
 import { FullCourseDataType } from '@/app/_types/types'
 import { formattedDate } from '@/app/utils/helpers'
 
@@ -33,7 +33,7 @@ function SingleDetails({
 		<div className="lg:sticky lg:right-5 lg:top-8 lg:-mt-32  flex-shrink-0 flex-grow-0 rounded-lg lg:bg-white w-full max-w-[360px]  text-dark2 lg:shadow-md shadow-stone-200   flex flex-col  overflow-hidden z-20  pb-12 lg:pb-0">
 			<div className=" z-30 h-[220px] hidden lg:block   w-full relative border-b border-slate-200 ">
 				<Image
-					src={course.picture || '/course.jpg'}
+					src={course.picture || DefaultImage}
 					fill
 					alt="obraz kursu"
 					className={` object-cover `}

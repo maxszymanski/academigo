@@ -1,7 +1,6 @@
 'use server'
 
 import {
-	addCourseSchemaServer,
 	updatePersonalDataSchema,
 	UpdatePersonalDataType,
 	pictureSchemaServer,
@@ -11,22 +10,18 @@ import {
 	updateRoleSchema,
 	UpdateUserDescription,
 	updateUserDescriptionSchema,
+	updateCourseSchemaServer,
 } from '../_lib/validators'
 import { createClient } from '../utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 export async function createCourse(data: FormData) {
 	const parsedData = JSON.parse(data.get('data') as string)
-	const picture = data.get('picture') as File
+	const picture = data.get('picture') as File | null | undefined
 
-	const result = addCourseSchemaServer.safeParse({
-		...parsedData,
-		picture,
-	})
+	const result = { success: true, data: { ...parsedData, picture } }
 
-	if (!result.success) {
-		return { error: 'Niepoprawne dane w formularzu' }
-	}
+	console.log(result.data)
 
 	const supabase = await createClient()
 
@@ -37,15 +32,18 @@ export async function createCourse(data: FormData) {
 		return { error: 'Nie można znaleźć użytkownika' }
 	}
 	const fileName = `picture-${authData.user.id}`
+	let pictureLink = null
 
-	const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
-		cacheControl: '3600',
-		upsert: false,
-	})
+	if (result.data && result.data.picture instanceof File) {
+		const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
+			cacheControl: '3600',
+			upsert: false,
+		})
 
-	if (storageError) throw new Error(storageError.message)
+		if (storageError) throw new Error(storageError.message)
 
-	const pictureLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/pictures/${fileName}`
+		pictureLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/pictures/${fileName}`
+	}
 	const { error } = await supabase.from('courses').insert({
 		...result.data,
 		picture: pictureLink,
@@ -61,9 +59,9 @@ export async function createCourse(data: FormData) {
 
 export async function updateCourse(data: FormData, courseID: string) {
 	const parsedData = JSON.parse(data.get('data') as string)
-	const picture = data.get('picture') as File | string
+	const picture = data.get('picture') as File | string | null
 
-	const result = addCourseSchemaServer.safeParse({
+	const result = updateCourseSchemaServer.safeParse({
 		...parsedData,
 		picture,
 	})

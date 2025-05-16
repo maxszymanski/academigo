@@ -270,7 +270,7 @@ function EditCourseForm({
 						formRegister={register('duration')}
 						error={errors?.duration || null}
 						message={errors?.duration?.message || null}
-						placeholder="Czas trwania kursu np. 1h 10min"
+						placeholder="Czas trwania kursu np. 2,5 godziny"
 						min={1}
 						required
 						defaultValue={courseData.duration}

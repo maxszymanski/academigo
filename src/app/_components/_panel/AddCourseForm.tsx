@@ -88,40 +88,41 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 	}, [isFree, setValue, clearErrors])
 
 	const onSubmit: SubmitHandler<AddCourseType> = async data => {
-		if (!image) {
-			setError('picture', {
-				type: 'manual',
-				message: 'Plik jest wymagany',
-			})
-			toast.error('Plik jest wymagany')
-			return
-		}
+		// if (!image) {
+		// 	setError('picture', {
+		// 		type: 'manual',
+		// 		message: 'Plik jest wymagany',
+		// 	})
+		// 	toast.error('Plik jest wymagany')
+		// 	return
+		// }
+		if (image) {
+			const isValidType = typeof image != 'string' && ACCEPTED_IMAGE_TYPES.includes(image.type)
 
-		const isValidType = typeof image != 'string' && ACCEPTED_IMAGE_TYPES.includes(image.type)
+			const isValidSize = typeof image != 'string' && image.size < MAX_FILE_SIZE
 
-		const isValidSize = typeof image != 'string' && image.size < MAX_FILE_SIZE
+			if (!isValidType) {
+				setError('picture', {
+					type: 'manual',
+					message: 'Nieprawidłowy format pliku',
+				})
+				toast.error('Nieprawidłowy format pliku')
+				return
+			}
 
-		if (!isValidType) {
-			setError('picture', {
-				type: 'manual',
-				message: 'Nieprawidłowy format pliku',
-			})
-			toast.error('Nieprawidłowy format pliku')
-			return
-		}
+			if (!isValidSize) {
+				setError('picture', {
+					type: 'manual',
+					message: 'Plik musi być mniejszy niż 2MB',
+				})
+				toast.error('Plik musi być mniejszy niż 2MB')
+				return
+			}
 
-		if (!isValidSize) {
-			setError('picture', {
-				type: 'manual',
-				message: 'Plik musi być mniejszy niż 2MB',
-			})
-			toast.error('Plik musi być mniejszy niż 2MB')
-			return
-		}
-
-		if (image && isValidType && isValidSize) {
-			clearErrors('picture')
-			data.picture = image
+			if (image && isValidType && isValidSize) {
+				clearErrors('picture')
+				data.picture = image
+			}
 		}
 
 		if (content.length < 50) {
@@ -139,8 +140,12 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 
 		const formData = new FormData()
 
-		formData.append('data', JSON.stringify(restData))
-		formData.append('picture', image)
+		if (image) {
+			formData.append('data', JSON.stringify(restData))
+			formData.append('picture', image)
+		} else {
+			formData.append('data', JSON.stringify(data))
+		}
 
 		const result = await createCourse(formData)
 
@@ -242,7 +247,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 						formRegister={register('duration')}
 						error={errors?.duration || null}
 						message={errors?.duration?.message || null}
-						placeholder="Czas trwania kursu np. 1h 10min"
+						placeholder="Czas trwania kursu np. 2,5 godziny"
 						min={1}
 						required
 					/>

@@ -6,6 +6,7 @@ import { FaHeart } from 'react-icons/fa6'
 import { blurImage } from '@/app/utils/blurImage'
 import { FullCourseDataType } from '@/app/_types/types'
 import Button from '../_ui/Button'
+import DefaultImage from '@/assets/default_course.webp'
 
 function CourseCardPanel({
 	i = 8,
@@ -39,7 +40,7 @@ function CourseCardPanel({
 					<div
 						className={`z-10 h-[200px] w-[330px] relative ${isList ? 'rounded-2xl' : 'rounded-t-2xl border-b border-slate-200'}`}>
 						<Image
-							src={course.picture || '/course.jpg'}
+							src={course.picture || DefaultImage}
 							fill
 							alt="course image"
 							className={` object-cover rounded-t-2xl`}

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { blurImage } from '@/app/utils/blurImage'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { FullCourseDataType } from '@/app/_types/types'
+import DefaultImage from '@/assets/default_course.webp'
 
 function SingleHeader({ course }: { course: FullCourseDataType }) {
 	return (
@@ -34,7 +35,7 @@ function SingleHeader({ course }: { course: FullCourseDataType }) {
 				</div>
 				<div className="z-10 h-[220px] sm:h-[300px] w-full relative  lg:hidden max-w-[400px] sm:max-w-[600px] mt-2">
 					<Image
-						src={course.picture || '/course.jpg'}
+						src={course.picture || DefaultImage}
 						fill
 						alt="course image"
 						className={` object-cover sm:rounded-xl`}
