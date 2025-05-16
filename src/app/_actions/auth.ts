@@ -54,7 +54,7 @@ export async function loginWithGoogle() {
 	const { data } = await supabase.auth.signInWithOAuth({
 		provider: 'google',
 		options: {
-			redirectTo: 'http://localhost:3000/auth/callback',
+			redirectTo: 'https://academigo.pl/auth/callback',
 			queryParams: {
 				access_type: 'offline',
 				prompt: 'consent',
