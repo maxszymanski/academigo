@@ -20,7 +20,7 @@ function JoinUsSection() {
 					która ułatwi tysiącom osób dostęp do wiedzy i rozwoju.
 				</p>
 				<Button
-					href="/wspołpraca"
+					href="/wspolpraca"
 					restClass="min-w-[160px] py-4 px-10 text-lg xl:text-lg xl:py-5 xl:px-12 md:text-lg lg:text-lg xl:min-w-[200px]">
 					Poznajmy się!
 				</Button>

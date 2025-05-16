@@ -11,6 +11,9 @@ const urlValidator = z
 		message: 'Link do strony musi być poprawnym adresem URL',
 	})
 
+export const resetSchema = z.object({
+	email: z.string().nonempty('Email jest wymagany').email('Nieprawidłowy email'),
+})
 export const loginSchema = z.object({
 	email: z.string().nonempty('Email jest wymagany').email('Nieprawidłowy email'),
 	password: z.string().nonempty('Hasło jest wymagane').min(8, 'Hasło musi mieć co najmniej 8 znaków'),
@@ -195,6 +198,7 @@ export const contactSchema = z.object({
 
 export type ChangePasswordType = z.infer<typeof changePasswordSchema>
 export type LoginType = z.infer<typeof loginSchema>
+export type ResetType = z.infer<typeof resetSchema>
 export type AddCourseType = z.infer<typeof addCourseSchema>
 export type SignUpType = z.infer<typeof signUpSchema>
 export type UpdatePersonalDataType = z.infer<typeof updatePersonalDataSchema>

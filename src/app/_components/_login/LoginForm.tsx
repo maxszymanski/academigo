@@ -60,7 +60,7 @@ function LoginForm() {
 						disabled={isSubmitting}
 					/>
 					{error && <span className="text-xs font-light text-red-500 mt-2 pl-2">{error}</span>}
-					<Button href="/resetowanie-hasla" restClass="text-xs mt-2 px-2 py-2" variant="transparent">
+					<Button href="/panel/resetowanie-hasla" restClass="text-xs mt-2 px-2 py-2" variant="transparent">
 						Zapomniałeś hasła?
 					</Button>
 				</div>

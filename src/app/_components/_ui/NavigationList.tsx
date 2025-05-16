@@ -39,11 +39,14 @@ function NavigationList({
 				<NavigationLink href="/o-nas" restClass="text-xl">
 					O nas
 				</NavigationLink>
+				<NavigationLink href="/wspolpraca" restClass="text-xl md:hidden">
+					Współpraca
+				</NavigationLink>
 				<NavigationLink href="/kontakt" restClass="text-xl">
 					Kontakt
 				</NavigationLink>
 			</ul>
-			<div className="flex flex-col gap-5 md:flex-row lg:gap-4 xl:gap-6 items-center">
+			<div className="md:flex flex-col gap-5 md:flex-row lg:gap-4 xl:gap-6 items-center hidden ">
 				<Button href="/wspolpraca" restClass=" xl:min-w-[160px] ">
 					Zostań współtwórcą
 				</Button>

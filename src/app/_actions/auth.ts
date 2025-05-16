@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '../utils/supabase/server'
-import { changePasswordSchema, ChangePasswordType, loginSchema, signUpSchema } from '../_lib/validators'
+import { changePasswordSchema, ChangePasswordType, loginSchema, resetSchema, signUpSchema } from '../_lib/validators'
 import toast from 'react-hot-toast'
 
 export async function login(formData: FormData) {
@@ -30,6 +30,23 @@ export async function login(formData: FormData) {
 
 	revalidatePath('/konto')
 	redirect('/konto')
+}
+export async function resetPassword(formData: FormData) {
+	const result = resetSchema.safeParse({
+		email: formData.get('email') as string,
+	})
+
+	if (!result.success) {
+		return { error: 'Niepoprawny adres email' }
+	}
+
+	const supabase = await createClient()
+
+	const { error } = await supabase.auth.resetPasswordForEmail(result.data.email.toLocaleLowerCase())
+
+	if (error) {
+		return { error: 'Niepoprawny adres email' }
+	}
 }
 export async function loginWithGoogle() {
 	const supabase = await createClient()

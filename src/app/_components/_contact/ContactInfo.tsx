@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FaPhoneAlt } from 'react-icons/fa'
+// import { FaPhoneAlt } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 
 async function ContactInfo() {
@@ -11,7 +11,7 @@ async function ContactInfo() {
 				</h1>
 				<p className="mb-1 leading-[170%] lg:mb-4">Chętnie odpowiemy na Twoje pytania</p>
 				<p className="leading-[170%]">
-					Wypełnij formularz kontaktowy, zadzwoń lub napisz do nas – jesteśmy do Twojej dyspozycji!
+					Wypełnij formularz kontaktowy lub napisz do nas – jesteśmy do Twojej dyspozycji!
 				</p>
 			</div>
 			<div className="flex flex-col items-center gap-2.5 pt-6">
@@ -20,11 +20,11 @@ async function ContactInfo() {
 					href={`mailto:kontakt@academigo.pl`}>
 					<MdEmail className="text-primary3 size-5" /> kontakt@academigo.pl
 				</Link>
-				<Link
+				{/* <Link
 					className="text-dark2/90 hover:text-primary flex items-center gap-2 p-1.5 transition-colors"
 					href={`tel:+48999888777`}>
 					<FaPhoneAlt className="text-primary3 size-5" /> +48999888777
-				</Link>
+				</Link> */}
 			</div>
 		</div>
 	)
