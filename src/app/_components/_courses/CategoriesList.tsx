@@ -30,9 +30,14 @@ function CategoriesList({ categories }: { categories: Category[] }) {
 			params.delete('search')
 			if (currentCategory === slug) {
 				params.delete('category')
+				params.set('page', '1')
+				router.push(`/kursy?page=1`, {
+					scroll: false,
+				})
 			} else {
 				params.set('category', slug)
-				router.push(`/kursy?category=${slug}`, { scroll: false })
+				params.set('page', '1')
+				router.push(`/kursy?category=${slug}&page=1`, { scroll: false })
 			}
 		})
 		setShouldClose(true)

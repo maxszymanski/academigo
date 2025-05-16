@@ -32,9 +32,18 @@ function SocialForm({ user }: { user: CurrentUserType }) {
 	}
 
 	return (
-		<SettingsBox title="Social Media">
+		<SettingsBox title="Kontakt">
 			{isSubmitting && <LoadingPortal information="Aktualizowanie danych" />}
 			<form className="flex flex-col gap-5 w-full " onSubmit={handleSubmit(onSubmit)}>
+				<PanelInput
+					label="Email kontaktowy"
+					name="contact_email"
+					placeholder="Adres email"
+					defaultValue={user?.contact_email || ''}
+					formRegister={register('contact_email')}
+					error={errors?.contact_email || null}
+					message={errors?.contact_email?.message || null}
+				/>
 				<PanelInput
 					label="Strona internetowa"
 					name="page"

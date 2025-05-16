@@ -23,6 +23,7 @@ function SpecializationsList({ specializations }: { specializations: Specializat
 				params.set('subcategory', subCategorySlug)
 				params.set('specialization', slug)
 			}
+			params.set('page', '1')
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})

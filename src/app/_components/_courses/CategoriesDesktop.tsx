@@ -23,6 +23,7 @@ function CategoriesDesktop({ categories }: CategoriesType) {
 			params.delete('search')
 			params.delete('subcategory')
 			params.delete('specialization')
+			params.set('page', '1')
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
 	}

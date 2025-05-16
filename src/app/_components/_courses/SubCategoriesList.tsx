@@ -24,6 +24,7 @@ function SubCategoriesList({ subCategories }: { subCategories: SubCat[] }) {
 				params.set('subcategory', slug)
 				params.delete('specialization')
 			}
+			params.set('page', '1')
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})

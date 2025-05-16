@@ -42,6 +42,7 @@ export interface CurrentUserType {
 	points: number
 	long_description: string | null
 	short_description: string | null
+	contact_email: string | null
 }
 export interface RankType {
 	id: string

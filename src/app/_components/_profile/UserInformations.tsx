@@ -9,7 +9,6 @@ import { FaGlobe } from 'react-icons/fa'
 import { TbSocial } from 'react-icons/tb'
 
 function UserInformations({ user, isGender }: { user: CurrentUserType; isGender?: boolean }) {
-	// const userCreated = format(new Date(user.created_at), 'd MMMM yyyy', { locale: pl })
 	function cleanUrl(url: string): string {
 		return url
 			.toLocaleLowerCase()
@@ -60,13 +59,16 @@ function UserInformations({ user, isGender }: { user: CurrentUserType; isGender?
 						<MdWork className="size-4" /> <span>{user.profession} </span>
 					</p>
 				)}
-				<Link
-					className="flex items-center gap-2   "
-					href={`mailto:${user.email}` || '/'}
-					target="_blanc"
-					rel="noreferrer noopener">
-					<MdMail className="size-4" /> <span className="font-medium text-dark2">{user.email} </span>
-				</Link>
+				{user.contact_email && (
+					<Link
+						className="flex items-center gap-2   "
+						href={`mailto:${user.contact_email}` || '/'}
+						target="_blanc"
+						rel="noreferrer noopener">
+						<MdMail className="size-4" />{' '}
+						<span className="font-medium text-dark2">{user.contact_email.toLowerCase()} </span>
+					</Link>
+				)}
 				{user.page && (
 					<Link
 						className="flex items-center gap-2   "

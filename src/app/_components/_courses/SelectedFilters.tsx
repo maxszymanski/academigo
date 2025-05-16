@@ -33,7 +33,7 @@ function SelectedFilters() {
 
 			params.delete('search')
 			params.delete(filter)
-
+			params.set('page', '1')
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
 	}
@@ -45,6 +45,7 @@ function SelectedFilters() {
 			params.delete('category')
 			params.delete('subcategory')
 			params.delete('specialization')
+			params.set('page', '1')
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
@@ -56,6 +57,7 @@ function SelectedFilters() {
 			params.delete('search')
 			params.delete('subcategory')
 			params.delete('specialization')
+			params.set('page', '1')
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})
@@ -65,6 +67,7 @@ function SelectedFilters() {
 			const params = new URLSearchParams(searchParams.toString())
 
 			params.delete('search')
+			params.set('page', '1')
 
 			router.push(`/kursy?${params.toString()}`, { scroll: false })
 		})

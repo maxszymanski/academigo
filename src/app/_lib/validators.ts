@@ -171,6 +171,12 @@ export const updatePersonalDataSchema = z.object({
 	age: z.string().nullable(),
 })
 export const updateSocialSchema = z.object({
+	contact_email: z
+		.string()
+		.email('Nieprawidłowy adres email')
+		.optional()
+		.or(z.literal('').transform(() => null))
+		.or(z.null()),
 	page: urlValidator,
 	linkedin: urlValidator,
 	github: urlValidator,
