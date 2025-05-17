@@ -21,7 +21,7 @@ function UserInformations({ user, isGender }: { user: CurrentUserType; isGender?
 			<div className="hidden flex-col md:flex mb-6">
 				<h1 className="text-primary font-medium md:text-2xl xl:text-4xl">{user.username}</h1>
 				<p className="text-dark2/75 md:text-base  xl:mt-0.5">
-					{isGender ? user.gender : ''} {user?.age && ', '} {user?.age && `${user.age} lat`}
+					{isGender ? user.gender : ''} {user?.gender && user.age && ', '} {user?.age && `${user.age} lat`}
 				</p>
 			</div>
 			{user.short_description && (
