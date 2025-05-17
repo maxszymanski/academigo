@@ -164,7 +164,7 @@ function EditCourseForm({
 		formData.append('picture', image)
 		formData.append('data', JSON.stringify(restData))
 
-		const result = await updateCourse(formData, courseData.id)
+		const result = await updateCourse(formData, courseData.id, courseData.title)
 
 		if (result?.error) {
 			toast.error(result.error)

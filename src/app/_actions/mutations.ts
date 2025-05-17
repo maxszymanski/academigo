@@ -31,7 +31,7 @@ export async function createCourse(data: FormData) {
 	if (!authData.user) {
 		return { error: 'Nie można znaleźć użytkownika' }
 	}
-	const fileName = `picture-${authData.user.id}`
+	const fileName = `picture-${result.data.title}`
 	let pictureLink = null
 
 	if (result.data && result.data.picture instanceof File) {
@@ -60,7 +60,7 @@ export async function createCourse(data: FormData) {
 	revalidatePath(`/profil/${authData.user.id}`)
 }
 
-export async function updateCourse(data: FormData, courseID: string) {
+export async function updateCourse(data: FormData, courseID: string, oldTitle: string) {
 	const parsedData = JSON.parse(data.get('data') as string)
 	const picture = data.get('picture') as File | string | null
 
@@ -87,7 +87,7 @@ export async function updateCourse(data: FormData, courseID: string) {
 	if (typeof result.data.picture === 'string') {
 		pictureLink = result.data.picture
 	} else {
-		const fileName = `picture-${authData.user.id}`
+		const fileName = `picture-${oldTitle}`
 		const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
 			cacheControl: '3600',
 			upsert: true,
