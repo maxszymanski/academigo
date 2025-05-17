@@ -1,4 +1,3 @@
-import Footer from '../_components/_footer/Footer'
 import CoOp from '../_components/_work/CoOp'
 import Job from '../_components/_work/Job'
 import Salary from '../_components/_work/Salary'
@@ -18,7 +17,6 @@ function page() {
 					<WorkWithUs />
 				</div>
 			</main>
-			<Footer />
 		</>
 	)
 }
