@@ -61,52 +61,52 @@ function UserInformations({ user, isGender }: { user: CurrentUserType; isGender?
 				)}
 				{user.contact_email && (
 					<Link
-						className="flex items-center gap-2   "
+						className="flex items-center gap-2 hover:text-primary transition-colors duration-300 text-dark2"
 						href={`mailto:${user.contact_email}` || '/'}
 						target="_blanc"
 						rel="noreferrer noopener">
-						<MdMail className="size-4" />{' '}
-						<span className="font-medium text-dark2">{user.contact_email.toLowerCase()} </span>
+						<MdMail className="size-4 text-dark2/75" />{' '}
+						<span className="font-medium ">{user.contact_email.toLowerCase()} </span>
 					</Link>
 				)}
 				{user.page && (
 					<Link
-						className="flex items-center gap-2   "
+						className="flex items-center gap-2 hover:text-primary transition-colors duration-300  text-dark2 "
 						href={user.page || '/'}
 						target="_blanc"
 						rel="noreferrer noopener">
-						<FaGlobe className="size-4" />{' '}
-						<span className="font-medium text-dark2">{cleanUrl(user.page)} </span>
+						<FaGlobe className="size-4 text-dark2/75" />{' '}
+						<span className="font-medium ">{cleanUrl(user.page)} </span>
 					</Link>
 				)}
 				{user.linkedin && (
 					<Link
-						className="flex items-center gap-2   "
+						className="flex items-center gap-2 hover:text-primary transition-colors duration-300   text-dark2"
 						href={user.linkedin || '/'}
 						target="_blanc"
 						rel="noreferrer noopener">
-						<FaLinkedin className="size-4" />{' '}
-						<span className="font-medium text-dark2">{cleanUrl(user.linkedin)} </span>
+						<FaLinkedin className="size-4 text-dark2/75" />{' '}
+						<span className="font-medium ">{cleanUrl(user.linkedin)} </span>
 					</Link>
 				)}
 				{user.github && (
 					<Link
-						className="flex items-center gap-2   "
+						className="flex items-center gap-2 hover:text-primary transition-colors duration-300  text-dark2 "
 						href={user.github || '/'}
 						target="_blanc"
 						rel="noreferrer noopener">
-						<FaGithub className="size-4" />{' '}
-						<span className="font-medium text-dark2">{cleanUrl(user.github)} </span>
+						<FaGithub className="size-4 text-dark2/75" />{' '}
+						<span className="font-medium ">{cleanUrl(user.github)} </span>
 					</Link>
 				)}
 				{user.social && (
 					<Link
-						className="flex items-center gap-2   "
+						className="flex items-center gap-2 hover:text-primary transition-colors duration-300  text-dark2 "
 						href={user.social || '/'}
 						target="_blanc"
 						rel="noreferrer noopener">
-						<TbSocial className="size-4" />{' '}
-						<span className="font-medium text-dark2">{cleanUrl(user.social)} </span>
+						<TbSocial className="size-4 text-dark2/75" />{' '}
+						<span className="font-medium ">{cleanUrl(user.social)} </span>
 					</Link>
 				)}
 			</div>

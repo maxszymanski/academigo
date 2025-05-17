@@ -28,6 +28,8 @@ function Ratings({
 	const [rating, setRating] = useState(courseRate || 0)
 	const [count, setCount] = useState(ratedCount || 0)
 
+	const textFormat = count == 1 ? 'ocena' : count == 2 || count == 3 || count == 4 ? 'oceny' : 'ocen'
+
 	const handleRating = async (rate: number) => {
 		if (!userId) {
 			toast.error('Funkcja dostępna tylko dla zalogowanych użytkowników')
@@ -66,7 +68,9 @@ function Ratings({
 					isRequired
 				/>
 
-				<p className="text-base text-dark2 leading-4 mt-1">{count} ocen</p>
+				<p className="text-base text-dark2 leading-4 mt-1">
+					{count} {textFormat}
+				</p>
 			</div>
 		</div>
 	)

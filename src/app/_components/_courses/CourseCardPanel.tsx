@@ -28,6 +28,13 @@ function CourseCardPanel({
 
 	hrefEdit?: string
 }) {
+	const textFormat =
+		course.ratings_count == 1
+			? 'ocena'
+			: course.ratings_count == 2 || course.ratings_count == 3 || course.ratings_count == 4
+				? 'oceny'
+				: 'ocen'
+
 	return (
 		<>
 			{hrefEdit ? (
@@ -70,7 +77,11 @@ function CourseCardPanel({
 								<p>
 									<span>{course.average_rating || 0}</span>{' '}
 									<span>
-										({course.ratings_count > 0 ? `${course.ratings_count} ocen` : 'Brak ocen'})
+										(
+										{course.ratings_count > 0
+											? `${course.ratings_count} ${textFormat}`
+											: 'Brak ocen'}
+										)
 									</span>
 								</p>
 							</div>
@@ -145,7 +156,11 @@ function CourseCardPanel({
 								<p>
 									<span>{course.average_rating || 0}</span>{' '}
 									<span>
-										({course.ratings_count > 0 ? `${course.ratings_count} ocen` : 'Brak ocen'})
+										(
+										{course.ratings_count > 0
+											? `${course.ratings_count} ${textFormat}`
+											: 'Brak ocen'}
+										)
 									</span>
 								</p>
 							</div>
