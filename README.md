@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Academigo
 
-## Getting Started
+Academigo is a web app built as a centralized hub for online courses from across the internet. Think of it like IMDb, but for learning, it doesn't host the content itself, but helps users find, compare, and choose the best courses out there. Each course links directly to the original provider's site.
 
-First, run the development server:
+🧠 The idea is simple: instead of browsing dozens of platforms, users can explore, rate, and bookmark courses in one place. Everyone can contribute, even if they don't own the course, by adding new ones to the database.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Live: [Academigo](https://academigo.pl)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Table of Contents
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   [General Info](#general-information)
+-   [What the app offers:](#what-the-app-offers)
+-   [Technologies Used](#technologies-used)
+-   [License](#license)
+-   [Contact](#contact)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## General Information
 
-To learn more about Next.js, take a look at the following resources:
+This project was created to solve a real problem: the overwhelming amount of scattered online learning resources. With Academigo, the goal was to make it easier to discover and organize high-quality courses, all in one platform.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The design is mine from start to finish, and the whole app was developed with real user experience in mind. One of the biggest challenges was building a user-friendly student panel, ranking system, and rich text editing for course descriptions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## What the app offers:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-   🔎 Course search & filtering – by category, subcategory, specialization, and course type
+-   ⭐ Course rating & comparison – users can review, like, on courses
+-   ➕ User-contributed content – anyone can add courses
+-   📈 Gamified experience – earn points for activity (adding, rating, commenting, etc.) and climb the global user ranking
+-   👤 Student dashboard – manage your saved, rated, added, or liked courses
+-   ✏️ Rich text editor – customize how course descriptions look using React Quill
+-   🚩 Report system – flag outdated or rule-breaking courses/users
+-   📰 Blog system – with user comments, edits, and moderation
+-   📊 User statistics – each profile shows how active a user is on the platform
+-   🔄 Pagination & sorting – for smoother browsing experience
+  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technologies Used
+
+-   ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+
+-   [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+-   [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+-   [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+
+-   ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+  
+-   ![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
+  
+-   and more...
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+Created by [@Max Szymański](https://maxszymanski.pl) - feel free to contact me!
