@@ -21,15 +21,7 @@ type Params = Promise<{
 }>
 
 async function CoursePage({ searchParams }: { searchParams: Params }) {
-	const {
-		page = '1',
-		category,
-		subcategory,
-		specialization,
-		type,
-		search,
-		sort = 'najpopularniejsze',
-	} = await searchParams
+	const { page = '1', category, subcategory, specialization, type, search, sort = 'najnowsze' } = await searchParams
 
 	const categories = await getCategories()
 

@@ -29,7 +29,7 @@ function CategoriesDesktop({ categories }: CategoriesType) {
 	}
 
 	return (
-		<div className="mx-auto w-full max-w-5xl pt-10 2xl:max-w-6xl 2xl:pt-14 hidden lg:block">
+		<div className="mx-auto w-full max-w-5xl pt-10 2xl:max-w-7xl 2xl:pt-14 hidden lg:block">
 			{isPending && <LoadingPortal />}
 			<div className=" w-full flex-wrap items-center justify-center gap-x-8 gap-y-8 flex">
 				{categories.map((category: Category) => (

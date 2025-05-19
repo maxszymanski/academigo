@@ -8,6 +8,8 @@ function UserHeader({ user }: { user: CurrentUserType }) {
 	const defaultUserUrl =
 		'https://staekcbwplnzsgcpuggb.supabase.co/storage/v1/object/public/avatars//default-user.webp'
 
+	console.log(isGender && user?.age)
+
 	return (
 		<header className="bg-slate50 lg:bg-white pt-20  pb-8 md:pt-8  xl:py-12 2xl:py-14">
 			<div className="flex flex-col  md:flex-row md:gap-16   lg:container xl:max-w-6xl mx-auto  xl:gap-40 px-4 xl:px-8 md:items-center xl:justify-center ">
@@ -25,7 +27,7 @@ function UserHeader({ user }: { user: CurrentUserType }) {
 								{user.username}
 							</h1>
 							<p className="text-dark2/75 text-sm min-h-[20px] md:text-base xl:text-lg xl:mt-2">
-								{isGender ? user.gender : ''} {user?.age && ', '} {user?.age && `${user.age} lat`}
+								{isGender ? user.gender : ''} {isGender ? ', ' : ''} {user?.age && `${user.age} lat`}
 							</p>
 						</div>
 					</div>
