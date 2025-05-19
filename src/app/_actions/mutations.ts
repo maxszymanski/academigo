@@ -21,8 +21,6 @@ export async function createCourse(data: FormData) {
 
 	const result = { success: true, data: { ...parsedData, picture } }
 
-	console.log(result.data)
-
 	const supabase = await createClient()
 
 	const { data: authData, error: authError } = await supabase.auth.getUser()
@@ -31,7 +29,7 @@ export async function createCourse(data: FormData) {
 	if (!authData.user) {
 		return { error: 'Nie można znaleźć użytkownika' }
 	}
-	const fileName = `picture-${result.data.title}`
+	const fileName = `picture-${authData.user.id}-${Math.random()}`
 	let pictureLink = null
 
 	if (result.data && result.data.picture instanceof File) {
@@ -40,7 +38,9 @@ export async function createCourse(data: FormData) {
 			upsert: false,
 		})
 
-		if (storageError) throw new Error(storageError.message)
+		if (storageError) {
+			throw new Error(storageError.message)
+		}
 
 		pictureLink = `${process.env.NEXT_PUBLIC_SUPABASE_URL!}/storage/v1/object/public/pictures/${fileName}`
 	}
@@ -48,6 +48,7 @@ export async function createCourse(data: FormData) {
 		...result.data,
 		picture: pictureLink,
 		created_by: authData.user.id,
+		file_name: fileName,
 	})
 
 	if (error) {
@@ -60,7 +61,7 @@ export async function createCourse(data: FormData) {
 	revalidatePath(`/profil/${authData.user.id}`)
 }
 
-export async function updateCourse(data: FormData, courseID: string, oldTitle: string) {
+export async function updateCourse(data: FormData, courseID: string, oldTitle: string | null) {
 	const parsedData = JSON.parse(data.get('data') as string)
 	const picture = data.get('picture') as File | string | null
 
@@ -82,12 +83,13 @@ export async function updateCourse(data: FormData, courseID: string, oldTitle: s
 		return { error: 'Nie można znaleźć użytkownika' }
 	}
 
-	let pictureLink
+	const fileName = `${oldTitle}`
+
+	let pictureLink = 'https://staekcbwplnzsgcpuggb.supabase.co/storage/v1/object/public/pictures//default_course.webp'
 
 	if (typeof result.data.picture === 'string') {
 		pictureLink = result.data.picture
 	} else {
-		const fileName = `picture-${oldTitle}`
 		const { error: storageError } = await supabase.storage.from('pictures').upload(fileName, result.data.picture, {
 			cacheControl: '3600',
 			upsert: true,

@@ -27,6 +27,7 @@ const languages = ['Polski', 'Angielski', 'Angielski (polskie napisy)']
 export type ExtendedCourseType = AddCourseType & {
 	id: string
 	created_by: string
+	file_name: string | null
 }
 
 function EditCourseForm({
@@ -164,7 +165,7 @@ function EditCourseForm({
 		formData.append('picture', image)
 		formData.append('data', JSON.stringify(restData))
 
-		const result = await updateCourse(formData, courseData.id, courseData.title)
+		const result = await updateCourse(formData, courseData.id, courseData.file_name)
 
 		if (result?.error) {
 			toast.error(result.error)
