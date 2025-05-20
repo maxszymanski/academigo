@@ -16,12 +16,16 @@ function UserInformations({ user, isGender }: { user: CurrentUserType; isGender?
 			.replace(/\/$/, '')
 	}
 
+	const ageFormat =
+		user.age == '0' ? 'rok' : user.age === '2' || user.age === '3' || user.age === '4' ? 'lata' : 'lat'
+
 	return (
 		<div className="flex flex-col  ">
 			<div className="hidden flex-col md:flex mb-6">
 				<h1 className="text-primary font-medium md:text-2xl xl:text-4xl">{user.username}</h1>
 				<p className="text-dark2/75 md:text-base  xl:mt-0.5">
-					{isGender ? user.gender : ''} {user?.gender && user.age && ', '} {user?.age && `${user.age} lat`}
+					{isGender ? user.gender : ''} {isGender && user.age && ', '}{' '}
+					{user?.age && `${user.age} ${ageFormat}`}
 				</p>
 			</div>
 			{user.short_description && (
