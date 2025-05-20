@@ -15,7 +15,7 @@ async function CourseSection() {
 					Kursy
 				</h2>
 				<CoursesBox category="Najnowsze" coursesList={newest} />
-				<CoursesBox category="Najwyżej oceniane" coursesList={popular} />
+				<CoursesBox category="Najpopularniejsze" coursesList={popular} />
 				<CoursesBox category="Polecane przez nas" coursesList={selectedByUs} />
 				<div className="container mx-auto my-4 flex w-full items-center justify-center">
 					<Button

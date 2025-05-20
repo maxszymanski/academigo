@@ -27,7 +27,8 @@ function UserHeader({ user }: { user: CurrentUserType }) {
 								{user.username}
 							</h1>
 							<p className="text-dark2/75 text-sm min-h-[20px] md:text-base xl:text-lg xl:mt-2">
-								{isGender ? user.gender : ''} {isGender ? ', ' : ''} {user?.age && `${user.age} lat`}
+								{isGender ? user.gender : ''} {isGender && user?.age ? ', ' : ''}{' '}
+								{user?.age && `${user.age} lat`}
 							</p>
 						</div>
 					</div>
