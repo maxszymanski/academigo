@@ -26,6 +26,7 @@ The design is mine from start to finish, and the whole app was developed with re
 
 -   🔎 Course search & filtering – by category, subcategory, specialization, and course type
 -   ⭐ Course rating & comparison – users can review, like, on courses
+-   👁️ Course view count tracking – the number of views per course is recorded, with a 10-minute cooldown per user/IP to prevent view spamming
 -   ➕ User-contributed content – anyone can add courses
 -   📈 Gamified experience – earn points for activity (adding, rating, commenting, etc.) and climb the global user ranking
 -   👤 Student dashboard – manage your saved, rated, added, or liked courses
