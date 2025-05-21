@@ -25,6 +25,7 @@ function Ratings({
 	userId?: string
 	ratedCount: number
 }) {
+	console.log(courseRate)
 	const [rating, setRating] = useState(courseRate || 0)
 	const [count, setCount] = useState(ratedCount || 0)
 
@@ -38,14 +39,14 @@ function Ratings({
 		}
 
 		try {
-			setRating(rate)
 			toast.promise(rateCourse(courseId, rate, rating != 0), {
 				loading: 'Dodawanie oceny kursu',
 				success: 'Ocena kursu została zmieniona',
 				error: 'Wystąpił błąd podczas dodawania oceny.',
 			})
+			setRating(rate)
 
-			if (!courseRate) {
+			if (rating == 0) {
 				setCount(c => c + 1)
 			}
 		} catch (error) {
