@@ -38,12 +38,13 @@ function Ratings({
 		}
 
 		try {
-			toast.promise(rateCourse(courseId, rate, !!courseRate), {
+			setRating(rate)
+			toast.promise(rateCourse(courseId, rate, rating != 0), {
 				loading: 'Dodawanie oceny kursu',
 				success: 'Ocena kursu została zmieniona',
 				error: 'Wystąpił błąd podczas dodawania oceny.',
 			})
-			setRating(rate)
+
 			if (!courseRate) {
 				setCount(c => c + 1)
 			}
