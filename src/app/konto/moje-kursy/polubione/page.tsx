@@ -1,6 +1,14 @@
 import CourseCardPanel from '@/app/_components/_courses/CourseCardPanel'
 import NoCourseFound from '@/app/_components/_panel/NoCourseFound'
 import { getLikedCourses } from '@/app/_lib/data-service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Moje polubione kursy | Academigo',
+	description:
+		'Sprawdź kursy, które polubiłeś na platformie Academigo. Łatwo wróć do ulubionych materiałów edukacyjnych i odkrywaj nowe możliwości nauki.',
+	keywords: 'polubione kursy, ulubione kursy, Academigo, kursy online, nauka online, platforma edukacyjna',
+}
 
 async function page() {
 	const courses = await getLikedCourses()

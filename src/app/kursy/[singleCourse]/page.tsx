@@ -17,6 +17,67 @@ import FeedbackModal from '@/app/_components/_courses/FeedbackModal'
 
 type Params = Promise<{ singleCourse: string }>
 
+export async function generateMetadata({ params }: { params: Params }) {
+	const { singleCourse } = await params
+	const { title, short_description, category_name, sub_category_name, specialization_name, picture } =
+		await getCourseById(singleCourse)
+
+	if (!title) {
+		return {
+			title: 'Nie znaleziono kursu | Academigo',
+			description: 'Ten kurs nie istnieje lub został usunięty z platformy.',
+		}
+	}
+
+	const fullUrl = `https://academigo.pl/kursy/${singleCourse}`
+	const imageUrl =
+		picture || 'https://staekcbwplnzsgcpuggb.supabase.co/storage/v1/object/public/pictures//default_course.webp'
+
+	return {
+		title: `${title} – kurs online`,
+		description:
+			short_description ||
+			`${title} to kurs z kategorii ${category_name}${sub_category_name ? ` / ${sub_category_name}` : ''}${specialization_name ? ` / ${specialization_name}` : ''}. Oceniaj, porównuj i zapisuj najlepsze kursy online na Academigo.`,
+		openGraph: {
+			title: `${title} – kurs online`,
+			description:
+				short_description ||
+				`${title} to kurs z kategorii ${category_name}${sub_category_name ? ` / ${sub_category_name}` : ''}${specialization_name ? ` / ${specialization_name}` : ''}.`,
+			url: fullUrl,
+			type: 'article',
+			images: [
+				{
+					url: imageUrl,
+					alt: `Miniatura kursu ${title}`,
+					width: 360,
+					height: 220,
+				},
+			],
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: `${title} – kurs online`,
+			description: short_description || `Sprawdź kurs "${title}" na Academigo.`,
+			images: [
+				{
+					url: imageUrl,
+					alt: `Miniatura kursu ${title}`,
+				},
+			],
+		},
+		keywords: [
+			title,
+			category_name,
+			sub_category_name,
+			specialization_name,
+			'kursy online',
+			'edukacja online',
+			'nauka online',
+			'porównywarka kursów',
+		].filter(Boolean),
+	}
+}
+
 async function page({ params }: { params: Params }) {
 	const { singleCourse } = await params
 

@@ -15,7 +15,10 @@ type Params = Promise<{ post: string }>
 export async function generateMetadata({ params }: { params: Params }) {
 	const { post } = await params
 	const { title } = await getPostBySlug(post)
-	return { title: `${title}` }
+	return {
+		title: `${title}`,
+		description: 'Przeczytaj artykuł na blogu Academigo – porady, aktualności i wiedza o kursach online.',
+	}
 }
 
 async function page({ params }: { params: Params }) {

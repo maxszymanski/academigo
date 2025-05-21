@@ -8,8 +8,11 @@ import LoadMoreUsers from '../_components/_profile/LoadMoreUsers'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-	title: 'Ranking',
-	description: 'ranking użytkowników portalu',
+	title: 'Ranking aktywnych użytkowników',
+	description:
+		'Sprawdź ranking najbardziej aktywnych użytkowników Academigo. Zobacz, kto zdobył najwięcej punktów za dodawanie kursów, oceny i komentarze.',
+	keywords:
+		'ranking użytkowników, punkty, aktywność, dodane kursy, oceny kursów, top użytkownicy, leaderboard, academigo ranking, platforma edukacyjna',
 }
 
 async function page({ searchParams }: { searchParams: Promise<{ limit?: string; filter: string }> }) {

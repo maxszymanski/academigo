@@ -2,6 +2,14 @@ import CourseCardPanel from '@/app/_components/_courses/CourseCardPanel'
 import NoCourseFound from '@/app/_components/_panel/NoCourseFound'
 
 import { getCoursesCreatedByUser } from '@/app/_lib/data-service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Moje dodane kursy | Academigo',
+	description:
+		'Przeglądaj kursy, które dodałeś do platformy Academigo. Zarządzaj swoimi materiałami edukacyjnymi i rozwijaj społeczność nauki online.',
+	keywords: 'moje kursy, dodane kursy, zarządzanie kursami, Academigo, kursy online, platforma edukacyjna',
+}
 
 async function page() {
 	const courses = await getCoursesCreatedByUser()

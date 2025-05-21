@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Button from '../_ui/Button'
 import { PostProps } from '@/app/_types/types'
 import { formattedDate } from '@/app/utils/helpers'
+import Link from 'next/link'
 
 function BlogCard({ post }: { post: PostProps }) {
 	const { title, created_at, slug, short_description, image } = post
@@ -23,7 +24,9 @@ function BlogCard({ post }: { post: PostProps }) {
 					blurDataURL={blurImage}
 				/>
 			</div>
-			<div className="px-4 sm:px-10 py-6 text-xs max-w-[600px] sm:py-8 md:pr-0 xl:pb-10 xl:pl-14 ">
+			<Link
+				href={`/blog/${slug}`}
+				className="px-4 sm:px-10 py-6 text-xs max-w-[600px] sm:py-8 md:pr-0 xl:pb-10 xl:pl-14 block w-full">
 				<div className="mb-7">
 					<h3 className="text-xl md:text-2xl font-semibold text-primary text-center sm:text-start">
 						{title}
@@ -39,7 +42,7 @@ function BlogCard({ post }: { post: PostProps }) {
 						Czytaj więcej
 					</Button>
 				</div>
-			</div>
+			</Link>
 		</div>
 	)
 }

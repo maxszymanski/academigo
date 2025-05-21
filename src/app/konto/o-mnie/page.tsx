@@ -5,6 +5,15 @@ import MoreInfoForm from '@/app/_components/_panel/MoreInfoForm'
 import PersonalForm from '@/app/_components/_panel/PersonalForm'
 import SocialForm from '@/app/_components/_panel/SocialForm'
 import { getGenders } from '@/app/_lib/data-service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Profil użytkownika | Edytuj swoje dane w Academigo',
+	description:
+		'Zarządzaj swoimi danymi, aktualizuj informacje o sobie i dostosuj swój profil na platformie Academigo, aby lepiej korzystać z kursów i społeczności.',
+	keywords:
+		'profil użytkownika, edycja profilu, zarządzanie danymi, aktualizacja informacji, Academigo, konto użytkownika, personalizacja profilu',
+}
 
 async function page() {
 	const genders = await getGenders()

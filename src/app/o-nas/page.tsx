@@ -1,9 +1,18 @@
+import { Metadata } from 'next'
 import AboutHeader from '../_components/_about/AboutHeader'
 import AboutSection from '../_components/_about/AboutSection'
 import WhyUsSection from '../_components/_about/WhyUsSection'
 import Footer from '../_components/_footer/Footer'
 import JoinUsSection from '../_components/_home/JoinUsSection'
 import NumberSection from '../_components/_home/NumberSection'
+
+export const metadata: Metadata = {
+	title: 'O nas',
+	description:
+		'Poznaj zespół stojący za Academigo – platformą do wyszukiwania i porównywania kursów online. Dowiedz się, dlaczego stworzyliśmy to narzędzie i jakie mamy cele.',
+	keywords:
+		'o nas, academigo, zespół, twórcy platformy, kursy online, edukacja, misja, cel projektu, platforma edukacyjna, porównywarka kursów',
+}
 
 function page() {
 	return (

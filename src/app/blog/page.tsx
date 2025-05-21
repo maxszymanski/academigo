@@ -1,8 +1,17 @@
+import { Metadata } from 'next'
 import BlogCard from '../_components/_blog/BlogCard'
 import BlogHeader from '../_components/_blog/BlogHeader'
 
 import { getPostsSlugs } from '../_lib/data-service'
 import { PostProps } from '../_types/types'
+
+export const metadata: Metadata = {
+	title: 'Blog edukacyjny – aktualności i porady',
+	description:
+		'Czytaj najnowsze artykuły edukacyjne, poradniki i aktualności ze świata kursów online. Blog Academigo to miejsce dla pasjonatów nauki i rozwoju.',
+	keywords:
+		'blog edukacyjny, artykuły, kursy online, poradniki, nauka, rozwój osobisty, platforma edukacyjna, e-learning, academigo blog, aktualności edukacyjne',
+}
 
 export default async function Blog() {
 	const posts = await getPostsSlugs()

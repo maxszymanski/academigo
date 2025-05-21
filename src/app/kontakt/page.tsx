@@ -4,8 +4,11 @@ import ContactInfo from '../_components/_contact/ContactInfo'
 import Footer from '../_components/_footer/Footer'
 
 export const metadata: Metadata = {
-	title: 'Kontakt',
-	description: 'Strona kontaktowa Academigo',
+	title: 'Wyszukiwarka kursów',
+	description:
+		'Znajdź najlepsze kursy online dzięki zaawansowanej wyszukiwarce Academigo. Filtruj według kategorii, poziomu, specjalizacji i typu kursu, aby szybko znaleźć to, czego potrzebujesz.',
+	keywords:
+		'wyszukiwarka kursów, znajdź kurs, filtruj kursy, szukaj kursów, kursy online, edukacja, academigo, kursy zdalne, sortowanie kursów, kategorie kursów',
 }
 
 function page() {

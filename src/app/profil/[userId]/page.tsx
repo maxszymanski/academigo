@@ -14,6 +14,51 @@ import {
 
 type Params = Promise<{ userId: string }>
 
+export async function generateMetadata({ params }: { params: Params }) {
+	const { userId } = await params
+	const { username, points, created_course, avatar } = await getCourseModerator(userId)
+
+	if (!username) {
+		return {
+			title: 'Nie znaleziono użytkownika | Academigo',
+			description: 'Ten profil użytkownika nie istnieje lub został usunięty.',
+		}
+	}
+
+	return {
+		siteName: 'Academigo',
+		title: `${username} – profil użytkownika`,
+		description: `${username} to aktywny użytkownik platformy Academigo. Zdobył ${points} punktów i dodał ${created_course} kursów edukacyjnych.`,
+		openGraph: {
+			title: `${username} – profil użytkownika`,
+			description: `${username} to aktywny użytkownik platformy Academigo. Zdobył ${points} punktów i dodał ${created_course} kursów edukacyjnych.`,
+			url: `https://academigo.pl/profil/${userId}`,
+			images: [
+				{
+					url:
+						avatar ||
+						'https://staekcbwplnzsgcpuggb.supabase.co/storage/v1/object/public/avatars/default-user.webp',
+					alt: `Avatar użytkownika ${username}`,
+				},
+			],
+			type: 'profile',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: `${username} – profil użytkownika`,
+			description: `${username} zdobył ${points} pkt na Academigo.`,
+			images: [
+				{
+					url:
+						avatar ||
+						'https://staekcbwplnzsgcpuggb.supabase.co/storage/v1/object/public/avatars/default-user.webp',
+					alt: `Avatar użytkownika ${username}`,
+				},
+			],
+		},
+	}
+}
+
 async function page({ params }: { params: Params }) {
 	const { userId } = await params
 	const [user, userCourses, userRank, userRankByPoints] = await Promise.all([

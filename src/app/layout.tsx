@@ -13,9 +13,37 @@ const poppins = Poppins({
 export const metadata: Metadata = {
 	title: {
 		template: '%s | Academigo',
-		default: 'Academigo',
+		default: 'Academigo – wyszukiwarka i porównywarka kursów online',
 	},
-	description: 'Portal z kursami online',
+	description:
+		'Academigo to platforma do wyszukiwania, oceniania i porównywania kursów online. Odkrywaj najlepsze kursy z różnych źródeł w jednym miejscu.',
+	keywords:
+		'kursy online, porównywarka kursów, edukacja online, platforma edukacyjna, ocena kursów, wyszukiwanie kursów, kursy zdalne, nauka online, ranking kursów, e-learning',
+	openGraph: {
+		title: 'Academigo – wyszukiwarka i porównywarka kursów online',
+		description:
+			'Academigo to platforma do wyszukiwania, oceniania i porównywania kursów online. Odkrywaj najlepsze kursy z różnych źródeł w jednym miejscu.',
+		url: 'https://academigo.pl',
+
+		images: [
+			{
+				url: 'https://academigo.pl/panel-logo.png',
+				width: 600,
+				height: 300,
+				alt: 'Academigo – logo platformy edukacyjnej',
+			},
+		],
+		type: 'website',
+		siteName: 'Academigo',
+		locale: 'pl_PL',
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: 'Academigo – wyszukiwarka i porównywarka kursów online',
+		description:
+			'Przeglądaj i oceniaj kursy z różnych platform. Zbieraj punkty, dodawaj kursy i odkrywaj najlepsze treści edukacyjne w jednym miejscu.',
+		images: ['https://academigo.pl/panel-logo.png'],
+	},
 }
 
 export default async function RootLayout({

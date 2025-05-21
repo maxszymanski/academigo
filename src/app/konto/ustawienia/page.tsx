@@ -2,6 +2,15 @@ import { getUserAccount } from '@/app/_actions/auth'
 import AccountInformation from '@/app/_components/_panel/AccountInformation'
 import PasswordForm from '@/app/_components/_panel/PasswordForm'
 import { User } from '@supabase/supabase-js'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Ustawienia konta | Zmień hasło i usuń konto – Academigo',
+	description:
+		'Zarządzaj ustawieniami swojego konta na Academigo. Zmień hasło, usuń konto lub dostosuj swoje preferencje bezpieczeństwa i prywatności.',
+	keywords:
+		'ustawienia konta, zmiana hasła, usuwanie konta, bezpieczeństwo konta, prywatność, Academigo, zarządzanie kontem',
+}
 
 async function Settings() {
 	const user: User = await getUserAccount()

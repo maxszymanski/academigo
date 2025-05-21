@@ -1,6 +1,14 @@
 import CourseCardPanel from '@/app/_components/_courses/CourseCardPanel'
 import NoCourseFound from '@/app/_components/_panel/NoCourseFound'
 import { getRatedCourses } from '@/app/_lib/data-service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Moje ocenione kursy | Academigo',
+	description:
+		'Zobacz kursy, które oceniłeś na platformie Academigo. Pomagaj innym użytkownikom wybierać najlepsze materiały edukacyjne poprzez swoje opinie.',
+	keywords: 'ocenione kursy, recenzje kursów, Academigo, opinie o kursach, platforma edukacyjna, kursy online',
+}
 
 async function page() {
 	const courses = await getRatedCourses()

@@ -1,6 +1,14 @@
 import CourseCardPanel from '@/app/_components/_courses/CourseCardPanel'
 import NoCourseFound from '@/app/_components/_panel/NoCourseFound'
 import { getSavedCourses } from '@/app/_lib/data-service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Moje zapisane kursy | Academigo',
+	description:
+		'Przeglądaj i zarządzaj kursami, które zapisałeś na platformie Academigo, aby wygodnie kontynuować naukę i organizować swoje materiały edukacyjne.',
+	keywords: 'zapisane kursy, kursy do nauki, Academigo, platforma edukacyjna, kursy online, organizacja nauki',
+}
 
 async function page() {
 	const courses = await getSavedCourses()
