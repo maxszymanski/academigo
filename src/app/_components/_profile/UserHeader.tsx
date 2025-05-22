@@ -9,7 +9,7 @@ function UserHeader({ user }: { user: CurrentUserType }) {
 		'https://staekcbwplnzsgcpuggb.supabase.co/storage/v1/object/public/avatars//default-user.webp'
 
 	const ageFormat =
-		user.age == '0' ? 'rok' : user.age === '2' || user.age === '3' || user.age === '4' ? 'lata' : 'lat'
+		user.age == '1' ? 'rok' : user.age === '2' || user.age === '3' || user.age === '4' ? 'lata' : 'lat'
 
 	return (
 		<header className="bg-slate50 lg:bg-white pt-20  pb-8 md:pt-8  xl:py-12 2xl:py-14">

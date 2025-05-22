@@ -17,7 +17,7 @@ function UserInformations({ user, isGender }: { user: CurrentUserType; isGender?
 	}
 
 	const ageFormat =
-		user.age == '0' ? 'rok' : user.age === '2' || user.age === '3' || user.age === '4' ? 'lata' : 'lat'
+		user.age == '1' ? 'rok' : user.age === '2' || user.age === '3' || user.age === '4' ? 'lata' : 'lat'
 
 	return (
 		<div className="flex flex-col  ">
