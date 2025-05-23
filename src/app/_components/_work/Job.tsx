@@ -27,7 +27,7 @@ function Job() {
 						odd
 						job={Backend}
 						title="Backend Developer"
-						description="Chcmy stworzyć backend od podstaw – stabilny, nowoczesny i elastyczny, który pozwoli przenieść platformę na własną infrastrukturę. Szukamy osoby, która zna się na tworzeniu API, bazach danych i bezpieczeństwie i chce wziąć udział w czymś większym niż kolejny projekt do portfolio."
+						description="Chcemy stworzyć backend od podstaw – stabilny, nowoczesny i elastyczny, który pozwoli przenieść platformę na własną infrastrukturę. Szukamy osoby, która zna się na tworzeniu API, bazach danych i bezpieczeństwie i chce wziąć udział w czymś większym niż kolejny projekt do portfolio."
 					/>
 					<SingleJob
 						job={Designer}
