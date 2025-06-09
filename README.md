@@ -6,6 +6,11 @@ Academigo is a web app built as a centralized hub for online courses from across
 
 Live: [Academigo](https://academigo.pl)
 
+Test account
+
+Login: kontakt@academigo.pl  
+password: Academigo1
+
 ## Table of Contents
 
 -   [General Info](#general-information)
