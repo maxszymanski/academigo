@@ -5,6 +5,8 @@ import BlogHeader from '../_components/_blog/BlogHeader'
 import { getPostsSlugs } from '../_lib/data-service'
 import { PostProps } from '../_types/types'
 
+export const revalidate = 86400
+
 export const metadata: Metadata = {
 	title: 'Blog edukacyjny – aktualności i porady',
 	description:

@@ -1,6 +1,5 @@
 import { blurImage } from '@/app/utils/blurImage'
 import Image from 'next/image'
-import Button from '../_ui/Button'
 import { PostProps } from '@/app/_types/types'
 import { formattedDate } from '@/app/utils/helpers'
 import Link from 'next/link'
@@ -35,12 +34,9 @@ function BlogCard({ post }: { post: PostProps }) {
 				</div>
 				<div>
 					<p className="leading-[180%] mb-7 sm:text-sm sm:leading-[180%]">{short_description}</p>
-					<Button
-						variant="submit"
-						href={`/blog/${slug}`}
-						restClass="!px-8 !py-2.5 !text-sm xl:!px-10 xl:!text-base max-w-[180px]">
+					<p className="rounded-full flex  items-center text-nowrap transition-colors duration-300 outline-primary outline-offset-2 relative text-primary border  border-slate-200  md:py-4  bg-slate50 hover:border-primary focus:border-primary  xl:text-base font-medium lg:px-16 2xl:text-lg justify-center px-8 py-2.5 text-sm xl:px-10  max-w-[180px]">
 						Czytaj więcej
-					</Button>
+					</p>
 				</div>
 			</Link>
 		</div>

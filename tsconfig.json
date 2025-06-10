@@ -30,7 +30,8 @@
 		"src/app/_lib/supabase.js",
 		"src/app/kursy/loading.js",
 		"../sc/academygo-backend/middleware.ts",
-		"src/app/_components/_panel/Editor.tsx"
+		"src/app/_components/_panel/Editor.tsx",
+		"../sc/zagorze-website/middleware.ts"
 	],
 	"exclude": ["node_modules"]
 }

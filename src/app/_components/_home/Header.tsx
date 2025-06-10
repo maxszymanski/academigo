@@ -25,6 +25,7 @@ function Header() {
 						alt="student"
 						priority
 						className="h-auto w-80 md:h-full md:w-full"
+						quality={80}
 					/>
 				</div>
 			</div>

@@ -9,7 +9,7 @@ async function layout({ children }: { children: React.ReactNode }) {
 				<PanelHeader />
 
 				<main className="w-full flex-1 py-6   xl:py-8 2xl:py-10">
-					<div className="xl:container xl:mx-auto xl:max-w-[1440px]">{children}</div>
+					<div className="xl:container xl:mx-auto xl:max-w-[1280px]">{children}</div>
 				</main>
 			</div>
 		</div>

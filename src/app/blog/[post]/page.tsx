@@ -5,12 +5,14 @@ import PostContent from '@/app/_components/_blog/PostContent'
 import PostHeader from '@/app/_components/_blog/PostHeader'
 import PostLink from '@/app/_components/_blog/PostLink'
 import Share from '@/app/_components/_blog/Share'
-import { getNextPost, getPostBySlug, getPostComments, getPreviousPost } from '@/app/_lib/data-service'
+import { getNextPost, getPostBySlug, getPostComments, getPostsSlugs, getPreviousPost } from '@/app/_lib/data-service'
 import { blurImage } from '@/app/utils/blurImage'
 import { formattedDate } from '@/app/utils/helpers'
 import Image from 'next/image'
 
 type Params = Promise<{ post: string }>
+
+export const revalidate = 86400 // 24 hours
 
 export async function generateMetadata({ params }: { params: Params }) {
 	const { post } = await params
@@ -19,6 +21,14 @@ export async function generateMetadata({ params }: { params: Params }) {
 		title: `${title}`,
 		description: 'Przeczytaj artykuł na blogu Academigo – porady, aktualności i wiedza o kursach online.',
 	}
+}
+
+export async function generateStaticParams() {
+	const posts = await getPostsSlugs()
+
+	const slugs = posts.map(post => ({ slug: post.slug }))
+
+	return slugs
 }
 
 async function page({ params }: { params: Params }) {

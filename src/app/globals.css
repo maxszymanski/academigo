@@ -10,7 +10,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	min-height: 100svh;
+	min-height: 100dvh;
 
 	@apply bg-white;
 }
@@ -54,11 +54,11 @@ body {
 }
 
 .course-description ol li[data-list='bullet'] {
-	@apply text-dark2 list-disc list-inside;
+	@apply text-dark2 list-disc pl-4;
 }
 
 .course-description ul {
-	@apply text-dark2 list-decimal list-inside;
+	@apply text-dark2 list-decimal;
 }
 .course-description ol li span {
 	@apply !text-dark2;
@@ -93,7 +93,7 @@ body {
 }
 
 .blog ol li[data-list='bullet'] {
-	@apply text-dark2/90 list-disc list-inside;
+	@apply text-dark2/90 list-disc;
 }
 
 .blog ol li span {
