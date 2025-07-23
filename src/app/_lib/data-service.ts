@@ -89,6 +89,7 @@ export const getGenders = cache(async () => {
 })
 
 export const getCoursesCreatedByUser = cache(async () => {
+	const supabase = await createClient()
 	const { data: authData, error: authError } = await supabase.auth.getUser()
 	if (authError) return null
 
@@ -106,6 +107,7 @@ export const getCoursesCreatedByUser = cache(async () => {
 })
 
 export const getUserCoursesByID = cache(async (userId: string) => {
+	const supabase = await createClient()
 	const { data, error } = await supabase
 		.from('full_course_data')
 		.select('*')
@@ -129,6 +131,7 @@ export const getCourseById = cache(async (courseID: string) => {
 	return data
 })
 export async function getCourseModerator(userID: string) {
+	const supabase = await createClient()
 	const { data, error } = await supabase.from('full_user_data').select('*').eq('id', userID).single()
 
 	if (error) {
@@ -358,6 +361,7 @@ export const getSavedCourses = cache(async () => {
 })
 
 export async function getUserRankByPoints(userId?: string) {
+	const supabase = await createClient()
 	const { data: currentUser, error } = await supabase
 		.from('full_user_data')
 		.select('points')
@@ -380,6 +384,7 @@ export async function getUserRankByPoints(userId?: string) {
 	return rank
 }
 export async function getUserRankByCourses(userId: string) {
+	const supabase = await createClient()
 	const { data: currentUser, error } = await supabase
 		.from('full_user_data')
 		.select('created_courses')

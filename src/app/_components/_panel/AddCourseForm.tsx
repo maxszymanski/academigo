@@ -177,7 +177,7 @@ function AddCourseForm({ platforms, categories }: { platforms: string[]; categor
 					/>
 
 					<PanelInput
-						label="Tytuł "
+						label="Tytuł"
 						type="text"
 						name="title"
 						formRegister={register('title')}
