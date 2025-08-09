@@ -1,6 +1,6 @@
-import LoadingCourseCard from '../_components/_courses/LoadingCourseCard'
+import LoadingCourseCard from '@/app/_components/_courses/LoadingCourseCard'
 
-import Skelton from '../_components/_skeltons/Skelton'
+import Skelton from '@/app/_components/_skeltons/Skelton'
 
 function loading() {
 	return (

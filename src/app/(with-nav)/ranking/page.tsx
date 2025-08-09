@@ -1,10 +1,10 @@
-import { getRankUser } from '../_actions/auth'
+import { getRankUser } from '@/app/_actions/auth'
 
-import RankHeader from '../_components/_profile/RankHeader'
-import RankFilter from '../_components/_profile/RankFilter'
+import RankHeader from '@/app/_components/_profile/RankHeader'
+import RankFilter from '@/app/_components/_profile/RankFilter'
 
-import RankList from '../_components/_profile/RankList'
-import LoadMoreUsers from '../_components/_profile/LoadMoreUsers'
+import RankList from '@/app/_components/_profile/RankList'
+import LoadMoreUsers from '@/app/_components/_profile/LoadMoreUsers'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {

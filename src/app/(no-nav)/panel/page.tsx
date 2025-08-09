@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import SignInOut from '../_components/_login/SignInOut'
+import SignInOut from '../../_components/_login/SignInOut'
 
 export const metadata: Metadata = {
 	title: 'Zaloguj się lub załóż konto',

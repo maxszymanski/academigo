@@ -1,4 +1,4 @@
-import DashboardSkelton from '../_components/_skeltons/DashboardSkelton'
+import DashboardSkelton from '../../_components/_skeltons/DashboardSkelton'
 
 function loading() {
 	return <DashboardSkelton />

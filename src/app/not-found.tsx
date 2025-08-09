@@ -5,8 +5,8 @@ import Button from './_components/_ui/Button'
 export const metadata: Metadata = {
 	title: '404 – Strona nie istnieje',
 	description:
-		'Ups! Strona, której szukasz, nie została znaleziona. Możliwe, że została usunięta lub nigdy nie istniała. Wróć na stronę główną Academigo.',
-	keywords: '404, strona nie znaleziona, nie istnieje, błąd 404, academigo, page not found, nie znaleziono strony',
+		'Ups! Strona, której szukasz, nie została znaleziona. Możliwe, że została usunięta lub nigdy nie istniała. Wróć na stronę główną FitMatch.',
+	keywords: '404, strona nie znaleziona, nie istnieje, błąd 404, FitMatch, page not found, nie znaleziono strony',
 }
 
 function NotFound() {

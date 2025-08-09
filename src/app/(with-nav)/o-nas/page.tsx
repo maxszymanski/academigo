@@ -1,10 +1,9 @@
 import { Metadata } from 'next'
-import AboutHeader from '../_components/_about/AboutHeader'
-import AboutSection from '../_components/_about/AboutSection'
-import WhyUsSection from '../_components/_about/WhyUsSection'
-import Footer from '../_components/_footer/Footer'
-import JoinUsSection from '../_components/_home/JoinUsSection'
-import NumberSection from '../_components/_home/NumberSection'
+import AboutHeader from '@/app/_components/_about/AboutHeader'
+import AboutSection from '@/app/_components/_about/AboutSection'
+import WhyUsSection from '@/app/_components/_about/WhyUsSection'
+import JoinUsSection from '@/app/_components/_home/JoinUsSection'
+import NumberSection from '@/app/_components/_home/NumberSection'
 
 export const metadata: Metadata = {
 	title: 'O nas',
@@ -26,7 +25,6 @@ function page() {
 					<JoinUsSection />
 				</div>
 			</main>
-			<Footer />
 		</>
 	)
 }

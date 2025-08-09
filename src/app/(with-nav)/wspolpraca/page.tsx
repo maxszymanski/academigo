@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
-import CoOp from '../_components/_work/CoOp'
-import Job from '../_components/_work/Job'
-import Salary from '../_components/_work/Salary'
-import WorkHeader from '../_components/_work/WorkHeader'
-import WorkWithUs from '../_components/_work/WorkWithUs'
+import CoOp from '../../_components/_work/CoOp'
+import Job from '../../_components/_work/Job'
+import Salary from '../../_components/_work/Salary'
+import WorkHeader from '../../_components/_work/WorkHeader'
+import WorkWithUs from '../../_components/_work/WorkWithUs'
 
 export const metadata: Metadata = {
 	title: 'Dołącz do zespołu',

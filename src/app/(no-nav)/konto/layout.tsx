@@ -1,5 +1,5 @@
 import PanelNavigation from '@/app/_components/_panel/PanelNavigation'
-import PanelHeader from '../_components/_panel/PanelHeader'
+import PanelHeader from '../../_components/_panel/PanelHeader'
 
 async function layout({ children }: { children: React.ReactNode }) {
 	return (

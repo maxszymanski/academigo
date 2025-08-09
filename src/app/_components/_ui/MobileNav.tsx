@@ -9,12 +9,10 @@ import Logo from './Logo'
 import AccountNavModal from './AccountNavModal'
 
 function MobileNav({
-	blackNav = false,
 	pathname,
 	children,
 	userId,
 }: {
-	blackNav?: boolean
 	pathname: string | null | undefined
 	children?: React.ReactNode
 	userId?: string
@@ -37,12 +35,11 @@ function MobileNav({
 
 	return (
 		<div
-			className={`left-0 top-0 flex w-full items-center justify-between border-b px-2 py-1.5 relative md:hidden ${
-				blackNav ? 'border-transparent bg-dark' : 'border-slate50 bg-white'
-			}`}>
+			className={`left-0 top-0 flex w-full items-center justify-between border-b px-2 py-1.5 relative md:hidden border-slate50 bg-white
+			`}>
 			<Logo isMobile />
 			<div className="flex items-center gap-3">
-				{!blackNav && children}
+				{children}
 				<Button
 					restClass="relative z-50"
 					variant="transparent"
@@ -50,11 +47,9 @@ function MobileNav({
 						toggleNavigation()
 					}}>
 					{isNavOpen ? (
-						<IoClose
-							className={`size-12 font-semibold text-primary ${blackNav ? 'bg-dark' : 'bg-white'}`}
-						/>
+						<IoClose className={`size-12 font-semibold text-primary bg-white}`} />
 					) : (
-						<IoMenu className={`size-12 ${blackNav ? 'bg-dark' : 'bg-white'} font-semibold text-primary`} />
+						<IoMenu className={`size-12 bg-white font-semibold text-primary`} />
 					)}
 				</Button>
 			</div>

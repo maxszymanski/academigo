@@ -3,7 +3,6 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 import '@smastrom/react-rating/style.css'
-import NavigationBox from './_components/_ui/NavigationBox'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -89,8 +88,6 @@ export default async function RootLayout({
 							},
 						}}
 					/>
-
-					<NavigationBox />
 
 					{children}
 				</>

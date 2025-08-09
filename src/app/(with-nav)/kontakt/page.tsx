@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
-import ContactForm from '../_components/_contact/ContactForm'
-import ContactInfo from '../_components/_contact/ContactInfo'
-import Footer from '../_components/_footer/Footer'
+import ContactForm from '@/app/_components/_contact/ContactForm'
+import ContactInfo from '@/app/_components/_contact/ContactInfo'
 
 export const metadata: Metadata = {
 	title: 'Wyszukiwarka kursów',
@@ -20,7 +19,6 @@ function page() {
 					<ContactForm />
 				</div>
 			</main>
-			<Footer />
 		</>
 	)
 }

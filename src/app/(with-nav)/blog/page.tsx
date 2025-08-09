@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
-import BlogCard from '../_components/_blog/BlogCard'
-import BlogHeader from '../_components/_blog/BlogHeader'
+import BlogCard from '@/app/_components/_blog/BlogCard'
+import BlogHeader from '@/app/_components/_blog/BlogHeader'
 
-import { getPostsSlugs } from '../_lib/data-service'
-import { PostProps } from '../_types/types'
+import { getPostsSlugs } from '@/app/_lib/data-service'
+import { PostProps } from '@/app/_types/types'
 
 export const revalidate = 86400
 

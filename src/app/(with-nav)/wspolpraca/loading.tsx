@@ -1,4 +1,4 @@
-import Skelton from '../_components/_skeltons/Skelton'
+import Skelton from '../../_components/_skeltons/Skelton'
 
 function loading() {
 	return (
